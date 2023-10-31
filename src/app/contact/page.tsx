@@ -1,4 +1,3 @@
-import Icon from 'components/Icon'
 import Container from 'components/Containers'
 import { Metadata } from 'next'
 
@@ -12,43 +11,45 @@ export default function Contact(): React.JSX.Element {
     return (
         <Container>
             <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-                <Section title={<Icon>mail</Icon>}>
+                <Section>
                     <a href='mailto:mehmetyigityalim@gmail.com' className='text-blue-500 hover:underline'>
                         mehmetyigityalim@gmail.com
                     </a>
                 </Section>
-                <Section title={githublogo}>
+                <Section>
                     <a href='' className='text-blue-500 hover:underline'>
                         yigityalim
                     </a>
                 </Section>
-                <Section title={LinkedinLogo}>
+                <Section>
                     <a href='https://linkedin.com/in/yigityalim' className='text-blue-500 hover:underline'>
                         yigityalim
                     </a>
                 </Section>
-                <Section title={instagramlogo}>
+                <Section>
                     <a href='' className='text-blue-500 hover:underline'>
                         mehmet_yigit_yalim
                     </a>
                 </Section>
-                <Section title={<Icon>phone</Icon>}>
+                <Section>
                     <a href='tel:+905000000000' className='text-blue-500 hover:underline'>
                         +90 553 425 0000
                     </a>
                 </Section>
-                <Section title={<Icon>map</Icon>}>Ankara, Turkey | Muğla, Turkey</Section>
-                <Section title={<Icon>school</Icon>}>Başkent University, Computer Programming</Section>
-                <Section title={<Icon>work</Icon>}>Freelancer</Section>
+                <Section>Ankara, Turkey | Muğla, Turkey</Section>
+                <Section>Başkent University, Computer Programming</Section>
+                <Section>Freelancer</Section>
             </div>
         </Container>
     )
 }
 
-function Section({ title, children }: { title: string | React.ReactNode; children: React.ReactNode }) {
+function Section({ children }: { children: React.ReactNode }) {
     return (
         <div className='mb-4 flex flex-col items-start justify-center gap-y-1 rounded-md bg-gray-100 p-2 dark:bg-zinc-800'>
+            {/*
             <h2 className='flex items-center justify-center text-2xl font-bold'>{title}</h2>
+            */}
             <p className='w-full text-lg font-semibold'>{children}</p>
         </div>
     )
