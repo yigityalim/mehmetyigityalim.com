@@ -1,9 +1,10 @@
 import Container from 'components/Containers'
-import React from 'react'
+import { JSX, Suspense } from 'react'
 import { gql } from 'graphql-request'
-import hygraph from '@/src/graphql'
+import hygraph from '@/graphql'
 import Image from 'next/image'
 import SocialMedia from 'lib/socialMedia'
+import { Spinner } from 'components/Spinner'
 
 type Home = {
     id: string
@@ -31,13 +32,13 @@ const HOME_PAGE_QUERY: string = gql`
     }
 `
 
-export default async function Home(): Promise<React.JSX.Element> {
+export default async function Home(): Promise<JSX.Element> {
     const { homePages } = await hygraph.request<{ homePages: Home[] }>(HOME_PAGE_QUERY)
 
     return (
         <Container className='flex flex-col items-center justify-center gap-y-6'>
             {homePages.map(({ id, title, picture }) => (
-                <React.Suspense key={id} fallback={<div>loading...</div>}>
+                <Suspense key={id} fallback={<div>loading...</div>}>
                     <Image
                         src={picture.url}
                         alt='Picture of the author'
@@ -63,7 +64,7 @@ export default async function Home(): Promise<React.JSX.Element> {
                             </li>
                         ))}
                     </ul>
-                </React.Suspense>
+                </Suspense>
             ))}
         </Container>
     )

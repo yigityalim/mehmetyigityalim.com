@@ -1,4 +1,4 @@
-import { GraphQLClient } from 'graphql-request'
+import { gql, GraphQLClient } from 'graphql-request'
 
 const hygraph: GraphQLClient = new GraphQLClient(process.env.GRAPHCMS_URL_ENDPOINT as string)
 
@@ -9,4 +9,4 @@ const hygraphMutation: GraphQLClient = new GraphQLClient(process.env.GRAPHCMS_UR
 })
 
 export default hygraph
-export { hygraphMutation }
+export { hygraphMutation, gql }

@@ -42,6 +42,7 @@ export type Author = {
             }[]
         }
     }
+    social: Social[]
     blogs: Blog[]
 }
 type ProgrammingLanguage = {
@@ -54,6 +55,12 @@ type Photo = {
     url: string
     width: number
     height: number
+}
+
+type Social = {
+    id: string
+    title: string
+    url: string
 }
 
 export type User = {

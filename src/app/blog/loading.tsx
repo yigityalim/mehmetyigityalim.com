@@ -1,9 +1,11 @@
 import React from 'react'
+import { Spinner } from 'components/Spinner'
+import Container from 'components/Containers'
 
 export default function Loading(): React.JSX.Element {
     return (
-        <div>
-            <h1>yükleniyor</h1>
-        </div>
+        <Container className='h-[calc(100dvh-88px)]'>
+            <Spinner />
+        </Container>
     )
 }

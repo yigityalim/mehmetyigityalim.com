@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { Inter as FontSans } from 'next/font/google'
 import './globals.css'
 import React from 'react'
-import { cn } from 'lib/utils'
 
 import Footer from 'components/Footer'
 import Header from 'components/Header'
@@ -11,7 +10,6 @@ import Providers from 'components/Providers/clientSideProvider'
 
 const fontSans = FontSans({
     subsets: ['latin'],
-    variable: '--font-sans',
 })
 
 export const metadata: Metadata = {
@@ -22,7 +20,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang='en'>
-            <body className={cn('font-sans antialiased', fontSans.variable)}>
+            <body className={fontSans.className}>
                 <Providers attribute='class' defaultTheme='system' enableSystem>
                     <Header />
                     {children}

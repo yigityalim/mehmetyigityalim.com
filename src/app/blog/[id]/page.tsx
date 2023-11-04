@@ -1,8 +1,8 @@
 import React from 'react'
-import hygraph from '@/src/graphql'
+import hygraph from '@/graphql'
 import Link from 'next/link'
 import Image from 'next/image'
-import { BLOG_BY_SLUG } from '@/src/graphql/queries'
+import { BLOG_BY_SLUG } from '@/graphql/queries'
 import { cn, formatDateTime } from 'lib/utils'
 import { Blog } from 'lib/types'
 import { ArrowLeft } from 'components/Icon'
@@ -22,8 +22,6 @@ export default async function Page({ params }: { params: { id: string } }): Prom
     const { blog } = await hygraph.request<{ blog: Blog }>(BLOG_BY_SLUG, {
         slug: params.id,
     })
-
-    console.log(blog)
     return (
         <Container className={cn(blog.title.length > 10 ? 'gap-y-4' : 'gap-y-1')}>
             <div className='flex w-full items-center justify-between gap-x-2'>

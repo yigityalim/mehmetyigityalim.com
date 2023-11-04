@@ -131,6 +131,11 @@ export const AUTHORS_BY_SLUG = gql`
                     hex
                 }
             }
+            social {
+                id
+                title
+                url
+            }
         }
     }
 `
@@ -174,6 +179,11 @@ export const ALL_AUTHORS = gql`
                 postColor {
                     hex
                 }
+            }
+            social {
+                id
+                title
+                url
             }
         }
     }

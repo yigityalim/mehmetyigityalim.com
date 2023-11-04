@@ -1,21 +1,15 @@
 'use client'
 import { usePathname } from 'next/navigation'
-import menu, { Menu } from '@/src/lib/menu'
+import menu, { Menu } from 'lib/menu'
 
-export default function useTitle(): {
-    pathname: string
-    title: string | null
-} {
+export default function useTitle() {
     const pathname: string = usePathname()
-    const handleTitle: () => string | null = (): string | null => {
-        const menuEntry: Menu | undefined = menu.find(({ path }: Menu): boolean => {
-            if (path === '/blog' || pathname.startsWith('/blog/')) {
-                return true
-            }
-            return path === pathname
-        })
-        if (menuEntry) return menuEntry.title
-        return null
+    const handleTitle = () => {
+        const isParentRoute = menu.find((item: Menu) => item.path === pathname)
+        if (isParentRoute) {
+            return isParentRoute.title
+        }
+        return menu.find((item: Menu) => item.path === pathname.split('/')[1])?.title
     }
 
     return {

@@ -1,7 +1,7 @@
 import React from 'react'
 import Container from 'components/Containers'
 import { gql } from 'graphql-request'
-import hygraph from '@/src/graphql'
+import hygraph from '@/graphql'
 
 type Author = {
     id: string

@@ -22,7 +22,7 @@ export default function Container({
                 transition={{ duration: 0.5 }}
                 key={`${pathname}-${crypto.randomBytes(4).toString('hex')}`}
                 className={cn(
-                    'container mx-auto flex h-full w-full flex-col items-center justify-start gap-y-8 p-8 pt-32 md:px-10 md:pt-36 lg:px-12 lg:pt-40 xl:px-16 xl:pt-44',
+                    'container mx-auto flex h-full w-full flex-col items-center justify-start gap-y-8 p-8 md:px-10 lg:px-12 xl:px-16 xl:pt-44',
                     className
                 )}
             >
@@ -31,3 +31,5 @@ export default function Container({
         </AnimatePresence>
     )
 }
+
+//pt-32 md:pt-36 lg:pt-40
