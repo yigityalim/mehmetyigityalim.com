@@ -14,7 +14,7 @@ export const useDevelopmentStatus = create<{
     setDevelopmentMode: (value: boolean) => void
     setReloaded: (value: boolean) => void
 }>((set) => ({
-    isDevelopmentMode: process.env.NODE_ENV === 'development',
+    isDevelopmentMode: true,
     isReloaded: false,
     setDevelopmentMode: (value) => set({ isDevelopmentMode: value }),
     setReloaded: (value) => set({ isReloaded: value }),
