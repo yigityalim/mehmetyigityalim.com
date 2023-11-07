@@ -1,8 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
-import { formatDateTime } from 'lib/utils'
 import Link from 'next/link'
 import { Blog } from 'lib/types'
+import { formatDateTime } from 'lib/utils'
 
 export default function BlogContiner({
     blog: {
@@ -27,7 +27,7 @@ export default function BlogContiner({
                         </span>
                         <Image
                             loading='lazy'
-                            className='ml-2 h-8 w-8 rounded-full'
+                            className='ml-2 aspect-square h-8 w-8 rounded-full object-cover'
                             alt='user'
                             src={picture.url}
                             width={picture.width}
@@ -36,13 +36,14 @@ export default function BlogContiner({
                     </div>
                     <div className='flex flex-row items-center justify-between gap-y-2'>
                         <span className='text-sm text-black/50 dark:text-white/40 md:text-base'>
-                            {formatDateTime(new Date(datePublished), 'tr-TR')}
+                            {formatDateTime(datePublished)}
                         </span>
                         <span className='text-md text-black/50 dark:text-white/60'>{name}</span>
                     </div>
                 </div>
                 <div className='flex flex-col items-start justify-center gap-y-4 md:justify-between md:gap-x-12 '>
                     <Image
+                        loading='lazy'
                         className='w-full object-contain lg:w-[28rem] xl:w-[30rem]'
                         alt='blog'
                         src={url}

@@ -18,7 +18,7 @@ export type Blog = {
         }
     }
     postColor: { hex: string }
-    datePublished: string
+    datePublished: Date
     author: Author
 }
 

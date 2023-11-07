@@ -6,6 +6,7 @@ import Link from 'next/link'
 import ThemeSwitcher from 'components/ThemeSwitch'
 import Menu from 'lib/menu'
 import { cn } from 'lib/utils'
+import { randomBytes } from 'crypto'
 
 export function OverlayMenu(): React.JSX.Element | null {
     const { menu, setMenu } = useMenu()
@@ -27,27 +28,19 @@ export function OverlayMenu(): React.JSX.Element | null {
                 >
                     <div />
                     <div className='flex w-full flex-col items-center justify-center gap-y-4'>
-                        {Menu.map(({ path, icon, name, title }, index) => (
-                            <motion.div
-                                key={name}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: 20 }}
-                                transition={{ delay: index * 0.2, ease: 'easeInOut', duration: 0.3 }}
-                                className='h-full w-full'
+                        {Menu.map(({ path, icon, name, title }) => (
+                            <Link
+                                key={path + randomBytes(4).toString('hex')}
+                                href={path}
+                                className='flex w-full items-center justify-start gap-x-4 text-4xl font-bold leading-9 tracking-wider'
+                                onClick={() => {
+                                    setMenu(false)
+                                    document.body.style.overflow = ''
+                                }}
                             >
-                                <Link
-                                    href={path}
-                                    className='flex w-full items-center justify-start gap-x-4 text-4xl font-bold leading-9 tracking-wider'
-                                    onClick={() => {
-                                        setMenu(false)
-                                        document.body.style.overflow = ''
-                                    }}
-                                >
-                                    {icon}
-                                    <span>{title}</span>
-                                </Link>
-                            </motion.div>
+                                {icon}
+                                <span>{title}</span>
+                            </Link>
                         ))}
                     </div>
                     <ThemeSwitcher as='button' />

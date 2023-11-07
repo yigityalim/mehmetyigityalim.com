@@ -7,6 +7,7 @@ import Footer from 'components/Footer'
 import Header from 'components/Header'
 
 import Providers from 'components/Providers/clientSideProvider'
+import ProductionMode from 'components/ProductionMode'
 
 const fontSans = FontSans({
     subsets: ['latin'],
@@ -22,9 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <html lang='en'>
             <body className={fontSans.className}>
                 <Providers attribute='class' defaultTheme='system' enableSystem>
-                    <Header />
-                    {children}
-                    <Footer />
+                    <ProductionMode>{children}</ProductionMode>
                 </Providers>
             </body>
         </html>

@@ -29,18 +29,11 @@ export default async function Page({ params }: { params: { id: string } }): Prom
             </div>
             <div className='flex w-full flex-row items-center justify-between'>
                 <div className='flex flex-col gap-y-2'>
-                    {blog.datePublished === '' ? (
-                        <div className='h-8' />
-                    ) : (
-                        <p className='h-8 italic text-black/50 dark:text-white/50'>{blog.datePublished}</p>
-                    )}
-                    <p className='italic text-black/50 dark:text-white/50'>
-                        {formatDateTime(new Date(blog.datePublished), 'tr-TR')}
-                    </p>
+                    <p className='italic text-black/50 dark:text-white/50'>{formatDateTime(blog.datePublished)}</p>
                 </div>
-                <Link href={'/user/' + blog.author.slug} className='flex flex-col items-end gap-y-2'>
+                <Link href={`/user/${blog.author.slug}`} className='flex flex-col items-end gap-y-2'>
                     <Image
-                        className='h-8 w-8 rounded-full'
+                        className='aspect-square h-8 w-8 rounded-full object-cover'
                         alt='user'
                         src={blog.author.picture.url}
                         width={blog.author.picture.width}

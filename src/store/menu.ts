@@ -1,11 +1,11 @@
-import * as zustand from 'zustand'
+import { create, StoreApi, UseBoundStore } from 'zustand'
 
 type MenuStore<T = boolean> = {
     menu: T
     setMenu: (value: T) => void
 }
 
-const useMenuStore: zustand.UseBoundStore<zustand.StoreApi<MenuStore>> = zustand.create<MenuStore>(
+const useMenuStore: UseBoundStore<StoreApi<MenuStore>> = create<MenuStore>(
     (
         set: (
             partial: MenuStore | Partial<MenuStore> | ((state: MenuStore) => MenuStore | Partial<MenuStore>),
@@ -18,6 +18,7 @@ const useMenuStore: zustand.UseBoundStore<zustand.StoreApi<MenuStore>> = zustand
 )
 
 export function useMenu(): MenuStore {
-    const { menu, setMenu } = useMenuStore()
+    const menu = useMenuStore((state) => state.menu)
+    const setMenu = useMenuStore((state) => state.setMenu)
     return { menu, setMenu }
 }

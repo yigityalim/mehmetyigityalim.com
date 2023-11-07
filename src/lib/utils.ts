@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { Locale } from 'lib/types'
+import { format as _format } from 'date-fns'
+import { tr } from 'date-fns/locale'
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
@@ -27,16 +28,10 @@ export function textColorForBackground(color: string): string {
     return (r * 299 + g * 587 + b * 114) / 1000 >= 128 ? 'black' : 'white'
 }
 
-export function formatDateTime(dateTime: Date, locale?: Locale, timeZone?: string): string {
-    const options = {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        timeZone: timeZone,
-    } as Intl.DateTimeFormatOptions
-
-    return dateTime.toLocaleDateString(locale ?? 'tr-TR', options)
+export function formatDateTime(date: Date, format?: string): string {
+    return _format(new Date(date), format ?? 'dd MMMM yyyy', {
+        locale: tr,
+    })
 }
 
 export function getPostedAtText(date: Date | string, i18n: 'tr' | 'en' = 'tr'): string {

@@ -27,7 +27,7 @@ export default function UserContainer({ author }: { author: Author }): JSX.Eleme
                 width='320'
                 priority
             />
-            <CardContent className=' p-4'>
+            <CardContent className='p-4'>
                 <div className='flex w-full items-center justify-between'>
                     <h2 className='text-2xl font-bold transition-all duration-200 hover:text-gray-700'>
                         {author.name} {author.surname}
