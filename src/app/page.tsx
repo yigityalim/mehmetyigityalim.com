@@ -3,8 +3,6 @@ import { JSX, Suspense } from 'react'
 import { gql } from 'graphql-request'
 import hygraph from '@/graphql'
 import Image from 'next/image'
-import SocialMedia from 'lib/socialMedia'
-import { Spinner } from 'components/Spinner'
 
 type Home = {
     id: string
@@ -34,6 +32,8 @@ const HOME_PAGE_QUERY: string = gql`
 
 export default async function Home(): Promise<JSX.Element> {
     const { homePages } = await hygraph.request<{ homePages: Home[] }>(HOME_PAGE_QUERY)
+
+    if (!homePages) return <div>loading...</div>
 
     return (
         <Container className='flex flex-col items-center justify-center gap-y-6'>

@@ -1,24 +1,19 @@
-import { create, StoreApi, UseBoundStore } from 'zustand'
+import { create } from 'zustand'
 
-type MenuStore<T = boolean> = {
+type OverlayMenuStore<T = boolean> = {
     menu: T
     setMenu: (value: T) => void
 }
 
-const useMenuStore: UseBoundStore<StoreApi<MenuStore>> = create<MenuStore>(
-    (
-        set: (
-            partial: MenuStore | Partial<MenuStore> | ((state: MenuStore) => MenuStore | Partial<MenuStore>),
-            replace?: boolean | undefined
-        ) => void
-    ): MenuStore => ({
+const useOverlayMenuStore = create<OverlayMenuStore>()(
+    (set): OverlayMenuStore => ({
         menu: false,
-        setMenu: (value: MenuStore['menu']) => set({ menu: value }),
+        setMenu: (value: OverlayMenuStore['menu']) => set({ menu: value }),
     })
 )
 
-export function useMenu(): MenuStore {
-    const menu = useMenuStore((state) => state.menu)
-    const setMenu = useMenuStore((state) => state.setMenu)
+export function useOverlayMenu(): OverlayMenuStore {
+    const menu = useOverlayMenuStore((state) => state.menu)
+    const setMenu = useOverlayMenuStore((state) => state.setMenu)
     return { menu, setMenu }
 }

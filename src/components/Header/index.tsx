@@ -2,8 +2,6 @@ import React from 'react'
 import { ToggleMenu } from 'components/Header/ToggleMenu'
 import { OverlayMenu } from 'components/Header/OverlayMenu'
 import { Title } from 'components/Header/Title'
-import { useMenu } from 'store/menu'
-import { cn } from 'lib/utils'
 
 export default function Header(): React.JSX.Element {
     return (

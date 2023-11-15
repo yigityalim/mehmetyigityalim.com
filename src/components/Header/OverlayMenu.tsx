@@ -1,24 +1,25 @@
 'use client'
 import React from 'react'
-import { useMenu } from 'store/menu'
+import { useOverlayMenu } from 'store/menu'
 import { AnimatePresence, motion } from 'framer-motion'
 import Link from 'next/link'
 import ThemeSwitcher from 'components/ThemeSwitch'
-import Menu from 'lib/menu'
-import { cn } from 'lib/utils'
+import { cn } from '@/utils'
 import { randomBytes } from 'crypto'
+import LanguageSwitch from 'components/LanguageSwitch'
+import useMenu from '@/utils/menu'
 
 export function OverlayMenu(): React.JSX.Element | null {
-    const { menu, setMenu } = useMenu()
+    const { menu, setMenu } = useOverlayMenu()
+    const Menu = useMenu()
 
     return (
-        <AnimatePresence>
+        <AnimatePresence initial={false}>
             {menu && (
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ ease: 'easeInOut', duration: 0.3 }}
                     className={cn(
                         'fixed bottom-0 left-0 right-0 top-[88px] z-[52] flex flex-col items-center justify-between gap-y-4 p-8 transition-all duration-300',
                         menu
@@ -43,7 +44,10 @@ export function OverlayMenu(): React.JSX.Element | null {
                             </Link>
                         ))}
                     </div>
-                    <ThemeSwitcher as='button' />
+                    <div className='items-center-justify-center flex w-full flex-col gap-y-2'>
+                        <LanguageSwitch />
+                        <ThemeSwitcher as='button' />
+                    </div>
                 </motion.div>
             )}
         </AnimatePresence>

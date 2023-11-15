@@ -1,3 +1,5 @@
+import { languagesColors } from 'components/Project/GithubProject'
+
 export type Locale = 'tr-TR' | 'en-US'
 
 // ----------------------------------------------------------
@@ -167,7 +169,7 @@ export interface GithubRepositoryType {
     size: number
     stargazers_count: number
     watchers_count: number
-    language: string
+    language: keyof typeof languagesColors
     has_issues: boolean
     has_projects: boolean
     has_downloads: boolean

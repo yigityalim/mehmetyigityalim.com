@@ -1,38 +1,30 @@
 import { JSX } from 'react'
-import Project from 'components/Project'
-import { GithubRepositoryType } from 'lib/types'
 import Container from 'components/Containers'
 import { Metadata } from 'next'
+import { GithubView, VercelView } from 'components/Project'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from 'components/ui/tabs'
 
 export const metadata: Metadata = {
     title: 'Projeler',
     description: 'Projelerim',
-    keywords: 'projelerim, projeler',
+    // TODO add SEO
 }
 
-export default async function Page(): Promise<JSX.Element> {
-    const response: Response = (await fetch(process.env.GITHUB_USER_URL as string)) as Response
-    const data: GithubRepositoryType[] = await response.json()
-
-    if (!data)
-        return (
-            <Container>
-                <div className='flex h-full flex-col items-center justify-center text-center'>
-                    <h1 className='text-2xl font-bold'>Projelerim</h1>
-                    <p className='mt-2 text-lg'>Projelerim yükleniyor...</p>
-                </div>
-            </Container>
-        )
-
+export default function Page(): JSX.Element {
     return (
         <Container>
-            <ul className='mt-4 grid h-full w-full grid-cols-1 gap-y-4 md:grid-cols-2 md:gap-5 lg:gap-6 xl:gap-7'>
-                {data?.map(({ name, html_url }, index: number) => (
-                    <Project key={name} name={name} html_url={html_url} index={index} />
-                ))}
-            </ul>
+            <Tabs defaultValue='github' className='w-full'>
+                <TabsList className='grid w-full grid-cols-2'>
+                    <TabsTrigger value='github'>Github</TabsTrigger>
+                    <TabsTrigger value='vercel'>Vercel</TabsTrigger>
+                </TabsList>
+                <TabsContent value='github'>
+                    <GithubView />
+                </TabsContent>
+                <TabsContent value='vercel'>
+                    <VercelView />
+                </TabsContent>
+            </Tabs>
         </Container>
     )
 }
-
-//flex flex-col gap-y-4 md:gap-y-5 lg:gap-y-6 xl:gap-y-7

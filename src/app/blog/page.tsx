@@ -6,7 +6,6 @@ import BlogContiner from 'components/Containers/BlogContainer'
 import Container from 'components/Containers'
 import { Separator } from 'components/ui/separator'
 import { Metadata } from 'next'
-import { delay } from 'lib/utils'
 
 export const metadata: Metadata = {
     title: 'Blog Sayfası',

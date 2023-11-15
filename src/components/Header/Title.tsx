@@ -1,14 +1,13 @@
 'use client'
 import React from 'react'
 import useTitle from 'components/Header/useTitle'
-import { useMenu } from 'store/menu'
+import { useOverlayMenu } from 'store/menu'
 import { useRouter } from 'next/navigation'
-import { cn } from 'lib/utils'
-import { useHandleScroll } from 'lib/hooks'
+import { cn } from '@/utils'
 
 export function Title(): React.JSX.Element {
     const { title } = useTitle()
-    const { menu } = useMenu()
+    const { menu } = useOverlayMenu()
     const { back: b } = useRouter()
 
     function back() {

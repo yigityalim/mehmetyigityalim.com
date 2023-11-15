@@ -3,15 +3,23 @@ import hygraph from '@/graphql'
 import Link from 'next/link'
 import Image from 'next/image'
 import { BLOG_BY_SLUG } from '@/graphql/queries'
-import { cn, formatDateTime } from 'lib/utils'
+import { cn, formatDateTime } from '@/utils'
 import { Blog } from 'lib/types'
 import { ArrowLeft } from 'components/Icon'
 import Container from 'components/Containers'
+import { notFound } from 'next/navigation'
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
     const { blog } = await hygraph.request<{ blog: Blog }>(BLOG_BY_SLUG, {
         slug: params.id,
     })
+
+    if (!blog)
+        return {
+            title: '404',
+            description: '404',
+        }
+
     return {
         title: blog.title,
         description: blog.content.raw.children[0].children[0].text,
@@ -22,15 +30,18 @@ export default async function Page({ params }: { params: { id: string } }): Prom
     const { blog } = await hygraph.request<{ blog: Blog }>(BLOG_BY_SLUG, {
         slug: params.id,
     })
+
+    if (!blog) return notFound()
+
     return (
         <Container className={cn(blog.title.length > 10 ? 'gap-y-4' : 'gap-y-1')}>
             <div className='flex w-full items-center justify-between gap-x-2'>
                 <h1 className='text-4xl font-bold italic'>{blog.title}</h1>
             </div>
             <div className='flex w-full flex-row items-center justify-between'>
-                <div className='flex flex-col gap-y-2'>
-                    <p className='italic text-black/50 dark:text-white/50'>{formatDateTime(blog.datePublished)}</p>
-                </div>
+                <p className='mt-auto h-full italic text-black/50 dark:text-white/50'>
+                    {formatDateTime(blog.datePublished)}
+                </p>
                 <Link href={`/user/${blog.author.slug}`} className='flex flex-col items-end gap-y-2'>
                     <Image
                         className='aspect-square h-8 w-8 rounded-full object-cover'

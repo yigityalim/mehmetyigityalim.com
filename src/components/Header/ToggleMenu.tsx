@@ -1,11 +1,11 @@
 'use client'
 import React from 'react'
-import { useMenu } from 'store/menu'
+import { useOverlayMenu } from 'store/menu'
 import { Button } from 'components/ui/button'
-import { cn } from 'lib/utils'
+import { cn } from '@/utils'
 
 export function ToggleMenu(): React.JSX.Element {
-    const { menu, setMenu } = useMenu()
+    const { menu, setMenu } = useOverlayMenu()
     return (
         <Button
             variant='link'

@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Blog } from 'lib/types'
-import { formatDateTime } from 'lib/utils'
+import { formatDateTime } from '@/utils'
 
 export default function BlogContiner({
     blog: {

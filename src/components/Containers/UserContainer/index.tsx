@@ -5,7 +5,7 @@ import { JSX } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Badge } from 'components/ui/badge'
-import SocialMedia from 'lib/socialMedia'
+import SocialMedia from '@/utils/socialMedia'
 import crypto from 'crypto'
 import { CodeIcon } from 'lucide-react'
 

@@ -1,26 +1,24 @@
-import { JSX, useEffect, useRef } from 'react'
-import { motion, useAnimation, useInView } from 'framer-motion'
-import { cn } from 'lib/utils'
+import { JSX, RefObject, useEffect, useRef, useState } from 'react'
+import { AnimationControls, motion, useAnimation, useInView, type Variants } from 'framer-motion'
+import { cn } from '@/utils'
 import { randomBytes } from 'crypto'
 
-const defaultAnimations = {
+const defaultAnimations: Variants = {
     hidden: {
         opacity: 0,
     },
     visible: {
         opacity: 1,
-        transition: {
-            duration: 0.1,
-        },
     },
 }
 
-type Props = {
+type AnimatedTextProps = {
     text: string | string[]
     el?: keyof JSX.IntrinsicElements
     className?: string
     once?: boolean
     repeatDelay?: number
+    reverse?: boolean
 }
 
 export default function AnimatedText({
@@ -29,33 +27,42 @@ export default function AnimatedText({
     className,
     once = false,
     repeatDelay,
-}: Props): JSX.Element {
-    const controls = useAnimation()
-    const textArray = Array.isArray(text) ? text : [text]
-    const ref = useRef(null)
+}: AnimatedTextProps): JSX.Element {
+    const controls: AnimationControls = useAnimation()
+    const textArray: string[] = Array.isArray(text) ? text : [text]
+    const ref: RefObject<HTMLSpanElement> = useRef<HTMLSpanElement>(null)
     const isInView = useInView(ref, { amount: 0.5, once })
+    const [mounted, setMounted] = useState(false)
+    useEffect(() => setMounted(true), [])
 
     useEffect(() => {
         let timeout: NodeJS.Timeout
 
-        const show = () => {
-            controls.start('visible')
-            if (repeatDelay) {
-                timeout = setTimeout(async () => {
+        const animate = async (): Promise<void> => {
+            if (isInView) {
+                try {
+                    await controls.start('visible')
+                    if (repeatDelay && mounted) {
+                        timeout = setInterval(() => {
+                            controls.start('hidden').then(() => controls.start('visible'))
+                        }, repeatDelay)
+                    }
+                } catch (error) {
+                    console.error('Error starting animation:', error)
+                }
+            } else {
+                try {
                     await controls.start('hidden')
-                    controls.start('visible')
-                }, repeatDelay)
+                } catch (error) {
+                    console.error('Error hiding animation:', error)
+                }
             }
         }
 
-        if (isInView) {
-            show()
-        } else {
-            controls.start('hidden')
-        }
+        animate().catch(console.error)
 
-        return () => clearTimeout(timeout)
-    }, [isInView])
+        return () => clearInterval(timeout)
+    }, [isInView, controls, repeatDelay, mounted])
 
     return (
         <Wrapper

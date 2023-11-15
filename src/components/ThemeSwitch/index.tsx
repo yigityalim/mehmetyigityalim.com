@@ -4,7 +4,7 @@ import { useTheme } from 'next-themes'
 
 import { Button } from 'components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from 'components/ui/dropdown-menu'
-import { cn } from 'lib/utils'
+import { cn } from '@/utils'
 import { Skeleton } from 'components/ui/skeleton'
 
 type Props = {
@@ -15,7 +15,7 @@ type Props = {
 
 function SkeletonLoader({ fullWidth }: { fullWidth?: boolean }) {
     return (
-        <Skeleton className={cn('flex flex-row items-center justify-between gap-x-2', fullWidth && 'w-full')}>
+        <Skeleton className={cn('flex flex-row items-center justify-center gap-x-2', fullWidth && 'w-full')}>
             {fullWidth ? (
                 <>
                     <Skeleton className='h-10 w-full rounded-full' />
@@ -47,7 +47,7 @@ function ThemeButtons({
     }
 
     return (
-        <div className={cn('flex flex-row items-center justify-between gap-x-2', fullWidth && 'w-full')}>
+        <div className={cn('flex flex-row items-center justify-center gap-x-2', fullWidth && 'w-full')}>
             <Button
                 variant={theme === 'light' ? 'default' : 'outline'}
                 size='icon'

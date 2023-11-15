@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { cn } from 'lib/utils'
+import { cn } from '@/utils'
 import { AnimatePresence, motion } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import crypto from 'crypto'
@@ -8,14 +8,16 @@ import crypto from 'crypto'
 export default function Container({
     className,
     children,
+    ...props
 }: {
     className?: string
     children?: React.ReactNode
+    props?: React.HTMLAttributes<HTMLDivElement>
 }): React.JSX.Element {
     const pathname = usePathname()
     return (
         <AnimatePresence>
-            <motion.main
+            <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -25,9 +27,10 @@ export default function Container({
                     'container mx-auto flex h-full w-full flex-col items-center justify-start gap-y-8 p-8 md:px-10 lg:px-12 xl:px-16 xl:pt-44',
                     className
                 )}
+                {...props}
             >
                 {children}
-            </motion.main>
+            </motion.div>
         </AnimatePresence>
     )
 }
