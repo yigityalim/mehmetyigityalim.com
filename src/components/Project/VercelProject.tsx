@@ -32,7 +32,6 @@ type VercelProjectProps = {
 }
 
 export function VercelProject({ projects }: VercelProjectProps): React.JSX.Element {
-    if (!projects || !projects.projects || projects.projects.length === 0) return <h1>No projects available</h1>
     return (
         <motion.div
             variants={containerVariants}
@@ -60,7 +59,8 @@ export function VercelProject({ projects }: VercelProjectProps): React.JSX.Eleme
                                 className={cn(
                                     'inline-block h-2.5 w-2.5 rounded-full',
                                     project.latestDeployments[0].readyState === 'READY' && 'bg-[#50e3c2]',
-                                    project.latestDeployments[0].readyState === 'ERROR' && 'bg-red-300'
+                                    project.latestDeployments[0].readyState === 'ERROR' && 'bg-red-300',
+                                    project.latestDeployments[0].readyState === 'BUILDING' && 'bg-[#f5a623]'
                                 )}
                             ></span>
                             {frameworkIcon && <div className='h-6 w-6'>{frameworkIcon}</div>}
