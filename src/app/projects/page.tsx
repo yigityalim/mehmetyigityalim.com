@@ -4,7 +4,7 @@ import { Metadata } from 'next'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from 'components/ui/tabs'
 import { GithubRepositoryType } from 'lib/types'
 import { VercelProject as VercelProjectType } from 'lib/types/vercel'
-import { GithubProject } from 'components/Project'
+import { GithubProject, VercelProject } from 'components/Project'
 
 export const metadata: Metadata = {
     title: 'Projeler',
@@ -31,10 +31,10 @@ export default async function Page(): Promise<JSX.Element> {
                     <TabsTrigger value='github'>Github</TabsTrigger>
                     <TabsTrigger value='vercel'>Vercel</TabsTrigger>
                 </TabsList>
-                <TabsContent value='github'>
-                    <GithubProject repo={githubResponse} />
+                <TabsContent value='github'>github</TabsContent>
+                <TabsContent value='vercel'>
+                    <VercelProject projects={vercelResponse} />
                 </TabsContent>
-                <TabsContent value='vercel'>vercel</TabsContent>
             </Tabs>
         </Container>
     )
