@@ -9,10 +9,25 @@ import { GithubRepositoryType } from 'lib/types'
 export const metadata: Metadata = {
     title: 'Projeler',
     description: 'Projelerim',
-    // TODO add SEO
 }
 
 export default async function Page(): Promise<JSX.Element> {
+    return (
+        <Container>
+            <Tabs defaultValue='github' className='w-full'>
+                <TabsList className='mb-4 grid w-full grid-cols-2'>
+                    <TabsTrigger value='github'>Github</TabsTrigger>
+                    <TabsTrigger value='vercel'>Vercel</TabsTrigger>
+                </TabsList>
+                <TabsContent value='github'>github</TabsContent>
+                <TabsContent value='vercel'>vercel</TabsContent>
+            </Tabs>
+        </Container>
+    )
+}
+
+/*
+
     const [github, vercel] = await Promise.all([
         fetch(process.env.GITHUB_USER_URL as string),
         fetch(process.env.VERCEL_USER_URL as string, {
@@ -25,20 +40,9 @@ export default async function Page(): Promise<JSX.Element> {
 
     const githubResponse: GithubRepositoryType[] = (await github.json()) as GithubRepositoryType[]
     const vercelResponse: VercelProjectType = (await vercel.json()) as VercelProjectType
-    return (
-        <Container>
-            <Tabs defaultValue='github' className='w-full'>
-                <TabsList className='mb-4 grid w-full grid-cols-2'>
-                    <TabsTrigger value='github'>Github</TabsTrigger>
-                    <TabsTrigger value='vercel'>Vercel</TabsTrigger>
-                </TabsList>
-                <TabsContent value='github'>
-                    <GithubProject repo={githubResponse} />
-                </TabsContent>
-                <TabsContent value='vercel'>
-                    <VercelProject projects={vercelResponse} />
-                </TabsContent>
-            </Tabs>
-        </Container>
-    )
-}
+ */
+
+/*
+<GithubProject repo={githubResponse} />
+<VercelProject projects={vercelResponse} />
+ */
