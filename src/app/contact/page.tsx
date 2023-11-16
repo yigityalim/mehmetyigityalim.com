@@ -1,5 +1,6 @@
 import Container from 'components/Containers'
 import { Metadata } from 'next'
+import React from 'react'
 
 export const metadata: Metadata = {
     title: 'İletişim',
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
     keywords: 'İletişim, İletişim bilgileri, İletişim bilgilerim',
 }
 
-export default function Contact(): React.JSX.Element {
+export default function Contact() {
     return (
         <Container>
             <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
@@ -44,7 +45,7 @@ export default function Contact(): React.JSX.Element {
     )
 }
 
-function Section({ children }: { children: React.ReactNode }) {
+function Section({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
         <div className='mb-4 flex flex-col items-start justify-center gap-y-1 rounded-md bg-gray-100 p-2 dark:bg-zinc-800'>
             {/*
