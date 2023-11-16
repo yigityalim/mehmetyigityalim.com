@@ -1,7 +1,6 @@
 import { JSX, RefObject, useEffect, useRef, useState } from 'react'
 import { AnimationControls, motion, useAnimation, useInView, type Variants } from 'framer-motion'
 import { cn } from '@/utils'
-import { randomBytes } from 'crypto'
 
 const defaultAnimations: Variants = {
     hidden: {
@@ -85,14 +84,11 @@ export default function AnimatedText({
                 aria-hidden
             >
                 {textArray.map((line) => (
-                    <span className='block' key={line + randomBytes(4).toString('hex')}>
+                    <span className='block' key={line}>
                         {line.split(' ').map((word) => (
-                            <span className='my-1.5 inline-block' key={word + randomBytes(4).toString('hex')}>
+                            <span className='my-1.5 inline-block' key={word}>
                                 {word.split('').map((letter) => (
-                                    <motion.span
-                                        key={letter + randomBytes(4).toString('hex')}
-                                        variants={defaultAnimations}
-                                    >
+                                    <motion.span key={letter} variants={defaultAnimations}>
                                         {letter}
                                     </motion.span>
                                 ))}

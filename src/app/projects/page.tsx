@@ -36,7 +36,7 @@ export default async function Page(): Promise<JSX.Element> {
                     <GithubProject repo={githubResponse} />
                 </TabsContent>
                 <TabsContent value='vercel'>
-                    <div>vercel</div>
+                    <VercelProject projects={vercelResponse} />
                 </TabsContent>
             </Tabs>
         </Container>
