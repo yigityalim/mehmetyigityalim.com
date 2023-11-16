@@ -4,15 +4,12 @@ import { cn } from '@/utils'
 import { AnimatePresence, motion } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 
-export default function Container({
-    className,
-    children,
-    ...props
-}: {
+interface ContainerProps {
     className?: string
-    children?: React.ReactNode
-    props?: React.HTMLAttributes<HTMLDivElement>
-}): React.JSX.Element {
+    children: React.ReactNode
+}
+
+export default function Container({ className, children, ...props }: ContainerProps): React.JSX.Element {
     const pathname = usePathname()
     return (
         <AnimatePresence>

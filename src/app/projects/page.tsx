@@ -1,10 +1,7 @@
 import React, { JSX } from 'react'
 import Container from 'components/Containers'
 import { Metadata } from 'next'
-import { GithubProject, VercelProject } from 'components/Project'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from 'components/ui/tabs'
-import type { VercelProject as VercelProjectType } from 'lib/types/vercel'
-import { GithubRepositoryType } from 'lib/types'
 
 export const metadata: Metadata = {
     title: 'Projeler',
