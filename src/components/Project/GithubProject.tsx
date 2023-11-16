@@ -40,7 +40,7 @@ export let languagesColors = {
 
 export function GithubProject({ repo }: { repo: GithubRepositoryType[] }): React.JSX.Element {
     return (
-        <motion.li
+        <motion.div
             variants={containerVariants}
             initial='hidden'
             animate='visible'
@@ -83,12 +83,15 @@ export function GithubProject({ repo }: { repo: GithubRepositoryType[] }): React
                             )}
                             <Badge className='hidden md:flex'>{format(new Date(created_at), 'dd.MM.yy')}</Badge>
                         </div>
-                        <span className='absolute -right-2 -top-2 z-[100] rounded-full border-2 border-white bg-white dark:border-black dark:bg-black'>
-                            <ArrowRight className='h-4 w-4 -rotate-45 fill-black dark:fill-white' />
-                        </span>
                     </a>
                 </motion.div>
             ))}
-        </motion.li>
+        </motion.div>
     )
 }
+
+/*
+<span className='absolute -right-2 -top-2 z-[100] rounded-full border-2 border-white bg-white dark:border-black dark:bg-black'>
+    <ArrowRight className='h-4 w-4 -rotate-45 fill-black dark:fill-white' />
+</span>
+ */

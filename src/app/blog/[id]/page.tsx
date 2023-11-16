@@ -1,5 +1,5 @@
 import React from 'react'
-import hygraph from '@/graphql'
+import hygraph, { gql } from '@/graphql'
 import Link from 'next/link'
 import Image from 'next/image'
 import { BLOG_BY_SLUG } from '@/graphql/queries'
@@ -9,10 +9,34 @@ import { ArrowLeft } from 'components/Icon'
 import Container from 'components/Containers'
 import { notFound } from 'next/navigation'
 
+export async function generateStaticParams() {
+    const { blogs } = await hygraph.request<{ blogs: Blog[] }>(gql`
+        query {
+            blogs {
+                slug
+            }
+        }
+    `)
+
+    return blogs.map(({ slug }) => ({ params: { id: slug } }))
+}
+
 export async function generateMetadata({ params }: { params: { id: string } }) {
-    const { blog } = await hygraph.request<{ blog: Blog }>(BLOG_BY_SLUG, {
-        slug: params.id,
-    })
+    const { blog } = await hygraph.request<{ blog: Blog }>(
+        gql`
+            query ($slug: String!) {
+                blog(slug: $slug) {
+                    title
+                    content {
+                        raw
+                    }
+                }
+            }
+        `,
+        {
+            slug: params.id,
+        }
+    )
 
     if (!blog)
         return {

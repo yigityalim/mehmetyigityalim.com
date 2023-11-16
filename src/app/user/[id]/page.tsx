@@ -1,5 +1,5 @@
 import React from 'react'
-import hygraph from '@/graphql'
+import hygraph, { gql } from '@/graphql'
 import { AUTHORS_BY_SLUG } from '@/graphql/queries'
 import { cn } from '@/utils'
 import { Author } from 'lib/types'
@@ -7,8 +7,36 @@ import AuthorContainer from 'components/Containers/AuthorContainer'
 import Container from 'components/Containers'
 import { notFound } from 'next/navigation'
 
-export async function generateMetadata({ params }: { params: { id: string } }) {
-    const { author } = await hygraph.request<{ author: Author }>(AUTHORS_BY_SLUG, { slug: params.id })
+export async function generateStaticParams() {
+    const { authors } = await hygraph.request<{ authors: Author[] }>(gql`
+        query {
+            authors {
+                slug
+            }
+        }
+    `)
+
+    return authors.map(({ slug }) => ({ params: { id: slug } }))
+}
+
+export async function generateMetadata({
+    params,
+}: {
+    params: { id: string }
+}): Promise<{ title: string; description: string }> {
+    const { author } = await hygraph.request<{ author: Author }>(
+        gql`
+            query ($slug: String!) {
+                author(slug: $slug) {
+                    name
+                    about {
+                        raw
+                    }
+                }
+            }
+        `,
+        { slug: params.id }
+    )
 
     if (!author)
         return {

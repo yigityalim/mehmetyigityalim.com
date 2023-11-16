@@ -43,8 +43,9 @@ export default function AnimatedText({
                 try {
                     await controls.start('visible')
                     if (repeatDelay && mounted) {
-                        timeout = setInterval(() => {
-                            controls.start('hidden').then(() => controls.start('visible'))
+                        timeout = setInterval(async () => {
+                            await controls.start('hidden')
+                            await controls.start('visible')
                         }, repeatDelay)
                     }
                 } catch (error) {
@@ -80,6 +81,7 @@ export default function AnimatedText({
                     visible: { transition: { staggerChildren: 0.1 } },
                     hidden: {},
                 }}
+                transition={{ duration: 0.5, repeat: Infinity, repeatType: 'reverse' }}
                 aria-hidden
             >
                 {textArray.map((line) => (

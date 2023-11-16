@@ -1,11 +1,13 @@
 'use client'
 import React from 'react'
-import { VercelProject } from 'lib/types/vercel'
+import type { VercelDomain, VercelProject } from 'lib/types/vercel'
 import { SiVercel as Vercel } from 'react-icons/si'
 import { ArrowRight } from 'components/Icon'
 import { motion, Variants } from 'framer-motion'
-import { format } from 'date-fns'
-import { Badge } from 'components/ui/badge'
+import frameworks from 'utils/frameworks'
+import Image from 'next/image'
+import { compareDesc, format } from 'date-fns'
+import { cn } from '@/utils'
 
 const containerVariants: Variants = {
     hidden: {
@@ -24,29 +26,48 @@ const childrenVariants: Variants = {
     visible: { opacity: 1 },
 }
 
-export function VercelProject({ projects }: { projects: VercelProject }): React.JSX.Element {
+type VercelProjectProps = {
+    projects: VercelProject
+    //domains: VercelDomain
+}
+
+export function VercelProject({ projects }: VercelProjectProps): React.JSX.Element {
+    if (!projects || !projects.projects || projects.projects.length === 0) return <h1>No projects available</h1>
     return (
-        <motion.li
+        <motion.div
             variants={containerVariants}
             initial='hidden'
             animate='visible'
             className='flex w-full flex-col items-center justify-center gap-y-4'
         >
-            {projects.projects.map((project) => (
-                <motion.a
-                    href={project.latestDeployments[0].url}
-                    variants={childrenVariants}
-                    key={project.id}
-                    className='group relative z-50 flex w-full cursor-pointer items-center justify-between gap-x-2 rounded border border-black px-4 py-2 transition hover:scale-[0.99] active:scale-[0.99] dark:border-zinc-600 dark:hover:border-zinc-600'
-                >
-                    <Vercel className='absolute -left-2 -top-2' />
-                    <h1>{project.name}</h1>
-                    <Badge>{format(new Date(project.latestDeployments[0].createdAt), 'dd.MM.yy')}</Badge>
-                    <span className='absolute -right-2 -top-2 z-[100] rounded-full border-2 border-white bg-white dark:border-black dark:bg-black'>
-                        <ArrowRight className='h-4 w-4 -rotate-45 fill-black dark:fill-white' />
-                    </span>
-                </motion.a>
-            ))}
-        </motion.li>
+            {projects.projects.map((project) => {
+                const frameworkInfo = frameworks.find((fw) => fw.framework === project.framework)
+                const frameworkIcon: React.ReactNode = frameworkInfo ? frameworkInfo.icon : null
+
+                return (
+                    <motion.a
+                        href={`https://${project.latestDeployments[0].url}`}
+                        variants={childrenVariants}
+                        key={project.id}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='group relative z-50 flex w-full cursor-pointer items-center justify-between gap-x-2 rounded border border-black px-4 py-2 transition hover:scale-[0.99] active:scale-[0.99] dark:border-zinc-600 dark:hover:border-zinc-600'
+                    >
+                        <Vercel className='absolute -left-2 -top-2' />
+                        <h1>{project.name}</h1>
+                        <div className='flex flex-row items-center justify-center gap-x-2'>
+                            <span
+                                className={cn(
+                                    'inline-block h-2.5 w-2.5 rounded-full',
+                                    project.latestDeployments[0].readyState === 'READY' && 'bg-[#50e3c2]',
+                                    project.latestDeployments[0].readyState === 'ERROR' && 'bg-red-300'
+                                )}
+                            ></span>
+                            {frameworkIcon && <div className='h-6 w-6'>{frameworkIcon}</div>}
+                        </div>
+                    </motion.a>
+                )
+            })}
+        </motion.div>
     )
 }

@@ -26,7 +26,10 @@ export default function Footer(): React.JSX.Element {
                         href={m.path}
                         className={cn(
                             'w-full rounded px-4 text-start text-xl font-bold leading-9 tracking-wider transition-all duration-300',
-                            getLinkClassName(pathname, m.path, pathname)
+                            pathname === m.path
+                                ? 'bg-black text-white dark:bg-white dark:text-black'
+                                : 'border border-black bg-white text-black dark:border-white dark:bg-black dark:text-white'
+                            // FIXME - border kaldırılabilir. şimdilik itemler belli olsun diye ekledim
                         )}
                         key={m.name}
                     >
@@ -40,14 +43,4 @@ export default function Footer(): React.JSX.Element {
             </div>
         </footer>
     )
-}
-
-function getLinkClassName(pathname: string, mPath: string, currentPath: string) {
-    if (pathname.startsWith(mPath) && mPath !== '/') {
-        return 'bg-[#111] text-white dark:bg-gray-50 dark:text-black'
-    } else if (mPath === '/' && currentPath === '/') {
-        return 'bg-[#111] text-white dark:bg-gray-50 dark:text-black'
-    } else {
-        return 'bg-gray-50 dark:bg-[#111]'
-    }
 }
