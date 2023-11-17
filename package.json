@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "vercel": "vercel deploy"
+    "vercel": "vercel deploy",
+    "turbo:lint": "turbo build lint",
+    "turbo:dev": "turbo dev"
   },
   "dependencies": {
     "@nextui-org/react": "^2.2.9",
@@ -33,7 +35,7 @@
     "zustand": "^4.4.6"
   },
   "devDependencies": {
-    "@types/node": "^20.9.0",
+    "@types/node": "^20.9.1",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@types/uuid": "^9.0.7",

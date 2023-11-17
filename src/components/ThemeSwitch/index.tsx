@@ -7,13 +7,13 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { cn } from '@/utils'
 import { Skeleton } from 'components/ui/skeleton'
 
-type Props = {
+type Props = Readonly<{
     as?: 'button' | 'dropdown'
     fullWidth?: boolean
     className?: string
-}
+}>
 
-function SkeletonLoader({ fullWidth }: { fullWidth?: boolean }) {
+function SkeletonLoader({ fullWidth }: Readonly<{ fullWidth?: boolean }>) {
     return (
         <Skeleton className={cn('flex flex-row items-center justify-center gap-x-2', fullWidth && 'w-full')}>
             {fullWidth ? (
@@ -37,11 +37,11 @@ function ThemeButtons({
     theme,
     setTheme,
     fullWidth,
-}: {
+}: Readonly<{
     theme: string | undefined
     setTheme: (theme: string) => void
     fullWidth?: boolean
-}) {
+}>) {
     if (!theme) {
         return <SkeletonLoader fullWidth={fullWidth} />
     }
@@ -79,7 +79,6 @@ function ThemeButtons({
 export default function ThemeSwitcher({ as = 'dropdown', fullWidth, className }: Props): React.JSX.Element | null {
     const { theme, setTheme } = useTheme()
     const [mounted, setMounted] = useState(false)
-
     useEffect(() => setMounted(true), [])
 
     if (!mounted && as === 'button') {

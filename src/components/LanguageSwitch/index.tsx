@@ -4,11 +4,11 @@ import { Button, ButtonProps } from 'components/ui/button'
 
 const Languages: { name: string; code: string }[] = [
     {
-        name: 'Türkçe',
+        name: '🇹🇷',
         code: 'tr',
     },
     {
-        name: 'English',
+        name: '🇬🇧',
         code: 'en',
     },
 ]
@@ -20,7 +20,9 @@ export default function LanguageSwitch(): React.JSX.Element {
             {Languages.map(({ name, code }) => (
                 <Button
                     key={code}
+                    className='w-full'
                     variant={code === language ? 'default' : ('secondary' as ButtonProps['variant'])}
+                    size='icon'
                     onClick={() => setLanguage(code as Language)}
                 >
                     {name}

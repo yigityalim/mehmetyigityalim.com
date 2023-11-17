@@ -1,12 +1,9 @@
 'use client'
 import React from 'react'
-import type { VercelDomain, VercelProject } from 'lib/types/vercel'
+import type { VercelProject } from 'lib/types/vercel'
 import { SiVercel as Vercel } from 'react-icons/si'
-import { ArrowRight } from 'components/Icon'
 import { motion, Variants } from 'framer-motion'
 import frameworks from 'utils/frameworks'
-import Image from 'next/image'
-import { compareDesc, format } from 'date-fns'
 import { cn } from '@/utils'
 
 const containerVariants: Variants = {
@@ -31,7 +28,7 @@ type VercelProjectProps = {
     //domains: VercelDomain
 }
 
-export function VercelProject({ projects }: VercelProjectProps): React.JSX.Element {
+export function VercelProject({ projects }: Readonly<VercelProjectProps>): React.JSX.Element {
     return (
         <motion.div
             variants={containerVariants}

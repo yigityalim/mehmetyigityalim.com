@@ -2,7 +2,7 @@ import React, { JSX } from 'react'
 import Container from 'components/Containers'
 import { Metadata } from 'next'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from 'components/ui/tabs'
-import { GithubRepositoryType } from 'lib/types'
+import { GithubRepositoryType } from 'lib/types/github'
 import { VercelProject as VercelProjectType } from 'lib/types/vercel'
 import { GithubProject, VercelProject } from 'components/Project'
 
@@ -20,10 +20,17 @@ export default async function Page(): Promise<JSX.Element> {
                 Authorization: `Bearer ${process.env.VERCEL_TOKEN}`,
             },
         }),
+        fetch('https://api.vercel.com/v6/deployments', {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${process.env.VERCEL_TOKEN}`,
+            },
+        }),
     ])
 
     const githubResponse: GithubRepositoryType[] = (await github.json()) as GithubRepositoryType[]
     const vercelResponse: VercelProjectType = (await vercel.json()) as VercelProjectType
+
     return (
         <Container>
             <Tabs defaultValue='github' className='w-full'>
@@ -41,11 +48,3 @@ export default async function Page(): Promise<JSX.Element> {
         </Container>
     )
 }
-
-/*
- */
-
-/*
-<GithubProject repo={githubResponse} />
-<VercelProject projects={vercelResponse} />
- */

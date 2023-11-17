@@ -1,8 +1,7 @@
 'use client'
 import React from 'react'
-import { ArrowRight } from 'components/Icon'
 import { motion, Variants } from 'framer-motion'
-import { GithubRepositoryType } from 'lib/types'
+import { GithubRepositoryType } from 'lib/types/github'
 import { Badge } from 'components/ui/badge'
 import { format } from 'date-fns'
 import { textColorForBackground } from '@/utils'
@@ -38,7 +37,11 @@ export let languagesColors = {
     Python: '#3572A5',
 } as const
 
-export function GithubProject({ repo }: { repo: GithubRepositoryType[] }): React.JSX.Element {
+type GithubProjectProps = Readonly<{
+    repo: GithubRepositoryType[]
+}>
+
+export function GithubProject({ repo }: GithubProjectProps): React.JSX.Element {
     return (
         <motion.div
             variants={containerVariants}

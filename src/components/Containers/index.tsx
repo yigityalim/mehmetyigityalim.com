@@ -4,10 +4,7 @@ import { cn } from '@/utils'
 import { AnimatePresence, motion } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 
-interface ContainerProps {
-    className?: string
-    children: React.ReactNode
-}
+type ContainerProps = Readonly<{ className?: string; children: React.ReactNode }>
 
 export default function Container({ className, children, ...props }: ContainerProps): React.JSX.Element {
     const pathname = usePathname()
@@ -20,7 +17,7 @@ export default function Container({ className, children, ...props }: ContainerPr
                 transition={{ duration: 0.5 }}
                 key={pathname}
                 className={cn(
-                    'container mx-auto flex h-full w-full flex-col items-center justify-start gap-y-8 p-8 md:px-10 lg:px-12 xl:px-16 xl:pt-44',
+                    'container mx-auto flex h-full w-full flex-col items-center justify-start gap-y-8 p-8 md:px-10 lg:px-12 xl:px-16',
                     className
                 )}
                 {...props}
@@ -31,4 +28,4 @@ export default function Container({ className, children, ...props }: ContainerPr
     )
 }
 
-//pt-32 md:pt-36 lg:pt-40
+//pt-32 md:pt-36 lg:pt-40 xl:pt-44

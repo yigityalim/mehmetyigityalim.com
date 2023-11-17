@@ -1,6 +1,7 @@
-import { JSX, RefObject, useEffect, useRef, useState } from 'react'
+import { ElementType, JSX, RefObject, useEffect, useRef, useState } from 'react'
 import { AnimationControls, motion, useAnimation, useInView, type Variants } from 'framer-motion'
 import { cn } from '@/utils'
+import { v4 } from 'uuid'
 
 const defaultAnimations: Variants = {
     hidden: {
@@ -13,11 +14,10 @@ const defaultAnimations: Variants = {
 
 type AnimatedTextProps = {
     text: string | string[]
-    el?: keyof JSX.IntrinsicElements
+    el?: ElementType
     className?: string
     once?: boolean
     repeatDelay?: number
-    reverse?: boolean
 }
 
 export default function AnimatedText({
@@ -26,7 +26,7 @@ export default function AnimatedText({
     className,
     once = false,
     repeatDelay,
-}: AnimatedTextProps): JSX.Element {
+}: Readonly<AnimatedTextProps>): JSX.Element {
     const controls: AnimationControls = useAnimation()
     const textArray: string[] = Array.isArray(text) ? text : [text]
     const ref: RefObject<HTMLSpanElement> = useRef<HTMLSpanElement>(null)
@@ -38,30 +38,21 @@ export default function AnimatedText({
         let timeout: NodeJS.Timeout
 
         const animate = async (): Promise<void> => {
-            if (isInView) {
-                try {
-                    await controls.start('visible')
-                    if (repeatDelay && mounted) {
-                        timeout = setInterval(async () => {
+            if (isInView && mounted) {
+                await controls.start('visible')
+                if (repeatDelay && mounted) {
+                    timeout = setTimeout((): void => {
+                        void (async (): Promise<void> => {
                             await controls.start('hidden')
                             await controls.start('visible')
-                        }, repeatDelay)
-                    }
-                } catch (error) {
-                    console.error('Error starting animation:', error)
+                        })()
+                    }, repeatDelay)
                 }
-            } else {
-                try {
-                    await controls.start('hidden')
-                } catch (error) {
-                    console.error('Error hiding animation:', error)
-                }
-            }
+            } else await controls.start('hidden')
         }
 
-        animate().catch(console.error)
-
-        return () => clearInterval(timeout)
+        if (mounted) animate().catch(console.error)
+        return () => clearTimeout(timeout)
     }, [isInView, controls, repeatDelay, mounted])
 
     return (
@@ -80,15 +71,14 @@ export default function AnimatedText({
                     visible: { transition: { staggerChildren: 0.1 } },
                     hidden: {},
                 }}
-                transition={{ duration: 0.5, repeat: Infinity, repeatType: 'reverse' }}
                 aria-hidden
             >
                 {textArray.map((line) => (
-                    <span className='block' key={line}>
+                    <span className='block' key={line + v4()}>
                         {line.split(' ').map((word) => (
-                            <span className='my-1.5 inline-block' key={word}>
+                            <span className='my-1.5 inline-block' key={word + v4()}>
                                 {word.split('').map((letter) => (
-                                    <motion.span key={letter} variants={defaultAnimations}>
+                                    <motion.span key={letter + v4()} variants={defaultAnimations}>
                                         {letter}
                                     </motion.span>
                                 ))}
