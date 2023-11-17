@@ -75,7 +75,7 @@ export default function BlogContiner({
                             href={`/blog/${slug}`}
                             className='flex h-full w-full flex-row items-center justify-between gap-x-2 rounded bg-black px-4 py-0.5 text-end text-white dark:bg-white dark:text-black'
                         >
-                            Blog'a git
+                            Blog&apos;a git
                             <ArrowRight className='h-4 w-4 fill-white dark:fill-black' />
                         </Link>
                     </div>
