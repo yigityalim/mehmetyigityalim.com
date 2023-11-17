@@ -6,6 +6,8 @@ import BlogContiner from 'components/Containers/BlogContainer'
 import Container from 'components/Containers'
 import { Separator } from 'components/ui/separator'
 import { Metadata } from 'next'
+import { Spinner } from 'components/Spinner'
+import BlogView from 'components/Blog/BlogView'
 
 export const metadata: Metadata = {
     title: 'Blog Sayfası',
@@ -17,14 +19,7 @@ export default async function Page(): Promise<React.JSX.Element> {
     const { blogs } = await hygraph.request<{ blogs: Blogs }>(ALL_BLOGS)
     return (
         <Container>
-            <ul className='flex flex-col flex-wrap items-center justify-between gap-8 md:flex-row'>
-                {blogs.map((blog, index) => (
-                    <React.Fragment key={blog.id}>
-                        <BlogContiner blog={blog} />
-                        {index !== blogs.length - 1 && <Separator className='md:hidden' />}
-                    </React.Fragment>
-                ))}
-            </ul>
+            <BlogView blogs={blogs} />
         </Container>
     )
 }

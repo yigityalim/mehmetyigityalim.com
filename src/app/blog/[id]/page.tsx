@@ -24,9 +24,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { id: string } }) {
     const { blog } = await hygraph.request<{ blog: Blog }>(
         gql`
-            query ($slug: String!) {
-                blog(slug: $slug) {
+            query BlogsBySlug($slug: String!) {
+                blog(where: { slug: $slug }) {
                     title
+                    slug
                     content {
                         raw
                     }
