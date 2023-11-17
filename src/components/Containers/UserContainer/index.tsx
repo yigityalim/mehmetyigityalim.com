@@ -1,6 +1,6 @@
 import { CardContent, Card } from 'components/ui/card'
 import { Button } from 'components/ui/button'
-import { Author } from 'lib/types'
+import { Author } from 'lib/types/Author'
 import { JSX } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -39,12 +39,12 @@ export default function UserContainer({ author }: { author: Author }): JSX.Eleme
                 </div>
                 <h3 className='text-gray-500 transition-all duration-200 hover:text-gray-600'>{author.email}</h3>
                 <div>
-                    {author.about.raw.children.map((child, index) => (
+                    {author.about.raw.children.map(({ type, children }) => (
                         <p
-                            key={child.type + crypto.randomBytes(4).toString('hex')}
+                            key={type + crypto.randomBytes(4).toString('hex')}
                             className='mt-1 text-gray-600 transition-all duration-200 hover:text-gray-700'
                         >
-                            {child.children.map(({ text }) => text).join('')}
+                            {children.map(({ text }) => text).join('')}
                         </p>
                     ))}
                 </div>

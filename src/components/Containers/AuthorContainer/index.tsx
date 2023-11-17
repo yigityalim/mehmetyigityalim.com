@@ -1,5 +1,5 @@
 import React from 'react'
-import { Author } from 'lib/types'
+import { Author } from 'lib/types/Author'
 import { Card, CardContent, CardFooter } from 'components/ui/card'
 import Image from 'next/image'
 import { Badge } from 'components/ui/badge'

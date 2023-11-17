@@ -1,6 +1,6 @@
 import React from 'react'
 import Container from 'components/Containers'
-import { Author } from 'lib/types'
+import { Author } from 'lib/types/Author'
 import hygraph from '@/graphql'
 import { ALL_AUTHORS } from '@/graphql/queries'
 import { Metadata } from 'next'

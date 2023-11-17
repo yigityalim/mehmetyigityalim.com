@@ -1,7 +1,7 @@
 import React from 'react'
 import hygraph from '@/graphql'
 import { ALL_BLOGS } from '@/graphql/queries'
-import { Blogs } from 'lib/types'
+import { Blogs } from 'lib/types/blog'
 import BlogContiner from 'components/Containers/BlogContainer'
 import Container from 'components/Containers'
 import { Separator } from 'components/ui/separator'
