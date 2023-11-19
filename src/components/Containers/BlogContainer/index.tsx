@@ -7,15 +7,15 @@ import { cn, formatDateTime } from '@/utils'
 import { ChevronDown } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowRight } from 'components/Icon'
+import { BLOG_CONTAINER_HEIGHT } from 'utils/constants'
 
 type BlogContainerProps = Readonly<{
     blog: Blog
 }>
-
 export default function BlogContiner({
     blog: {
-        author: { picture, name },
-        coverPhoto: { url, height, width },
+        author: { picture, name, slug: authorSlug },
+        coverPhoto,
         datePublished,
         slug,
         title,
@@ -27,18 +27,23 @@ export default function BlogContiner({
         <AnimatePresence>
             <motion.div
                 key={id}
-                initial={{ height: 100 }}
-                animate={{ height: open ? 'auto' : 100 }}
-                exit={{ height: 100 }}
+                initial={{ height: BLOG_CONTAINER_HEIGHT }}
+                animate={{ height: open ? 'auto' : BLOG_CONTAINER_HEIGHT }}
+                exit={{ height: BLOG_CONTAINER_HEIGHT }}
                 className='relative flex w-full flex-col gap-y-2 overflow-hidden md:w-[30rem]'
             >
                 <span className='absolute bottom-0 left-0 top-0 z-10 h-full w-0.5 rounded-full bg-black dark:bg-white' />
-                <div className='flex w-full flex-col gap-y-2 pl-4'>
-                    <div className='flex w-full flex-col gap-y-2'>
-                        <div className='flex w-full flex-row items-center justify-between'>
-                            <span className='text-md overflow-hidden text-ellipsis whitespace-nowrap font-bold capitalize italic md:text-lg lg:text-xl xl:text-2xl'>
+                <div className='flex w-full flex-col justify-between gap-y-8 pl-4'>
+                    <div className='flex w-full flex-row items-center justify-between gap-x-2'>
+                        <div className='flex flex-col items-start justify-between gap-y-2'>
+                            <span className='text-md font-bold capitalize italic md:text-lg lg:text-xl xl:text-2xl'>
                                 {title}
                             </span>
+                            <span className='text-sm text-black/50 dark:text-white/40 md:text-base'>
+                                {formatDateTime(datePublished)}
+                            </span>
+                        </div>
+                        <Link href={`user/${authorSlug}`} className='flex flex-col items-end justify-between gap-y-2'>
                             <Image
                                 loading='lazy'
                                 className='ml-2 aspect-square h-8 w-8 rounded-full object-cover'
@@ -47,20 +52,17 @@ export default function BlogContiner({
                                 width={picture.width}
                                 height={picture.height}
                             />
-                        </div>
-                        <div className='flex flex-row items-center justify-between gap-y-2'>
-                            <span className='text-sm text-black/50 dark:text-white/40 md:text-base'>
-                                {formatDateTime(datePublished)}
+                            <span className='text-md overflow-hidden text-ellipsis whitespace-nowrap text-black/50 dark:text-white/60'>
+                                {name}
                             </span>
-                            <span className='text-md text-black/50 dark:text-white/60'>{name}</span>
-                        </div>
+                        </Link>
                     </div>
                     <div className='flex flex-row items-center justify-between gap-y-2'>
                         <button
                             className='flex w-full flex-row gap-x-2'
                             onClick={async (event) => {
                                 event.stopPropagation()
-                                setOpen((open) => !open)
+                                setOpen((prev) => !prev)
                             }}
                         >
                             <ChevronDown
@@ -69,7 +71,9 @@ export default function BlogContiner({
                                     open && 'rotate-180 transform'
                                 )}
                             />
-                            <span className='text-sm text-black/50 dark:text-white/40'>Daha fazla</span>
+                            <span className='text-sm text-black/50 dark:text-white/40'>
+                                {open ? 'Daha az göster' : 'Daha fazla göster'}
+                            </span>
                         </button>
                         <Link
                             href={`/blog/${slug}`}
@@ -84,9 +88,9 @@ export default function BlogContiner({
                             loading='lazy'
                             className='w-full object-contain lg:w-[28rem] xl:w-[30rem]'
                             alt='blog'
-                            src={url}
-                            width={width}
-                            height={open ? height : 0}
+                            src={coverPhoto.url}
+                            width={coverPhoto.width}
+                            height={open ? coverPhoto.height : 0}
                         />
                     </div>
                 </div>

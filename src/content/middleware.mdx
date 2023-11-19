@@ -1,63 +1,31 @@
-import React from 'react'
-import hygraph, { gql } from '@/graphql'
-import Link from 'next/link'
-import Image from 'next/image'
-import { BLOG_BY_SLUG } from '@/graphql/queries'
-import { cn, formatDateTime } from '@/utils'
-import { Blog } from 'lib/types/blog'
-import { ArrowLeft } from 'components/Icon'
-import Container from 'components/Containers'
-import { notFound } from 'next/navigation'
+---
+title: Başlık
+description: bu bir mdx dosyasıdır
+date: 2021-10-20
+---
 
-export async function generateStaticParams() {
-    const { blogs } = await hygraph.request<{ blogs: Blog[] }>(gql`
-        query {
-            blogs {
-                slug
-            }
-        }
-    `)
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aut consequatur doloribus incidunt, ipsa laboriosam magnam neque repellendus saepe sequi temporibus tenetur, vero vitae. Atque cum dolor, ducimus eaque natus necessitatibus neque nostrum quaerat quis reprehenderit? Adipisci aperiam aut et nihil odio. Accusantium aut et eum incidunt minima minus quaerat.
 
-    return blogs.map(({ slug }) => ({ params: { id: slug } }))
-}
+# Başlık 2
 
-export async function generateMetadata({ params }: { params: { id: string } }) {
-    const { blog } = await hygraph.request<{ blog: Blog }>(
-        gql`
-            query BlogsBySlug($slug: String!) {
-                blog(where: { slug: $slug }) {
-                    title
-                    slug
-                    content {
-                        raw
-                    }
-                }
-            }
-        `,
-        {
-            slug: params.id,
-        }
+- lorem
+- ipsum
+- dolor
+- sit
+- amet
+
+bu bir resim örneğidir:
+[![resim](https://media.graphassets.com/7HXjVVTKRNm3QABmOkxo)](https://media.graphassets.com/7HXjVVTKRNm3QABmOkxo)
+
+bu da bir kod örneği:
+```ts
+export default async function Page({ params }: { params: { slug: string } }): Promise<React.JSX.Element> {
+    const post = await getPostFromParams(params.slug)
+    return (
+        <div>
+            <MDX code={post.body.code} />
+        </div>
     )
-
-    if (!blog)
-        return {
-            title: '404',
-            description: '404',
-        }
-
-    return {
-        title: blog.title,
-        description: blog.content.raw.children[0].children[0].text,
-    }
-}
-
-export default async function Page({ params }: { params: { id: string } }): Promise<React.JSX.Element> {
-    const { blog } = await hygraph.request<{ blog: Blog }>(BLOG_BY_SLUG, {
-        slug: params.id,
-    })
-
-    if (!blog) return notFound()
-
     return (
         <Container className={cn(blog.title.length > 10 ? 'gap-y-4' : 'gap-y-1')}>
             <div className='flex w-full items-center justify-between gap-x-2'>
@@ -106,3 +74,4 @@ export default async function Page({ params }: { params: { id: string } }): Prom
         </Container>
     )
 }
+```

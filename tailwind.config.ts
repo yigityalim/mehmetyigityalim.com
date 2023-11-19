@@ -3,7 +3,12 @@ import colors from './colors'
 
 const config: Config = {
     darkMode: ['class'],
-    content: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}'],
+    content: [
+        './pages/**/*.{ts,tsx,md,mdx}',
+        './components/**/*.{ts,tsx,md,mdx}',
+        './app/**/*.{ts,tsx,md,mdx}',
+        './src/**/*.{ts,tsx,md,mdx}',
+    ],
     theme: {
         container: {
             center: true,
@@ -52,6 +57,10 @@ const config: Config = {
             },
         },
     },
-    plugins: [require('tailwindcss-animate')],
+    plugins: [
+        require('tailwindcss-animate'),
+        require('@tailwindcss/typography'),
+        require('@tailwindcss/container-queries'),
+    ],
 } satisfies Config
 export default config

@@ -1,12 +1,13 @@
 'use client'
 import React from 'react'
 import { useOverlayMenu } from 'store/menu'
-import { AnimatePresence, motion, type Variants } from 'framer-motion'
+import { AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import ThemeSwitcher from 'components/ThemeSwitch'
 import { cn } from '@/utils'
 import LanguageSwitch from 'components/LanguageSwitch'
 import useMenu from '@/utils/menu'
+import { OVERLAY_MENU_HEIGHT } from 'utils/constants'
 
 export function OverlayMenu(): React.JSX.Element {
     const { menu, setMenu } = useOverlayMenu()
@@ -16,10 +17,11 @@ export function OverlayMenu(): React.JSX.Element {
         <AnimatePresence initial={false}>
             {menu && (
                 <div
+                    style={{ top: OVERLAY_MENU_HEIGHT }}
                     className={cn(
-                        'fixed bottom-0 left-0 right-0 top-[88px] z-[52] flex flex-col items-center justify-between gap-y-4 p-8 transition-all duration-300',
+                        'fixed bottom-0 left-0 right-0 z-[52] flex flex-col items-center justify-between gap-y-4 p-8 transition-all duration-300',
                         menu
-                            ? 'bg-white dark:bg-black'
+                            ? 'bg-white dark:bg-wash-dark-2'
                             : 'bg-opacity-70 backdrop-blur-md dark:bg-opacity-70 dark:backdrop-blur-2xl'
                     )}
                 >

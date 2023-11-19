@@ -37,5 +37,4 @@ const Spinner: ForwardRefExoticComponent<LoadingProps & RefAttributes<HTMLSpanEl
 })
 
 Spinner.displayName = 'Spinner'
-
 export { Spinner, loaderVariants }

@@ -3,7 +3,6 @@ import { JSX, Suspense } from 'react'
 import { gql } from 'graphql-request'
 import hygraph from '@/graphql'
 import Image from 'next/image'
-
 type Home = {
     id: string
     title: string
@@ -32,7 +31,6 @@ const HOME_PAGE_QUERY: string = gql`
 
 export default async function Home(): Promise<JSX.Element> {
     const { homePages } = await hygraph.request<{ homePages: Home[] }>(HOME_PAGE_QUERY)
-
     if (!homePages) return <div>loading...</div>
 
     return (

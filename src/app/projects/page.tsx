@@ -13,14 +13,14 @@ export const metadata: Metadata = {
 
 export default async function Page(): Promise<JSX.Element> {
     const [github, vercel] = await Promise.all([
-        fetch(process.env.GITHUB_USER_URL as string),
-        fetch(process.env.VERCEL_USER_URL as string, {
+        fetch(process.env.GITHUB_USER_URL!),
+        fetch(process.env.VERCEL_USER_URL!, {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${process.env.VERCEL_TOKEN}`,
             },
         }),
-        fetch('https://api.vercel.com/v6/deployments', {
+        fetch(process.env.VERCEL_DEPLOYMENTS_URL!, {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${process.env.VERCEL_TOKEN}`,

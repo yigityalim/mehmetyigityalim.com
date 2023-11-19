@@ -17,6 +17,8 @@
 /build
 .idea
 
+# contentlayer
+.contentlayer
 
 # misc
 .DS_Store

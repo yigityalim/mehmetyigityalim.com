@@ -10,7 +10,8 @@ export default {
     'link-dark': '#149ECA', // blue-40
     syntax: '#EBECF0', // gray-10
     wash: '#FFFFFF',
-    'wash-dark': '#23272F', // gray-90
+    'wash-dark': '#121212',
+    'wash-dark-2': '#000000', //'#111111',
     card: '#F6F7F9', // gray-05
     'card-dark': '#343A46', // gray-80
     highlight: '#E6F7FF', // blue-10

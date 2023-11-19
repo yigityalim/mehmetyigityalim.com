@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge'
 import { format as _format } from 'date-fns'
 import { tr } from 'date-fns/locale'
 
-export function cn(...inputs: ClassValue[]) {
+export function cn(...inputs: ClassValue[]): string {
     return twMerge(clsx(inputs))
 }
 

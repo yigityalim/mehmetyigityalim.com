@@ -11,5 +11,13 @@ body {
     overflow-x-hidden
     bg-primary
 
-    dark:bg-black
+    dark:bg-wash-dark-2
+}
+
+.github-dark {
+    padding: 10px;
+}
+
+[data-rehype-pretty-code-fragment] {
+    width: 100%;
 }

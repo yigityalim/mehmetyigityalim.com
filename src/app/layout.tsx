@@ -6,6 +6,7 @@ import React from 'react'
 
 import Providers from 'components/Providers/clientSideProvider'
 import ProductionMode from 'components/ProductionMode'
+import TailwindIndicator from 'components/TailwindIndicator'
 
 const fontSans = FontSans({
     subsets: ['latin'],
@@ -16,7 +17,11 @@ export const metadata: Metadata = {
     description: "Mehmet Yiğit Yalım's personal website.",
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+type RootLayoutProps = Readonly<{
+    children: React.ReactNode
+}>
+
+export default function RootLayout({ children }: RootLayoutProps): React.JSX.Element {
     return (
         <html lang='en'>
             <body className={fontSans.className}>
@@ -24,6 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <ProductionMode>{children}</ProductionMode>
                 </Providers>
                 <Analytics />
+                <TailwindIndicator />
             </body>
         </html>
     )
