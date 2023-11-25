@@ -2,9 +2,8 @@ import React, { JSX } from 'react'
 import Container from 'components/Containers'
 import { Metadata } from 'next'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from 'components/ui/tabs'
-import { GithubRepositoryType } from 'lib/types/github'
-import { VercelProject as VercelProjectType } from 'lib/types/vercel'
 import { GithubProject, VercelProject } from 'components/Project'
+import { useGithub, useVercel } from 'lib/hooks'
 
 export const metadata: Metadata = {
     title: 'Projeler',
@@ -12,24 +11,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Page(): Promise<JSX.Element> {
-    const [github, vercel] = await Promise.all([
-        fetch(process.env.GITHUB_USER_URL!),
-        fetch(process.env.VERCEL_USER_URL!, {
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${process.env.VERCEL_TOKEN}`,
-            },
-        }),
-        fetch(process.env.VERCEL_DEPLOYMENTS_URL!, {
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${process.env.VERCEL_TOKEN}`,
-            },
-        }),
-    ])
-
-    const githubResponse: GithubRepositoryType[] = (await github.json()) as GithubRepositoryType[]
-    const vercelResponse: VercelProjectType = (await vercel.json()) as VercelProjectType
+    const [github, vercel] = await Promise.all([useGithub(), useVercel()])
 
     return (
         <Container>
@@ -39,10 +21,10 @@ export default async function Page(): Promise<JSX.Element> {
                     <TabsTrigger value='vercel'>Vercel</TabsTrigger>
                 </TabsList>
                 <TabsContent value='github'>
-                    <GithubProject repo={githubResponse} />
+                    <GithubProject repo={github} />
                 </TabsContent>
                 <TabsContent value='vercel'>
-                    <VercelProject projects={vercelResponse} />
+                    <VercelProject projects={vercel} />
                 </TabsContent>
             </Tabs>
         </Container>

@@ -28,6 +28,16 @@ export function textColorForBackground(color: string): string {
     return (r * 299 + g * 587 + b * 114) / 1000 >= 128 ? 'black' : 'white'
 }
 
+export function darkenColor(hex: string, percent: number): string {
+    const num: number = parseInt(hex.slice(1), 16)
+    const amt: number = Math.round(2.55 * percent)
+    const R: number = (num >> 16) - amt > 0 ? (num >> 16) - amt : 0
+    const G: number = ((num >> 8) & 255) - amt > 0 ? ((num >> 8) & 255) - amt : 0
+    const B: number = (num & 255) - amt > 0 ? (num & 255) - amt : 0
+
+    return `#${(1 << 24) + (R << 16) + (G << 8) + B}`
+}
+
 export function formatDateTime(date: Date, format?: string): string {
     return _format(new Date(date), format ?? 'dd MMMM yyyy', {
         locale: tr,

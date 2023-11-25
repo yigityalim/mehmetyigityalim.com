@@ -28,7 +28,7 @@ export default function Footer(): React.JSX.Element {
                             'w-full rounded px-4 text-start text-xl font-bold leading-9 tracking-wider transition-all duration-300',
                             pathname === m.path
                                 ? 'bg-black text-white dark:bg-white dark:text-black'
-                                : 'border border-black bg-white text-black dark:border-white dark:bg-black dark:text-white'
+                                : 'bg-white text-black shadow-md dark:bg-black dark:text-white dark:shadow-2xl'
                             // FIXME - border kaldırılabilir. şimdilik itemler belli olsun diye ekledim
                         )}
                         key={m.name}
