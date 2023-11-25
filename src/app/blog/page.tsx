@@ -12,15 +12,7 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-    const posts = allPosts
-
-    return (
-        <Container>
-            {posts.map((post) => (
-                <PostCard {...post} key={post._id} />
-            ))}
-        </Container>
-    )
+    return <Container>blog anasayfa</Container>
 }
 
 function PostCard(post: Readonly<Post>) {
@@ -28,3 +20,10 @@ function PostCard(post: Readonly<Post>) {
 }
 
 //<BlogView blogs={blogs} />
+
+/*
+
+            {posts.map((post) => (
+                <PostCard {...post} key={post._id} />
+            ))}
+ */

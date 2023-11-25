@@ -12,5 +12,7 @@ type BlogPageParams = Readonly<{
 export default function Page({ params }: BlogPageParams) {
     const post: Post | undefined = allPosts.find((post: Post) => post._raw.flattenedPath === params.slug)
     if (!post) notFound()
-    return <Mdx {...post} />
+    return <>blog slug</>
 }
+
+//return <Mdx {...post} />
