@@ -4,34 +4,11 @@ import { gql } from 'graphql-request'
 import hygraph from '@/graphql'
 import Image from 'next/image'
 import SoicalMediaContainer from 'components/Containers/SocialMediaContainer'
-
-type Home = {
-    id: string
-    title: string
-    picture: {
-        url: string
-        width: number
-        height: number
-    }
-    description: string
-    social: Social[]
-}
-
-export type Social = {
-    id: string
-    title: string
-    url: string
-    color: {
-        hex: string
-    }[]
-    username: string
-    social: string
-}
+import type { Home } from 'lib/types/home'
 
 const HOME_PAGE_QUERY: string = gql`
     {
         homePages {
-            id
             title
             picture {
                 url
@@ -59,19 +36,21 @@ export default async function Home(): Promise<JSX.Element> {
 
     return (
         <Container className='flex flex-col items-start justify-center gap-y-6'>
-            {homePages.map(({ id, title, picture, description, social }) => (
-                <Suspense key={id} fallback={<div>loading...</div>}>
+            {homePages.map(({ title, picture, description, social }) => (
+                <>
                     <Image
                         src={picture.url}
                         alt='Picture of the author'
                         width={150}
                         height={150}
-                        className='rounded-full'
+                        className='aspect-square rounded-full object-contain'
                     />
                     <h1 className='text-4xl font-bold tracking-tight text-gray-900 dark:text-white'>{title}</h1>
-                    <pre className='max-w-full font-sans text-lg text-gray-600 dark:text-gray-400'>{description}</pre>
+                    <pre className='max-w-full overflow-x-scroll p-0.5 font-sans text-lg text-gray-600 dark:text-gray-400'>
+                        {description}
+                    </pre>
                     <SoicalMediaContainer social={social} />
-                </Suspense>
+                </>
             ))}
         </Container>
     )

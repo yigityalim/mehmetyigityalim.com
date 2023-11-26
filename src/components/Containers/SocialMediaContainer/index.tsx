@@ -2,7 +2,7 @@
 
 import { JSX } from 'react'
 import { cn } from '@/utils'
-import { Social } from '@/app/page'
+import type { Social } from 'lib/types/home'
 import { BsInstagram, BsLinkedin, BsSnapchat, BsDiscord, BsSpotify, BsGithub, BsTwitterX } from 'react-icons/bs'
 import { motion, Variants } from 'framer-motion'
 
@@ -78,11 +78,6 @@ export default function SoicalMediaContainer({ social }: SoicalMediaContainerPro
                 const icon: JSX.Element | undefined = Icons.find(({ title }) => title.toLowerCase() === social)?.icon
                 return (
                     <motion.div
-                        whileHover={{
-                            scale: 1.2,
-                            transition: { duration: 1 },
-                        }}
-                        whileTap={{ scale: 0.9 }}
                         variants={childrenVariants}
                         whileInView={{ opacity: 1 }}
                         transition={{ duration: 0.5 }}

@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useOverlayMenu } from 'store/menu'
 import { AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
@@ -12,6 +12,17 @@ import { OVERLAY_MENU_HEIGHT } from 'utils/constants'
 export function OverlayMenu(): React.JSX.Element {
     const { menu, setMenu } = useOverlayMenu()
     const Menu = useMenu()
+
+    useEffect(() => {
+        // burada scrollbar yok olduğu için width değişiyor. bu yüzden width'i sabit tutmak için padding-right ekliyoruz
+        if (menu && document.body.clientWidth > 768) {
+            document.body.style.overflow = 'hidden'
+            document.body.style.paddingRight = '15px'
+        } else {
+            document.body.style.overflow = ''
+            document.body.style.paddingRight = ''
+        }
+    }, [menu])
 
     return (
         <AnimatePresence initial={false}>

@@ -5,30 +5,32 @@ import { useOverlayMenu } from 'store/menu'
 import { useRouter } from 'next/navigation'
 import { cn } from '@/utils'
 
-export function Title(): React.JSX.Element {
-    const { title } = useTitle()
-    const { menu } = useOverlayMenu()
-    const { back: b } = useRouter()
+type TitleProps = Readonly<{
+    title?: string
+}>
 
-    function back() {
-        b()
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
+export function Title({ title }: TitleProps): React.JSX.Element {
+    const { title: t } = useTitle()
+    const { menu } = useOverlayMenu()
+    const { back } = useRouter()
 
     return (
         <div className={cn('flex h-full w-full items-center gap-x-4 transition', menu && 'opacity-0')}>
-            {title ? (
+            {t ? (
                 <h1
                     className={cn(
                         'w-full text-2xl font-bold leading-9 tracking-wider transition',
                         menu && 'translate-y-[-5px] opacity-0'
                     )}
                 >
-                    {title}
+                    {t}
                 </h1>
             ) : (
                 <svg
-                    onClick={back}
+                    onClick={() => {
+                        back()
+                        window.scrollTo({ top: 0, behavior: 'smooth' })
+                    }}
                     xmlns='http://www.w3.org/2000/svg'
                     height='24'
                     viewBox='0 -960 960 960'
