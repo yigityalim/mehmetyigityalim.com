@@ -40,7 +40,7 @@ export default function BlogContiner({
                                 {title}
                             </span>
                             <span className='text-sm text-black/50 dark:text-white/40 md:text-base'>
-                                {formatDateTime(datePublished)}
+                                {datePublished}
                             </span>
                         </div>
                         <Link href={`user/${authorSlug}`} className='flex flex-col items-end justify-between gap-y-2'>
