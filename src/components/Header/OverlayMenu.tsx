@@ -30,7 +30,7 @@ export function OverlayMenu(): React.JSX.Element {
                 <div
                     style={{ top: OVERLAY_MENU_HEIGHT }}
                     className={cn(
-                        'fixed bottom-0 left-0 right-0 z-[52] flex flex-col items-center justify-between gap-y-4 p-8 transition-all duration-300',
+                        'container fixed bottom-0 left-0 right-0 z-[52] mx-auto flex flex-col items-center justify-between gap-y-4 p-8 transition-all duration-300',
                         menu
                             ? 'bg-white dark:bg-wash-dark-2'
                             : 'bg-opacity-70 backdrop-blur-md dark:bg-opacity-70 dark:backdrop-blur-2xl'

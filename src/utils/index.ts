@@ -39,9 +39,7 @@ export function darkenColor(hex: string, percent: number): string {
 }
 
 export function formatDateTime(date: Date, format?: string): string {
-    return _format(new Date(date), format ?? 'dd MMMM yyyy', {
-        locale: tr,
-    })
+    return _format(new Date(date), format ?? 'dd MMMM yyyy')
 }
 
 export function getPostedAtText(date: Date | string, i18n: 'tr' | 'en' = 'tr'): string {

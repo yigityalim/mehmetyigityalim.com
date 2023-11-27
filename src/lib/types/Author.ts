@@ -38,6 +38,13 @@ type Social = {
     id: string
     title: string
     url: string
+    color:
+        | {
+              hex: string
+          }
+        | Array<{ hex: string }>
+    username: string
+    social: string
 }
 
 export type { Author, ProgrammingLanguage, Photo, Social }

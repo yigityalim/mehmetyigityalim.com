@@ -1,9 +1,9 @@
 import Container from 'components/Containers'
-import { JSX, Suspense } from 'react'
+import { JSX } from 'react'
 import { gql } from 'graphql-request'
 import hygraph from '@/graphql'
 import Image from 'next/image'
-import SoicalMediaContainer from 'components/Containers/SocialMediaContainer'
+import { SocialMediaSwitchContainer, SocialMedia } from 'components/SocialMedia'
 import type { Home } from 'lib/types/home'
 
 const HOME_PAGE_QUERY: string = gql`
@@ -49,7 +49,7 @@ export default async function Home(): Promise<JSX.Element> {
                     <pre className='max-w-full overflow-x-scroll p-0.5 font-sans text-lg text-gray-600 dark:text-gray-400'>
                         {description}
                     </pre>
-                    <SoicalMediaContainer social={social} />
+                    <SocialMediaSwitchContainer social={social} />
                 </>
             ))}
         </Container>

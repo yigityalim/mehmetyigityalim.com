@@ -1,12 +1,12 @@
 'use client'
 
-import { JSX } from 'react'
+import { JSX, useState } from 'react'
 import { cn } from '@/utils'
 import type { Social } from 'lib/types/home'
 import { BsInstagram, BsLinkedin, BsSnapchat, BsDiscord, BsSpotify, BsGithub, BsTwitterX } from 'react-icons/bs'
 import { motion, Variants } from 'framer-motion'
 
-type SoicalMediaContainerProps = Readonly<{ social: Social[] }>
+type SoicalMediaContainerProps = Readonly<{ social: Social[]; type: 'grid' | 'list' }>
 
 const Icons = [
     {
@@ -66,8 +66,8 @@ const childrenVariants: Variants = {
     visible: { opacity: 1 },
 }
 
-export default function SoicalMediaContainer({ social }: SoicalMediaContainerProps): JSX.Element {
-    return (
+export function SocialMedia({ social, type }: SoicalMediaContainerProps): JSX.Element {
+    return type === 'grid' ? (
         <motion.div
             variants={containerVariants}
             initial='hidden'
@@ -83,12 +83,51 @@ export default function SoicalMediaContainer({ social }: SoicalMediaContainerPro
                         transition={{ duration: 0.5 }}
                         key={id}
                         className={cn(
-                            'flex aspect-square w-full flex-col items-start justify-between gap-y-2 overflow-hidden rounded-lg bg-wash p-8 shadow-md dark:bg-wash-dark',
-                            idx === 0 ? 'col-span-2 max-h-[175px] overflow-hidden' : 'col-span-1'
+                            'flex aspect-square w-full flex-col items-center justify-between gap-y-2 overflow-hidden rounded-lg bg-wash p-8 shadow-md dark:bg-wash-dark'
+                            // idx === 0 ? 'col-span-2 max-h-[175px] overflow-hidden' : 'col-span-1'
                         )}
                     >
-                        {icon && <>{icon}</>}
-                        <span className='text-xs font-semibold tracking-wide'>{social.toUpperCase()}</span>
+                        <div className={cn('flex flex-col items-center gap-y-2')}>
+                            {icon && <>{icon}</>}
+                            <span className='text-xs font-semibold tracking-wide'>{social.toUpperCase()}</span>
+                            <a
+                                href={url}
+                                target='_blank'
+                                rel='noopener noreferrer'
+                                className={cn(
+                                    'rounded-lg bg-syntax px-4 py-2 text-xs font-semibold tracking-wide dark:bg-wash-dark-2'
+                                )}
+                            >
+                                Takip Et
+                            </a>
+                        </div>
+                    </motion.div>
+                )
+            })}
+        </motion.div>
+    ) : (
+        <motion.div
+            variants={containerVariants}
+            initial='hidden'
+            animate='visible'
+            className='flex w-full flex-col items-center justify-start gap-y-4'
+        >
+            {social.map(({ id, social, url }, idx) => {
+                const icon: JSX.Element | undefined = Icons.find(({ title }) => title.toLowerCase() === social)?.icon
+                return (
+                    <motion.div
+                        variants={childrenVariants}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ duration: 0.5 }}
+                        key={id}
+                        className={cn(
+                            'flex w-full flex-row items-center justify-between gap-x-4 overflow-hidden rounded-lg bg-wash p-8 shadow-md dark:bg-wash-dark'
+                        )}
+                    >
+                        <div className={cn('flex flex-row items-center gap-x-4')}>
+                            {icon && <>{icon}</>}
+                            <span className='text-xs font-semibold tracking-wide'>{social.toUpperCase()}</span>
+                        </div>
                         <a
                             href={url}
                             target='_blank'

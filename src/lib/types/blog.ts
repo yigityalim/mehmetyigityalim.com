@@ -16,7 +16,7 @@ type Blog = {
         }
     }
     postColor: { hex: string }
-    datePublished: Date
+    datePublished: string
     author: Author
 }
 

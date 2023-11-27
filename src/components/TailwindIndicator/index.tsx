@@ -10,7 +10,7 @@ export default function TailwindIndicator({ align = 'left' }: TailwindIndicatorP
     return (
         <div
             className={cn(
-                'fixed bottom-1 z-50 flex h-6 w-6 items-center justify-center rounded-full bg-gray-800 p-3 font-mono text-xs text-white',
+                'fixed bottom-1 z-50 flex h-6 w-6 items-center justify-center rounded-full bg-black p-3 font-mono text-xs text-white',
                 { 'left-1': align === 'left' },
                 { 'left-1/2 -translate-x-1/2 transform': align === 'center' },
                 { 'right-1': align === 'right' }

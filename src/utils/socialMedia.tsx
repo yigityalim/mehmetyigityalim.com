@@ -3,56 +3,37 @@ import { FaXTwitter, FaSquareThreads } from 'react-icons/fa6'
 import React from 'react'
 import hygraph, { gql } from '@/graphql'
 import { Button } from 'components/ui/button'
+import { Author } from 'lib/types/Author'
+import { cn } from 'utils/index'
+
+type Props = Author['social'][number] & {
+    text?: boolean
+    iterator?: number
+}
+
+export default async function SocialMedia(props: Props): Promise<React.JSX.Element> {
+    const Icon = socials.find((s) => s.title === props.title)?.icon
+    return (
+        <Button
+            className={cn(
+                'w-full gap-x-2 font-semibold transition-all duration-200 hover:bg-gray-700 hover:text-white',
+                props.iterator === 3 && 'last:col-span-2'
+            )}
+            size='sm'
+            asChild={true}
+        >
+            <a className='flex w-full items-center justify-center' href={props.url}>
+                {Icon}
+                {props.text && <span className='ml-2'>Takip Et</span>}
+            </a>
+        </Button>
+    )
+}
 
 type IconProps = {
     icon: React.ReactNode
     title: string
     url: string
-}
-
-const query = gql`
-    query Social($id: ID) {
-        author(where: { id: $id }) {
-            id
-            social {
-                id
-                title
-                url
-            }
-        }
-    }
-`
-
-type Social = {
-    id: string
-    social: {
-        id: string
-        title: string
-        url: string
-    }[]
-}
-
-export default async function SocialMedia({
-    title,
-    authorId,
-    text,
-}: {
-    title: IconProps['title']
-    authorId: string
-    text?: boolean
-}) {
-    const { author } = await hygraph.request<{ author: Social }>(query, { id: authorId })
-    const social = author.social.find((s) => s.title === title)
-    const Icon = socials.find((s) => s.title === social?.title)?.icon
-    if (!Icon) return null
-    return (
-        <Button
-            className='w-full gap-x-2 font-semibold transition-all duration-200 hover:bg-gray-700 hover:text-white'
-            size='sm'
-        >
-            {Icon} {text && 'Takip et'}
-        </Button>
-    )
 }
 
 const socials = [

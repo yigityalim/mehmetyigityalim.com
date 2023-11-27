@@ -9,7 +9,11 @@ import SocialMedia from '@/utils/socialMedia'
 import crypto from 'crypto'
 import { CodeIcon } from 'lucide-react'
 
-export default function UserContainer({ author }: { author: Author }): JSX.Element {
+type AuthorProps = Readonly<{
+    author: Author
+}>
+
+export default function UserContainer({ author }: AuthorProps): JSX.Element {
     return (
         <Card
             key={author.id}
@@ -27,9 +31,9 @@ export default function UserContainer({ author }: { author: Author }): JSX.Eleme
                 width='320'
                 priority
             />
-            <CardContent className='p-4'>
+            <CardContent className='flex h-full w-full flex-col items-center justify-center gap-y-4 p-4'>
                 <div className='flex w-full items-center justify-between'>
-                    <h2 className='text-2xl font-bold transition-all duration-200 hover:text-gray-700'>
+                    <h2 className='w-full text-2xl font-bold transition-all duration-200 hover:text-gray-700'>
                         {author.name} {author.surname}
                     </h2>
                     <Badge className='gap-x-2'>
@@ -37,8 +41,8 @@ export default function UserContainer({ author }: { author: Author }): JSX.Eleme
                         {author.programmingLanguages.length}
                     </Badge>
                 </div>
-                <h3 className='text-gray-500 transition-all duration-200 hover:text-gray-600'>{author.email}</h3>
-                <div>
+                <h3 className='w-full text-gray-500 transition-all duration-200 hover:text-gray-600'>{author.email}</h3>
+                <div className='w-full'>
                     {author.about.raw.children.map(({ type, children }) => (
                         <p
                             key={type + crypto.randomBytes(4).toString('hex')}
@@ -48,18 +52,13 @@ export default function UserContainer({ author }: { author: Author }): JSX.Eleme
                         </p>
                     ))}
                 </div>
-                <div className='mt-4 flex space-x-2'>
-                    <SocialMedia title='github' authorId={author.id} />
-                    <Button
-                        className='w-full transition-all duration-200 hover:border-gray-700 hover:text-gray-700'
-                        size='sm'
-                        variant='outline'
-                    >
-                        <Link className='flex h-full w-full items-center justify-center' href={`user/${author.slug}`}>
-                            Profile Git
-                        </Link>
-                    </Button>
-                </div>
+                {author.social.length > 0 && (
+                    <div className='grid w-full grid-cols-2 gap-2'>
+                        {author.social.map((s) => (
+                            <SocialMedia key={s.id} {...s} text iterator={author.social.length} />
+                        ))}
+                    </div>
+                )}
             </CardContent>
         </Card>
     )
