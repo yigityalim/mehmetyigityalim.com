@@ -33,9 +33,6 @@ export default function ProductionMode({ children }: ProductionModeState): JSX.E
     if (isDevelopmentMode) {
         return (
             <Container className='flex min-h-screen items-center justify-center gap-y-12'>
-                <blockquote className='text-lg font-bold italic text-red-400'>
-                    Bu sayfa geliştirme aşamasında
-                </blockquote>
                 <AnimatedText text='Mehmet Yiğit Yalım' afterDelay={() => handleClick()} />
                 {buttonActive && (
                     <Button size='lg' className='text-lg' onClick={handleClick}>
