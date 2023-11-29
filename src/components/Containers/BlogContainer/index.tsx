@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Blog } from 'lib/types/blog'
+import { Blog } from '@/lib/types/blog'
 import { cn, formatDateTime } from '@/utils'
 import { ChevronDown } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'

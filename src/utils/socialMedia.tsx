@@ -3,7 +3,7 @@ import { FaXTwitter, FaSquareThreads } from 'react-icons/fa6'
 import React from 'react'
 import hygraph, { gql } from '@/graphql'
 import { Button } from 'components/ui/button'
-import { Author } from 'lib/types/Author'
+import { Author } from '@/lib/types/Author'
 import { cn } from 'utils/index'
 
 type Props = Author['social'][number] & {

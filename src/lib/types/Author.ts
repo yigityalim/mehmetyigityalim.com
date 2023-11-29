@@ -1,4 +1,4 @@
-import { Blog } from 'lib/types/blog'
+import { Blog } from '@/lib/types/blog'
 
 type Author = {
     id: string

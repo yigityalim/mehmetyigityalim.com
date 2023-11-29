@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { motion, Variants } from 'framer-motion'
-import { GithubRepositoryType } from 'lib/types/github'
+import { GithubRepositoryType } from '@/lib/types/github'
 import { Badge } from 'components/ui/badge'
 import { format } from 'date-fns'
 import { textColorForBackground } from '@/utils'

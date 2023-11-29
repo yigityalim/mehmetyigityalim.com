@@ -1,6 +1,6 @@
 import { CardContent, Card } from 'components/ui/card'
 import { Button } from 'components/ui/button'
-import { Author } from 'lib/types/Author'
+import { Author } from '@/lib/types/Author'
 import { JSX } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'

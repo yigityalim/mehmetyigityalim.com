@@ -1,5 +1,5 @@
-import { type GithubRepositoryType } from 'lib/types/github'
-import { VercelProject as VercelProjectType } from 'lib/types/vercel'
+import { type GithubRepositoryType } from '@/lib/types/github'
+import { VercelProject as VercelProjectType } from '@/lib/types/vercel'
 
 export async function useGithub(): Promise<GithubRepositoryType[]> {
     const response: Response = await fetch(process.env.GITHUB_USER_URL!)

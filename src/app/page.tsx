@@ -4,7 +4,7 @@ import { gql } from 'graphql-request'
 import hygraph from '@/graphql'
 import Image from 'next/image'
 import { SocialMediaSwitchContainer, SocialMedia } from 'components/SocialMedia'
-import type { Home } from 'lib/types/home'
+import type { Home } from '@/lib/types/home'
 import RequestJob from 'components/RequestJob'
 import RequestProject from 'components/RequestProject'
 
@@ -46,9 +46,11 @@ export default async function Home(): Promise<JSX.Element> {
                         width={150}
                         height={150}
                         className='aspect-square rounded-full object-contain'
+                        quality={100}
+                        priority
                     />
                     <h1 className='text-4xl font-bold tracking-tight text-gray-900 dark:text-white'>{title}</h1>
-                    <pre className='max-w-full overflow-x-scroll p-0.5 font-sans text-lg text-gray-600 dark:text-gray-400'>
+                    <pre className='max-w-full overflow-x-scroll p-0.5 font-sans text-base text-gray-600 dark:text-gray-400'>
                         {description}
                     </pre>
                     <RequestJob />

@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect } from 'react'
 import { SocialMedia } from 'components/SocialMedia/socialMedia'
-import { Social } from 'lib/types/home'
+import { Social } from '@/lib/types/home'
 import { Switch } from 'components/ui/switch'
 
 type SocialMediaSwitchProps = Readonly<{

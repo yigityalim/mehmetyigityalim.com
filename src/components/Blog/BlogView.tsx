@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { Blog } from 'lib/types/blog'
+import { Blog } from '@/lib/types/blog'
 import { Spinner } from 'components/Spinner'
 import BlogContiner from 'components/Containers/BlogContainer'
 import { Separator } from 'components/ui/separator'

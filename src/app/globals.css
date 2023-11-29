@@ -21,3 +21,29 @@ body {
 [data-rehype-pretty-code-fragment] {
     width: 100%;
 }
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.background-animate {
+    background-size: 800%;
+    -webkit-animation: backgroundAnimate 10s ease infinite;
+    -moz-animation: backgroundAnimate 10s ease infinite;
+    animation: backgroundAnimate 10s ease infinite;
+}
+
+@keyframes backgroundAnimate {
+    0%,
+    100% {
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}

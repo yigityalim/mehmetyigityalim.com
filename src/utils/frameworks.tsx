@@ -1,4 +1,4 @@
-import { VercelProject } from 'lib/types/vercel'
+import { VercelProject } from '@/lib/types/vercel'
 import React from 'react'
 
 // veriler şuradan çekilmiştir: https://api-frameworks.vercel.sh/framework-logos

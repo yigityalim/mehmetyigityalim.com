@@ -1,10 +1,10 @@
 import React from 'react'
 import Container from 'components/Containers'
-import { Author } from 'lib/types/Author'
+import { Author } from '@/lib/types/Author'
 import hygraph from '@/graphql'
-import { ALL_AUTHORS } from '@/graphql/queries'
 import { Metadata } from 'next'
 import UserContainer from 'components/Containers/UserContainer'
+import { gql } from 'graphql-request'
 
 export const metadata: Metadata = {
     title: 'Kullanıcılar',
@@ -24,3 +24,52 @@ export default async function Page(): Promise<React.JSX.Element> {
         </Container>
     )
 }
+
+const ALL_AUTHORS = gql`
+    {
+        authors {
+            id
+            name
+            surname
+            email
+            age
+            programmingLanguages {
+                id
+                name
+                color {
+                    hex
+                }
+            }
+            picture {
+                url
+                width
+                height
+            }
+            slug
+            about {
+                raw
+            }
+            createdBy {
+                id
+            }
+            blogs {
+                id
+                title
+                slug
+                coverPhoto {
+                    url
+                    width
+                    height
+                }
+                postColor {
+                    hex
+                }
+            }
+            social {
+                id
+                title
+                url
+            }
+        }
+    }
+`

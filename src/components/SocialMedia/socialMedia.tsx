@@ -2,7 +2,7 @@
 
 import { JSX, useState } from 'react'
 import { cn } from '@/utils'
-import type { Social } from 'lib/types/home'
+import type { Social } from '@/lib/types/home'
 import { BsInstagram, BsLinkedin, BsSnapchat, BsDiscord, BsSpotify, BsGithub, BsTwitterX } from 'react-icons/bs'
 import { motion, Variants } from 'framer-motion'
 

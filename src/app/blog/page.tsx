@@ -1,13 +1,13 @@
 import React from 'react'
 import hygraph from '@/graphql'
-import { ALL_BLOGS } from '@/graphql/queries'
-import { Blogs } from 'lib/types/blog'
+import { Blogs } from '@/lib/types/blog'
 import BlogContiner from 'components/Containers/BlogContainer'
 import Container from 'components/Containers'
 import { Separator } from 'components/ui/separator'
 import { Metadata } from 'next'
 import { Spinner } from 'components/Spinner'
 import BlogView from 'components/Blog/BlogView'
+import { gql } from 'graphql-request'
 
 export const metadata: Metadata = {
     title: 'Blog Sayfası',
@@ -23,3 +23,50 @@ export default async function Page(): Promise<React.JSX.Element> {
         </Container>
     )
 }
+
+const ALL_BLOGS = gql`
+    {
+        blogs {
+            id
+            title
+            slug
+            coverPhoto {
+                url
+                width
+                height
+            }
+            content {
+                raw
+            }
+            postColor {
+                hex
+            }
+            datePublished
+
+            author {
+                id
+                name
+                surname
+                email
+                age
+
+                programmingLanguages {
+                    id
+                    name
+                    color {
+                        hex
+                    }
+                }
+                picture {
+                    url
+                    width
+                    height
+                }
+                slug
+                about {
+                    raw
+                }
+            }
+        }
+    }
+`

@@ -2,13 +2,13 @@ import React from 'react'
 import hygraph from '@/graphql'
 import Link from 'next/link'
 import Image from 'next/image'
-import { BLOG_BY_SLUG } from '@/graphql/queries'
-import { cn, formatDateTime } from '@/utils'
-import { Blog } from 'lib/types/blog'
-import { ArrowLeft } from 'components/Icon'
+import { cn } from '@/utils'
+import { Blog } from '@/lib/types/blog'
 import Container from 'components/Containers'
+import { gql } from 'graphql-request'
+import { Metadata } from 'next'
 
-export async function generateMetadata({ params }: { params: { id: string } }) {
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
     const { blog } = await hygraph.request<{ blog: Blog }>(BLOG_BY_SLUG, {
         slug: params.id,
     })
@@ -18,12 +18,22 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     }
 }
 
+export async function generateStaticParams(): Promise<{ params: { id: string } }[]> {
+    const { blogs } = await hygraph.request<{ blogs: Blog[] }>(`
+        query {
+            blogs {
+                slug
+            }
+        }
+    `)
+
+    return blogs.map(({ slug }) => ({ params: { id: slug } }))
+}
+
 export default async function Page({ params }: { params: { id: string } }): Promise<React.JSX.Element> {
     const { blog } = await hygraph.request<{ blog: Blog }>(BLOG_BY_SLUG, {
         slug: params.id,
     })
-
-    console.log(blog)
     return (
         <Container className={cn(blog.title.length > 10 ? 'gap-y-4' : 'gap-y-1')}>
             <div className='flex w-full items-center justify-between gap-x-2'>
@@ -66,3 +76,47 @@ export default async function Page({ params }: { params: { id: string } }): Prom
         </Container>
     )
 }
+
+const BLOG_BY_SLUG = gql`
+    query BlogsBySlug($slug: String!) {
+        blog(where: { slug: $slug }) {
+            title
+            slug
+            coverPhoto {
+                url
+                width
+                height
+            }
+            content {
+                raw
+            }
+            postColor {
+                hex
+            }
+            datePublished
+            author {
+                id
+                name
+                surname
+                email
+                age
+                programmingLanguages {
+                    id
+                    name
+                    color {
+                        hex
+                    }
+                }
+                picture {
+                    url
+                    width
+                    height
+                }
+                slug
+                about {
+                    raw
+                }
+            }
+        }
+    }
+`

@@ -1,6 +1,6 @@
 'use client'
 
-import { JSX, ReactNode, Suspense, useEffect, useState } from 'react'
+import { JSX, ReactNode, Suspense, useCallback, useEffect, useState } from 'react'
 import Footer from 'components/Footer'
 import Header from 'components/Header'
 import Container from 'components/Containers'
@@ -25,15 +25,16 @@ export default function ProductionMode({ children }: ProductionModeState): JSX.E
         if (hasVisited) setIsDevelopmentMode(false)
     }, [])
 
-    function handleClick() {
+    const handleClick = useCallback(() => {
+        if (buttonActive) return
         setIsDevelopmentMode(false)
         sessionStorage.setItem('hasVisited', 'true')
-    }
+    }, [buttonActive])
 
     if (isDevelopmentMode) {
         return (
             <Container className='flex min-h-screen items-center justify-center gap-y-12'>
-                <AnimatedText text='Mehmet Yiğit Yalım' afterDelay={() => handleClick()} />
+                <AnimatedText text='Mehmet Yiğit Yalım' afterDelay={handleClick} />
                 {buttonActive && (
                     <Button size='lg' className='text-lg' onClick={handleClick}>
                         Sayfaya git

@@ -1,13 +1,13 @@
 import React from 'react'
 import hygraph, { gql } from '@/graphql'
-import { AUTHORS_BY_SLUG } from '@/graphql/queries'
 import { cn } from '@/utils'
-import { Author } from 'lib/types/Author'
+import { Author } from '@/lib/types/Author'
 import AuthorContainer from 'components/Containers/AuthorContainer'
 import Container from 'components/Containers'
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<{ params: { id: string } }[]> {
     const { authors } = await hygraph.request<{ authors: Author[] }>(gql`
         query {
             authors {
@@ -19,11 +19,7 @@ export async function generateStaticParams() {
     return authors.map(({ slug }) => ({ params: { id: slug } }))
 }
 
-export async function generateMetadata({
-    params,
-}: {
-    params: { id: string }
-}): Promise<{ title: string; description: string }> {
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
     const { author } = await hygraph.request<{ author: Author }>(
         gql`
             query ($slug: String!) {
@@ -63,3 +59,52 @@ export default async function Page({ params }: { params: { id: string } }): Prom
         </Container>
     )
 }
+
+const AUTHORS_BY_SLUG = gql`
+    query AuthorBySlug($slug: String!) {
+        author(where: { slug: $slug }) {
+            id
+            name
+            surname
+            email
+            age
+            programmingLanguages {
+                id
+                name
+                color {
+                    hex
+                }
+            }
+            picture {
+                url
+                width
+                height
+            }
+            slug
+            about {
+                raw
+            }
+            createdBy {
+                id
+            }
+            blogs {
+                id
+                title
+                slug
+                coverPhoto {
+                    url
+                    width
+                    height
+                }
+                postColor {
+                    hex
+                }
+            }
+            social {
+                id
+                title
+                url
+            }
+        }
+    }
+`
