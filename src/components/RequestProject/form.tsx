@@ -3,7 +3,7 @@ import sendEmail from 'components/RequestProject/sendEmail'
 
 export default function ResendForm() {
     return (
-        <form action={async (formData) => await sendEmail(formData)}>
+        <form action={sendEmail}>
             <input name='from' placeholder='Email' />
             <input name='subject' placeholder='Subject' />
             <textarea name='text' placeholder='Message' />

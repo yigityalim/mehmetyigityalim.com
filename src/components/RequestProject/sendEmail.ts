@@ -15,8 +15,7 @@ export default async function sendEmail(formData: FormData) {
         text: text as string,
     })
     if (error) {
-        console.log(error)
-        return false
+        console.error(error)
     }
     console.log(data)
 }
