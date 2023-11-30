@@ -53,7 +53,7 @@ export default [
             {
                 border: false,
                 text: 'Hemen Başla',
-                href: 'baslangic',
+                href: 'basic',
             },
         ],
     },
@@ -80,8 +80,8 @@ export default [
         button: [
             {
                 border: true,
-                text: 'Yükselt',
-                href: 'orta',
+                text: 'Teklif Al',
+                href: 'standart',
             },
         ],
     },
@@ -108,13 +108,14 @@ export default [
         button: [
             {
                 border: true,
-                text: 'Yükselt',
-                href: 'gelistirilmis',
+                text: 'Destek Al',
+                href: 'contact',
+                supPage: true,
             },
             {
                 border: false,
                 text: 'Özel Teklif Al',
-                href: 'teklif',
+                href: 'advanced',
             },
         ],
     },
