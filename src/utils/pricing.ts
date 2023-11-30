@@ -21,6 +21,7 @@ export type Pricing = {
     recommended?: boolean
 
     [key: string]: any
+
     button: Array<{
         border: boolean
         text: string
@@ -90,7 +91,7 @@ export default [
         name: 'Gelişmiş',
         description:
             'Next.js ile en gelişmiş web sitelerini oluşturun. TypeScript, testler, oturum yönetimi, ödeme entegrasyonu ve SEO desteği ile güçlendirilmiş.',
-        price: 'Custom',
+        price: 15000, // 'Custom',
         pageNumber: 10,
         revision: 5,
         framework: 'Next.js',

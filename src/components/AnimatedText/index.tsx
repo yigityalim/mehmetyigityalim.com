@@ -49,7 +49,7 @@ export default function AnimatedText({
 
         if (mounted) animate().catch(console.error)
         return () => clearTimeout(timeout)
-    }, [isInView, controls, mounted])
+    }, [isInView, controls, mounted, afterDelay])
 
     return (
         <Wrapper

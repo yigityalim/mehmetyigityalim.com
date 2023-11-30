@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     description: 'Fiyatlandırma listesi',
 }
 
-export default function Pricing(): React.JSX.Element {
+export default async function Pricing(): Promise<React.ReactElement> {
     return (
         <Container>
             <h1 className='m-4 ml-0 text-4xl font-bold leading-tight tracking-wide'>
