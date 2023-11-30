@@ -5,27 +5,14 @@ import { useOverlayMenu } from 'store/menu'
 import { useRouter } from 'next/navigation'
 import { cn } from '@/utils'
 
-type TitleProps = Readonly<{
-    title?: string
-}>
-
-export function Title({ title }: TitleProps): React.JSX.Element {
-    const { title: t } = useTitle()
+export function Title(): React.JSX.Element {
+    const { isSub, title } = useTitle()
     const { menu } = useOverlayMenu()
     const { back } = useRouter()
 
     return (
         <div className={cn('flex h-full w-full items-center gap-x-4 transition', menu && 'opacity-0')}>
-            {t ? (
-                <h1
-                    className={cn(
-                        'w-full text-2xl font-bold leading-9 tracking-wider transition',
-                        menu && 'translate-y-[-5px] opacity-0'
-                    )}
-                >
-                    {t}
-                </h1>
-            ) : (
+            {isSub ? (
                 <svg
                     onClick={() => {
                         back()
@@ -38,6 +25,15 @@ export function Title({ title }: TitleProps): React.JSX.Element {
                 >
                     <path d='m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z' />
                 </svg>
+            ) : (
+                <h1
+                    className={cn(
+                        'w-full text-2xl font-bold leading-9 tracking-wider transition',
+                        menu && 'translate-y-[-5px] opacity-0'
+                    )}
+                >
+                    {title}
+                </h1>
             )}
         </div>
     )

@@ -5,7 +5,7 @@ import hygraph from '@/graphql'
 import Image from 'next/image'
 import { SocialMediaSwitchContainer } from 'components/SocialMedia'
 import type { Home } from 'lib/types/home'
-import RequestJob from 'components/RequestJob'
+//import RequestJob from 'components/RequestJob'
 import RequestProject from 'components/RequestProject'
 
 const HOME_PAGE_QUERY: string = gql`
@@ -53,7 +53,7 @@ export default async function Home(): Promise<JSX.Element> {
                     <pre className='max-w-full overflow-x-scroll p-0.5 font-sans text-base text-gray-600 dark:text-gray-400'>
                         {description}
                     </pre>
-                    <RequestJob />
+                    {/*<RequestJob />*/}
                     <RequestProject />
                     <SocialMediaSwitchContainer social={social} />
                 </>

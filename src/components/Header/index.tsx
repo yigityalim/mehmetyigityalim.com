@@ -5,22 +5,6 @@ import { OverlayMenu } from 'components/Header/OverlayMenu'
 import { Title } from 'components/Header/Title'
 import { cn } from '@/utils'
 import { useOverlayMenu } from 'store/menu'
-import { gql } from 'graphql-request'
-
-const HOME_PAGE_QUERY = gql`
-    {
-        homePages {
-            id
-            title
-            picture {
-                url
-                width
-                height
-            }
-        }
-    }
-`
-
 export default function Header(): React.JSX.Element {
     const { menu } = useOverlayMenu()
 

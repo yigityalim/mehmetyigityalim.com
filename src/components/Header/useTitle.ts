@@ -5,6 +5,20 @@ import useMenu, { Menu } from '@/utils/menu'
 export default function useTitle() {
     const pathname: string = usePathname()
     const menu = useMenu()
+    const handleSubMenu = () => {
+        const pathParts = pathname.split('/').filter(Boolean)
+        const isParentRoute = menu.find((item: Menu) => item.path === pathname)
+        const isSubRoute = pathParts.length > 1 && menu.find((item: Menu) => item.path === `/${pathParts[0]}`)
+
+        if (isSubRoute) {
+            return true
+        } else if (isParentRoute) {
+            return false
+        } else {
+            return false
+        }
+    }
+
     const handleTitle = () => {
         const isParentRoute = menu.find((item: Menu) => item.path === pathname)
         if (isParentRoute) {
@@ -15,6 +29,7 @@ export default function useTitle() {
 
     return {
         pathname,
+        isSub: handleSubMenu(),
         title: handleTitle(),
     }
 }

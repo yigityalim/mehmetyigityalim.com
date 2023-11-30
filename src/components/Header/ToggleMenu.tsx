@@ -7,14 +7,7 @@ import { cn } from '@/utils'
 export function ToggleMenu(): React.JSX.Element {
     const { menu, setMenu } = useOverlayMenu()
     return (
-        <Button
-            variant='link'
-            size='icon'
-            onClick={() => {
-                setMenu(!menu)
-                document.body.style.overflow = menu ? '' : 'hidden'
-            }}
-        >
+        <Button variant='link' size='icon' onClick={() => setMenu(!menu)}>
             <div className='flex h-full w-full flex-col items-center justify-center gap-y-2'>
                 <span
                     className={cn(

@@ -10,20 +10,23 @@ export function PricingCard({ pricing }: Readonly<{ pricing: Pricing }>) {
     return (
         <div className='relative min-h-full w-full' key={pricing.id}>
             <RenderBackdrop
-                condition={pricing.mostPopular || pricing.recommended}
+                condition={pricing.mostPopular ?? pricing.recommended}
                 className={pricing.color?.backdrop}
             />
             <Card
                 className={cn('relative h-full', (pricing.mostPopular || pricing.recommended) && pricing.color?.border)}
             >
                 <RenderTop
-                    condition={pricing.mostPopular || pricing.recommended}
+                    condition={pricing.mostPopular ?? pricing.recommended}
                     className={pricing.color?.top}
                     text={pricing.mostPopular ? 'En Popüler' : 'Önerilen'}
                 />
                 <CardHeader>
                     <h1 className={cn('text-3xl font-bold', pricing.color?.heading)}>{pricing.name}</h1>
-                    <CardTitle className='gap-y-4'>{formatPrice(pricing.price)}</CardTitle>
+                    <CardTitle>
+                        {formatPrice(pricing.price)}
+                        <span className='ml-1 text-xs text-gray-200 dark:text-gray-400'>min.</span>
+                    </CardTitle>
                     <CardDescription className='text-xs'>{pricing?.description}</CardDescription>
                 </CardHeader>
                 <CardContent className='flex flex-col items-center justify-start gap-y-2'>
