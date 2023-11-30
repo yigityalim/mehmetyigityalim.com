@@ -3,7 +3,7 @@ import Container from 'components/Containers'
 import { Metadata } from 'next'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from 'components/ui/tabs'
 import { GithubProject, VercelProject } from 'components/Project'
-import { useGithub, useVercel } from '@/lib/hooks'
+import { useGithub, useVercel } from 'lib/hooks'
 
 export const metadata: Metadata = {
     title: 'Projeler',

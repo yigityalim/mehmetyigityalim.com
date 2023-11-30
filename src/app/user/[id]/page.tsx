@@ -1,7 +1,7 @@
 import React from 'react'
 import hygraph, { gql } from '@/graphql'
 import { cn } from '@/utils'
-import { Author } from '@/lib/types/Author'
+import { Author } from 'lib/types/Author'
 import AuthorContainer from 'components/Containers/AuthorContainer'
 import Container from 'components/Containers'
 import { notFound } from 'next/navigation'

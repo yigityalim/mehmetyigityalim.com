@@ -19,11 +19,8 @@ const buttonVariants = cva(
                     'bg-zinc-100 text-zinc-900 hover:bg-zinc-100/80 dark:bg-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-800/80',
                 ghost: 'hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-50',
                 link: 'text-zinc-900 underline-offset-4 hover:underline dark:text-zinc-50',
-                instagram: 'bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white',
-                twitter: 'bg-[#1da1f2] text-white hover:bg-[#1a91da] dark:bg-[#1da1f2] dark:hover:bg-[#1a91da]',
-                facebook: 'bg-[#1877f2] text-white hover:bg-[#166fe5] dark:bg-[#1877f2] dark:hover:bg-[#166fe5]',
-                github: 'bg-[#333] text-white hover:bg-[#222] dark:bg-[#333] dark:hover:bg-[#222]',
-                linkedin: 'bg-[#0a66c2] text-white hover:bg-[#0a5ba8] dark:bg-[#0a66c2] dark:hover:bg-[#0a5ba8]',
+                red: 'bg-red-500 text-zinc-50 hover:bg-red-500/90 dark:bg-red-800 dark:text-zinc-50 dark:hover:bg-red-800/90',
+                indigo: 'bg-indigo-500 text-zinc-50 hover:bg-indigo-500/90 dark:bg-indigo-900 dark:text-zinc-50 dark:hover:bg-indigo-900/90',
             },
             size: {
                 default: 'h-10 px-4 py-2',

@@ -1,6 +1,6 @@
 import React from 'react'
 import Container from 'components/Containers'
-import { Author } from '@/lib/types/Author'
+import { Author } from 'lib/types/Author'
 import hygraph from '@/graphql'
 import { Metadata } from 'next'
 import UserContainer from 'components/Containers/UserContainer'

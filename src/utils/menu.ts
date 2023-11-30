@@ -16,6 +16,11 @@ export default function useMenu(): Menu[] {
             path: '/',
         },
         {
+            title: t('Fiyatlar', 'Pricing'),
+            name: 'pricing',
+            path: '/pricing',
+        },
+        {
             title: t('İletişim', 'Contact'),
             name: 'contact',
             path: '/contact',
@@ -39,11 +44,6 @@ export default function useMenu(): Menu[] {
             title: t('Hakkımda', 'About'),
             name: 'about',
             path: '/about',
-        },
-        {
-            title: t('Fiyatlar', 'Pricing'),
-            name: 'pricing',
-            path: '/pricing',
         },
     ] as Menu[]
 }

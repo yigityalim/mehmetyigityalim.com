@@ -1,7 +1,6 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { format as _format } from 'date-fns'
-import { tr } from 'date-fns/locale'
 
 export function cn(...inputs: ClassValue[]): string {
     return twMerge(clsx(inputs))
@@ -21,6 +20,14 @@ export function hexToRgb(hex: string): { r: number; g: number; b: number } {
         g: parseInt(result[2], 16),
         b: parseInt(result[3], 16),
     }
+}
+
+export function formatPrice(price: number): string {
+    return new Intl.NumberFormat('tr-TR', {
+        style: 'currency',
+        currency: 'TRY',
+        minimumFractionDigits: 0,
+    }).format(price)
 }
 
 export function textColorForBackground(color: string): string {

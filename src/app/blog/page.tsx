@@ -1,11 +1,8 @@
 import React from 'react'
 import hygraph from '@/graphql'
-import { Blogs } from '@/lib/types/blog'
-import BlogContiner from 'components/Containers/BlogContainer'
+import { Blogs } from 'lib/types/blog'
 import Container from 'components/Containers'
-import { Separator } from 'components/ui/separator'
 import { Metadata } from 'next'
-import { Spinner } from 'components/Spinner'
 import BlogView from 'components/Blog/BlogView'
 import { gql } from 'graphql-request'
 
