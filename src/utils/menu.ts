@@ -40,5 +40,10 @@ export default function useMenu(): Menu[] {
             name: 'about',
             path: '/about',
         },
+        {
+            title: t('Fiyatlar', 'Pricing'),
+            name: 'pricing',
+            path: '/pricing',
+        },
     ] as Menu[]
 }

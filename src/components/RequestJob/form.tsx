@@ -1,5 +1,5 @@
 import React from 'react'
-import sendEmail from 'components/RequestProject/sendEmail'
+import sendEmail from './sendEmail'
 
 export default function ResendForm() {
     return (
