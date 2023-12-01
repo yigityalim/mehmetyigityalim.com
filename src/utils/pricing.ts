@@ -126,7 +126,7 @@ const prices = [
         //i18n: true,
         color: {
             heading: 'text-red-500 dark:text-red-600',
-            backdrop: 'bg-gradient-to-r from-red-900 to-yellow-600',
+            backdrop: 'bg-gradient-to-r from-red-900 to-yellow-800',
             border: 'z-50 animate-tilt border-2 border-red-500 dark:border-red-700',
             top: 'border-red-500 text-red-500 dark:border-red-700 dark:bg-zinc-950 dark:text-red-600',
             button: 'indigo',
@@ -137,7 +137,7 @@ const prices = [
                 border: true,
                 text: 'Destek Al',
                 href: 'contact',
-                supPage: true,
+                supPage: true as boolean,
                 colorVariant: 'default',
             },
             {
@@ -168,7 +168,7 @@ export const PlanPrice: Array<Record<string, number>> = [
 ]
 
 export function calculatePrice(planName: Pricing['name']): number {
-    const selectedPlan: Pricing | undefined = prices.find((plan) => plan.name === planName)
+    const selectedPlan: Pricing | undefined = prices.find(({ name }) => name === planName)
 
     if (selectedPlan) {
         const basePrice: number = selectedPlan.price
