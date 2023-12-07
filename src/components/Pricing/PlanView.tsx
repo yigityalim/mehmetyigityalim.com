@@ -183,4 +183,5 @@ export const PlanView: React.FC<{ plan: Pricing }> = React.memo(({ plan }) => {
     )
 })
 
+PlanView.displayName = 'PlanView'
 export default PlanView
