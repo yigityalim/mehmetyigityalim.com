@@ -5,15 +5,15 @@
 /**
  * Copied from Reach UI utils...
  *
- * It fixes TypeScript type inferencing to work with <Comp as={AnotherComp} />
+ * It fixes TypeScript [type] inferencing to work with <Comp as={AnotherComp} />
  */
 
 import * as React from 'react'
 
 /**
- * React.Ref uses the readonly type `React.RefObject` instead of
+ * React.Ref uses the readonly [type] `React.RefObject` instead of
  * `React.MutableRefObject`, We pretty much always assume ref objects are
- * mutable (at least when we create them), so this type is a workaround so some
+ * mutable (at least when we create them), so this [type] is a workaround so some
  * of the weird mechanics of using refs with TS.
  */
 export type AssignableRef<ValueType> =
@@ -28,7 +28,7 @@ export type AssignableRef<ValueType> =
 // I kind of hacked around until I got this to work using some other projects,
 // as a rough guide, but it does seem to work so, err, that's cool? Yay TS! 🙃
 // P = additional props
-// T = type of component to render
+// T = [type] of component to render
 
 export type As<BaseProps = any> = React.ElementType<BaseProps>
 

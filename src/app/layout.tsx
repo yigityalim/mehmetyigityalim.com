@@ -6,7 +6,6 @@ import React from 'react'
 
 import Providers from 'components/Providers/clientSideProvider'
 import ProductionMode from 'components/ProductionMode'
-import TailwindIndicator from 'components/TailwindIndicator'
 import { cn } from '@/utils'
 import { Toaster } from 'components/ui/toaster'
 
@@ -46,7 +45,9 @@ export default function RootLayout({ children }: RootLayoutProps): React.JSX.Ele
                     <ProductionMode>{children}</ProductionMode>
                 </Providers>
                 <Analytics />
-                <TailwindIndicator />
+                {/*
+                    <TailwindIndicator />
+                */}
                 <Toaster />
             </body>
         </html>

@@ -1,13 +1,13 @@
 import { ButtonProps } from 'components/ui/button'
 import crypto from 'crypto'
-import { CSSProperties } from 'react'
 
 export type Pricing = {
     id: string
     name: string
-    type: 'plan' | string
+    type: 'basic' | 'standart' | 'advanced'
     description?: string
     price: number
+
     pageNumber: number
     revision: number
     framework: string | null
@@ -48,7 +48,7 @@ export const pricing = [
     {
         id: crypto.randomBytes(4).toString('hex'),
         name: 'Başlangıç',
-        type: 'plan',
+        type: 'basic',
         description:
             'Temel web siteleri için ideal bir başlangıç. HTML, CSS ve JS ile oluşturulmuş, kullanımı kolay ve hızlı.',
         price: 5000,
@@ -77,7 +77,7 @@ export const pricing = [
     {
         id: crypto.randomBytes(4).toString('hex'),
         name: 'Orta',
-        type: 'plan',
+        type: 'standart',
         description:
             'Vite.js ile güçlendirilmiş, hızlı ve modern web siteleri için ideal. TypeScript desteğiyle performansı artırın.',
         price: 10000,
@@ -113,7 +113,7 @@ export const pricing = [
     {
         id: crypto.randomBytes(4).toString('hex'),
         name: 'Gelişmiş',
-        type: 'plan',
+        type: 'advanced',
         description:
             'Next.js ile en gelişmiş web sitelerini oluşturun. TypeScript, testler, oturum yönetimi, ödeme entegrasyonu ve SEO desteği ile güçlendirilmiş.',
         price: 15000, // 'Custom',
@@ -156,4 +156,18 @@ export const pricing = [
     },
 ] as Pricing[]
 
-
+export const addPricing: Record<keyof Pricing, number> = {
+    pageNumber: 500,
+    revision: 500,
+    framework: 500,
+    typeScript: 500,
+    testing: 500,
+    design: 500,
+    auth: 500,
+    payment: 500,
+    seo: 500,
+    analytics: 500,
+    hosting: 500,
+    dns: 500,
+    i18n: 500,
+}

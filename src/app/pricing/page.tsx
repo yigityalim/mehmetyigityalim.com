@@ -12,6 +12,10 @@ export const metadata: Metadata = {
     description: 'Fiyatlandırma listesi',
 }
 
+export async function generateStaticParams() {
+    return pricing.map((pricing) => ({ params: { type: pricing.type } }))
+}
+
 export default async function Pricing(): Promise<React.ReactElement> {
     return (
         <Container>
