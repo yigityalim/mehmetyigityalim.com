@@ -1,8 +1,10 @@
 import React from 'react'
 import Container from 'components/Containers'
-import pricing from 'utils/pricing'
+import { pricing, quickJobs } from 'utils/pricing'
 import { Metadata } from 'next'
 import { PricingCard } from 'components/Pricing'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from 'components/ui/accordion'
+import QuickJobCard from 'components/Pricing/QuickJobCard'
 
 export const metadata: Metadata = {
     title: 'Fiyatlandırma',
@@ -23,6 +25,16 @@ export default async function Pricing(): Promise<React.ReactElement> {
                     <PricingCard pricing={pricing} key={pricing.id} />
                 ))}
             </div>
+            <Accordion type='single' collapsible className='w-full'>
+                <AccordionItem value='item-1' className='w-full'>
+                    <AccordionTrigger className='w-full'>Hızlı İşlemler</AccordionTrigger>
+                    <AccordionContent className='space-y-2'>
+                        {quickJobs.map((job) => (
+                            <QuickJobCard job={job} key={job.id} />
+                        ))}
+                    </AccordionContent>
+                </AccordionItem>
+            </Accordion>
         </Container>
     )
 }

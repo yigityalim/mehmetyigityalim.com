@@ -23,6 +23,14 @@ const notoSans = Noto_Sans<'--font_noto_sans'>({
 export const metadata: Metadata = {
     title: 'Mehmet Yiğit Yalım',
     description: "Mehmet Yiğit Yalım's personal website.",
+    keywords:
+        'Mehmet Yiğit Yalım, mehmet-yigit-yalim, mehmet yigit yalim, mehmet yalim, mehmet-yalim, mehmet yalım, mehmet-yalım, mehmet, yalim, yalım, yigit, yıgıt, yıgıt, yigit, yalım, yalim',
+    applicationName: 'mehmetyigityalim.com',
+    authors: {
+        url: 'https://mehmetyigityalim.com',
+        name: 'Mehmet Yiğit Yalım',
+    },
+    referrer: 'no-referrer',
 }
 
 type RootLayoutProps = Readonly<{

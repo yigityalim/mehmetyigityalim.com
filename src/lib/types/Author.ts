@@ -22,6 +22,7 @@ type Author = {
     social: Social[]
     blogs: Blog[]
 }
+
 type ProgrammingLanguage = {
     id: string
     name: string

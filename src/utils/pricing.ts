@@ -1,8 +1,10 @@
 import { ButtonProps } from 'components/ui/button'
+import crypto from 'crypto'
 
 export type Pricing = {
-    id: number
+    id: string
     name: string
+    type: 'plan' | string
     description?: string
     price: number
     pageNumber: number
@@ -41,10 +43,22 @@ export type Pricing = {
     }>
 }
 
-const prices = [
+export type QuickJobs = {
+    id: string
+    name: string
+    type: 'quickjob' | string
+    description?: string
+    price: {
+        value: number
+        type: 'fixed' | 'hourly'
+    }
+}
+
+export const pricing = [
     {
-        id: 1,
+        id: crypto.randomBytes(4).toString('hex'),
         name: 'Başlangıç',
+        type: 'plan',
         description:
             'Temel web siteleri için ideal bir başlangıç. HTML, CSS ve JS ile oluşturulmuş, kullanımı kolay ve hızlı.',
         price: 5000,
@@ -71,8 +85,9 @@ const prices = [
         ],
     },
     {
-        id: 2,
+        id: crypto.randomBytes(4).toString('hex'),
         name: 'Orta',
+        type: 'plan',
         description:
             'Vite.js ile güçlendirilmiş, hızlı ve modern web siteleri için ideal. TypeScript desteğiyle performansı artırın.',
         price: 10000,
@@ -92,7 +107,7 @@ const prices = [
         color: {
             heading: 'text-indigo-500 dark:text-indigo-600',
             backdrop: 'bg-gradient-to-r from-pink-900 to-purple-600',
-            border: 'z-50 animate-tilt border-2 border-indigo-500 dark:border-indigo-700',
+            border: 'z-50 border-2 border-indigo-500 dark:border-indigo-700',
             top: 'border-indigo-400 text-indigo-400 dark:border-indigo-700 dark:bg-zinc-950 dark:text-indigo-600',
         },
         mostPopular: true,
@@ -106,8 +121,9 @@ const prices = [
         ],
     },
     {
-        id: 3,
+        id: crypto.randomBytes(4).toString('hex'),
         name: 'Gelişmiş',
+        type: 'plan',
         description:
             'Next.js ile en gelişmiş web sitelerini oluşturun. TypeScript, testler, oturum yönetimi, ödeme entegrasyonu ve SEO desteği ile güçlendirilmiş.',
         price: 15000, // 'Custom',
@@ -127,7 +143,7 @@ const prices = [
         color: {
             heading: 'text-red-500 dark:text-red-600',
             backdrop: 'bg-gradient-to-r from-red-900 to-yellow-800',
-            border: 'z-50 animate-tilt border-2 border-red-500 dark:border-red-700',
+            border: 'z-50 border-2 border-red-500 dark:border-red-700',
             top: 'border-red-500 text-red-500 dark:border-red-700 dark:bg-zinc-950 dark:text-red-600',
             button: 'indigo',
         },
@@ -150,38 +166,84 @@ const prices = [
     },
 ] as Pricing[]
 
-export default prices
-
-export const PlanPrice: Array<Record<string, number>> = [
+export const quickJobs = [
     {
-        typeScript: 3000,
-        testing: 3000,
-        design: 3000,
-        auth: 3000,
-        payment: 3000,
-        seo: 3000,
-        analytics: 3000,
-        hosting: 2000,
-        dns: 300,
-        i18n: 3000,
+        id: crypto.randomBytes(4).toString('hex'),
+        name: 'TailwindCSS',
+        type: 'quickjob',
+        description: "TailwindCSS ile tasarımınızın HTML ve CSS'ini çıkartalım.",
+        price: {
+            value: 500,
+            type: 'fixed',
+        },
     },
-]
-
-export function calculatePrice(planName: Pricing['name']): number {
-    const selectedPlan: Pricing | undefined = prices.find(({ name }) => name === planName)
-
-    if (selectedPlan) {
-        const basePrice: number = selectedPlan.price
-        const planFeaturePrices: Record<string, number> = PlanPrice[selectedPlan.id - 1]
-        let total: number = basePrice
-
-        for (const feature in planFeaturePrices) {
-            if (selectedPlan[feature]) {
-                total += planFeaturePrices[feature]
-            }
-        }
-
-        return total
-    }
-    return prices[0].price
-}
+    {
+        id: crypto.randomBytes(4).toString('hex'),
+        name: 'TypeScript',
+        type: 'quickjob',
+        description: 'TypeScript desteği ekleyelim.',
+        price: {
+            value: 500,
+            type: 'fixed',
+        },
+    },
+    {
+        id: crypto.randomBytes(4).toString('hex'),
+        name: 'Ders',
+        type: 'quickjob',
+        description: 'Web Teknolojileri için yardımcı olalım.',
+        price: {
+            value: 300,
+            type: 'hourly',
+        },
+    },
+    {
+        id: crypto.randomBytes(4).toString('hex'),
+        name: 'Oturum Yönetimi',
+        type: 'quickjob',
+        description: 'Oturum yönetimi ekleyelim.',
+        price: 500,
+    },
+    {
+        id: crypto.randomBytes(4).toString('hex'),
+        name: 'Ödeme Entegrasyonu',
+        type: 'quickjob',
+        description: 'Ödeme entegrasyonu ekleyelim.',
+        price: 500,
+    },
+    {
+        id: crypto.randomBytes(4).toString('hex'),
+        name: 'SEO',
+        type: 'quickjob',
+        description: 'SEO Optimizasyonu ekleyelim.',
+        price: 500,
+    },
+    {
+        id: crypto.randomBytes(4).toString('hex'),
+        name: 'Analitik',
+        type: 'quickjob',
+        description: 'Analitik ekleyelim.',
+        price: 500,
+    },
+    {
+        id: crypto.randomBytes(4).toString('hex'),
+        name: 'Hosting',
+        type: 'quickjob',
+        description: 'Hosting ekleyelim.',
+        price: 500,
+    },
+    {
+        id: crypto.randomBytes(4).toString('hex'),
+        name: 'DNS',
+        type: 'quickjob',
+        description: 'DNS ekleyelim.',
+        price: 500,
+    },
+    {
+        id: crypto.randomBytes(4).toString('hex'),
+        name: 'Çoklu Dil',
+        type: 'quickjob',
+        description: 'Çoklu dil desteği ekleyelim.',
+        price: 500,
+    },
+] as QuickJobs[]

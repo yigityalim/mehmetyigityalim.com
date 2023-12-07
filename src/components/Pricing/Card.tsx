@@ -31,7 +31,7 @@ export function PricingCard({ pricing }: PricingCardProps): React.ReactElement {
                     <h1 className={cn('font-poppins text-3xl font-bold', pricing.color?.heading)}>{pricing.name}</h1>
                     <CardTitle className='font-noto-sans'>
                         {formatPrice(pricing.price)}
-                        <span className='ml-1 text-xs text-gray-200 dark:text-gray-400'>min.</span>
+                        <span className='ml-1 text-xs text-gray-500 dark:text-gray-400'>min.</span>
                     </CardTitle>
                     <CardDescription className='text-xs'>{pricing?.description}</CardDescription>
                 </CardHeader>
@@ -90,9 +90,9 @@ type SubCardProps = {
     className?: string
 }
 
-function SubCard({ text, condition, type, className }: SubCardProps): Nullable<React.ReactElement> {
+export function SubCard({ text, condition, type, className }: SubCardProps): Nullable<React.ReactElement> {
     const classNames = cn(className, {
-        'absolute -inset-0.5 animate-tilt rounded-lg opacity-75 blur transition duration-1000 group-hover:opacity-100':
+        'absolute -inset-0.5 rounded-lg opacity-75 blur transition duration-1000 group-hover:opacity-100':
             type === 'backdrop',
         'absolute -top-4 left-1/2 -translate-x-1/2 rounded-md border bg-white px-2 py-1 font-semibold': type === 'top',
         'inline-flex w-full flex-row items-center justify-start gap-x-2': type === 'feature',
