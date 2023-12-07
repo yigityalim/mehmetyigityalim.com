@@ -92,7 +92,7 @@ type SubCardProps = {
 
 export function SubCard({ text, condition, type, className }: SubCardProps): Nullable<React.ReactElement> {
     const classNames = cn(className, {
-        'absolute -inset-0.5 rounded-lg opacity-75 blur transition duration-1000 group-hover:opacity-100':
+        'absolute -inset-0.5 rounded-lg opacity-75 animate-tilt blur transition duration-1000 group-hover:opacity-100':
             type === 'backdrop',
         'absolute -top-4 left-1/2 -translate-x-1/2 rounded-md border bg-white px-2 py-1 font-semibold': type === 'top',
         'inline-flex w-full flex-row items-center justify-start gap-x-2': type === 'feature',

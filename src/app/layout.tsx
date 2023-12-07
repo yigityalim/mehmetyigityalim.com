@@ -8,6 +8,7 @@ import Providers from 'components/Providers/clientSideProvider'
 import ProductionMode from 'components/ProductionMode'
 import TailwindIndicator from 'components/TailwindIndicator'
 import { cn } from '@/utils'
+import { Toaster } from 'components/ui/toaster'
 
 const inter = Inter<'--font-inter'>({ subsets: ['latin'] })
 
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: RootLayoutProps): React.JSX.Ele
                 </Providers>
                 <Analytics />
                 <TailwindIndicator />
+                <Toaster />
             </body>
         </html>
     )

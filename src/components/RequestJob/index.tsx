@@ -8,25 +8,27 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from '@/components/ui/dialog'
+} from 'components/ui/dialog'
 import ResendForm from './form'
 
 type RequestJobProps = Readonly<{}>
 
 export default function RequestJob(props: RequestJobProps): React.JSX.Element {
     return (
-        <div className='flex h-full w-full cursor-pointer flex-row items-center justify-between gap-x-2 rounded bg-zinc-900 p-3 text-zinc-50 hover:bg-zinc-900/90 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-50/90'>
+        <div className='relative flex h-full w-full cursor-pointer flex-row items-center justify-between gap-x-2 rounded-lg bg-card px-7 py-4 leading-none text-card-dark dark:bg-black dark:text-card'>
+            <div className='absolute -inset-0.5 -z-10 animate-tilt rounded-lg bg-gradient-to-r from-blue-600 to-emerald-500 opacity-75 blur transition duration-1000 group-hover:opacity-100'></div>
             <h1>İş Teklifi gönder</h1>
             <Dialog>
                 <DialogTrigger className='text-lg'>
                     <VscFeedback />
                 </DialogTrigger>
-                <DialogContent>
+                <DialogContent className=''>
                     <DialogHeader>
-                        <DialogTitle>İş Teklifi Başvuru Formu</DialogTitle>
-                        <DialogDescription>
-                            This action cannot be undone. This will permanently delete your account and remove your data
-                            from our servers.
+                        <DialogTitle className='w-full text-start text-xl font-bold'>
+                            İş Teklifi Başvuru Formu
+                        </DialogTitle>
+                        <DialogDescription className='mb-4 w-full text-start text-base'>
+                            İş teklifi göndermek için aşağıdaki formu doldurunuz. En kısa sürede dönüş yapılacaktır.
                         </DialogDescription>
                         <ResendForm />
                     </DialogHeader>

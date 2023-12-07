@@ -1,6 +1,7 @@
 import React from 'react'
 import Container from 'components/Containers'
-import { pricing, quickJobs } from 'utils/pricing'
+import { pricing } from 'utils/pricing'
+import { quickJobs } from 'utils/quickJob'
 import { Metadata } from 'next'
 import { PricingCard } from 'components/Pricing'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from 'components/ui/accordion'
