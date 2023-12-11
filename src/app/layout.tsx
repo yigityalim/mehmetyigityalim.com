@@ -1,5 +1,5 @@
 import { Analytics } from '@vercel/analytics/react'
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter, Poppins, Noto_Sans } from 'next/font/google'
 import './globals.css'
 import React from 'react'
@@ -31,6 +31,13 @@ export const metadata: Metadata = {
         name: 'Mehmet Yiğit Yalım',
     },
     referrer: 'no-referrer',
+}
+
+export const viewport: Viewport = {
+    width: 'device-width',
+    initialScale: 1.0,
+    maximumScale: 1.0,
+    userScalable: false,
 }
 
 type RootLayoutProps = Readonly<{

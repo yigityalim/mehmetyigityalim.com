@@ -1,6 +1,8 @@
 import { ButtonProps } from 'components/ui/button'
 import crypto from 'crypto'
 
+export type Framework = 'HTML, CSS, JS' | 'Vite.js' | 'Next.js'
+
 export type Pricing = {
     id: string
     name: string
@@ -10,7 +12,13 @@ export type Pricing = {
 
     pageNumber: number
     revision: number
-    framework: string | null
+    framework: {
+        id: number
+        index: boolean
+        name: Framework
+        description: string
+        cost: number
+    }[]
     typeScript: boolean
     testing: boolean
     design: boolean
@@ -33,6 +41,7 @@ export type Pricing = {
         border?: string
         top?: string
         icon?: string
+        addPrice?: string
     }
 
     button: Array<{
@@ -43,8 +52,7 @@ export type Pricing = {
         [key: string]: any
     }>
 }
-
-export const pricing = [
+export const pricing: Pricing[] = [
     {
         id: crypto.randomBytes(4).toString('hex'),
         name: 'Başlangıç',
@@ -54,17 +62,29 @@ export const pricing = [
         price: 5000,
         pageNumber: 3,
         revision: 2,
-        framework: 'HTML, CSS, JS',
+        framework: [
+            {
+                index: true,
+                name: 'HTML, CSS, JS',
+                cost: 0,
+            },
+            {
+                name: 'Vite.js',
+                description: 'Hızlı Web Uygulamaları için',
+                cost: 1000,
+            },
+        ],
         typeScript: false,
         testing: false,
         design: true,
         auth: false,
         payment: false,
         seo: false,
-        analytics: true,
-        hosting: false,
+        analytics: false,
+        hosting: true,
         dns: true,
         i18n: false,
+        color: { addPrice: 'text-white bg-zinc-500 dark:bg-zinc-700 dark:text-zinc-300' },
         button: [
             {
                 border: false,
@@ -83,7 +103,21 @@ export const pricing = [
         price: 10000,
         pageNumber: 5,
         revision: 3,
-        framework: 'Vite.js',
+        framework: [
+            {
+                id: 0,
+                index: true,
+                name: 'Vite.js',
+                description: 'Hızlı Web Uygulamaları için',
+                cost: 0,
+            },
+            {
+                id: 1,
+                name: 'Next.js',
+                description: 'En Gelişmiş Web Uygulamaları için',
+                cost: 1000,
+            },
+        ],
         typeScript: true,
         testing: false,
         design: true,
@@ -99,6 +133,7 @@ export const pricing = [
             backdrop: 'bg-gradient-to-r from-pink-900 to-purple-600',
             border: 'z-30 border-2 border-indigo-500 dark:border-indigo-700',
             top: 'border-indigo-400 text-indigo-400 dark:border-indigo-700 dark:bg-zinc-950 dark:text-indigo-600',
+            addPrice: 'text-white bg-indigo-500 dark:bg-indigo-700 dark:text-indigo-300',
         },
         mostPopular: true,
         button: [
@@ -119,7 +154,15 @@ export const pricing = [
         price: 15000, // 'Custom',
         pageNumber: 10,
         revision: 5,
-        framework: 'Next.js',
+        framework: [
+            {
+                id: 0,
+                index: true,
+                name: 'Next.js',
+                description: 'En Gelişmiş Web Uygulamaları için',
+                cost: 0,
+            },
+        ],
         typeScript: true,
         testing: true,
         design: true,
@@ -136,6 +179,7 @@ export const pricing = [
             border: 'z-30 border-2 border-red-500 dark:border-red-700',
             top: 'border-red-500 text-red-500 dark:border-red-700 dark:bg-zinc-950 dark:text-red-600',
             button: 'indigo',
+            addPrice: 'text-white bg-red-500 dark:bg-red-700 dark:text-red-300',
         },
         recommended: true,
         button: [
@@ -156,10 +200,37 @@ export const pricing = [
     },
 ] as Pricing[]
 
-export const addPricing: Record<keyof Pricing, number> = {
+export type AddPricing = {
+    pageNumber: number
+    revision: number
+    framework: {
+        tech: Framework
+        cost: number
+    }[]
+    typeScript: number
+    testing: number
+    design: number
+    auth: number
+    payment: number
+    seo: number
+    analytics: number
+    hosting: number
+    dns: number
+    i18n: number
+}
+export const addPricing: AddPricing = {
     pageNumber: 500,
     revision: 500,
-    framework: 500,
+    framework: [
+        {
+            tech: 'Vite.js',
+            cost: 1000,
+        },
+        {
+            tech: 'Next.js',
+            cost: 1000,
+        },
+    ],
     typeScript: 500,
     testing: 500,
     design: 500,
@@ -170,4 +241,52 @@ export const addPricing: Record<keyof Pricing, number> = {
     hosting: 500,
     dns: 500,
     i18n: 500,
+} as AddPricing
+
+export type HasAddPricing = {
+    type: Pricing['type']
+    add: Array<keyof typeof addPricing>
+    priceValue: {
+        min: number
+        max: number
+    }
 }
+export const hasAddPricing: HasAddPricing[] = [
+    {
+        type: 'basic',
+        add: ['pageNumber', 'revision', 'dns', 'design', 'hosting'],
+        priceValue: {
+            min: 5000,
+            max: 7999,
+        },
+    },
+    {
+        type: 'standart',
+        add: ['pageNumber', 'design', 'revision', 'typeScript', 'testing', 'analytics', 'dns', 'i18n'],
+        priceValue: {
+            min: 8000,
+            max: 14999,
+        },
+    },
+    {
+        type: 'advanced',
+        add: [
+            'pageNumber',
+            'revision',
+            'typeScript',
+            'testing',
+            'design',
+            'auth',
+            'payment',
+            'seo',
+            'analytics',
+            'hosting',
+            'dns',
+            'i18n',
+        ],
+        priceValue: {
+            min: 15000,
+            max: Infinity,
+        },
+    },
+] as HasAddPricing[]

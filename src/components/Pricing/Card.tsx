@@ -43,11 +43,7 @@ export function PricingCard({ pricing }: PricingCardProps): React.ReactElement {
                         type='feature'
                     />
                     <SubCard
-                        text={
-                            pricing.framework === 'Vite.js'
-                                ? 'Vite.js | Next.js ile geliştirme'
-                                : (pricing.framework as string)
-                        }
+                        text={pricing.framework.find((fw) => fw.index)?.name}
                         condition={Boolean(pricing.framework)}
                         type='feature'
                     />

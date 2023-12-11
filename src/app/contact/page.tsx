@@ -1,7 +1,7 @@
 import Container from 'components/Containers'
 import { Metadata } from 'next'
 import React from 'react'
-import { Mail, Globe, Linkedin, Phone, MapPin, BookOpen, User } from 'lucide-react' // Icons for contacts
+import { Mail, Linkedin, Phone, MapPin, BookOpen, User } from 'lucide-react' // Icons for contacts
 
 export const metadata: Metadata = {
     title: 'İletişim',
@@ -18,11 +18,6 @@ export default function Contact() {
                         mehmetyigityalim@gmail.com
                     </a>
                 </Section>
-                <Section icon={<Globe size={20} />} title='Website'>
-                    <a href='' className='text-blue-500 hover:underline'>
-                        yigityalim.com
-                    </a>
-                </Section>
                 <Section icon={<Linkedin size={20} />} title='LinkedIn'>
                     <a href='https://linkedin.com/in/yigityalim' className='text-blue-500 hover:underline'>
                         linkedin.com/in/yigityalim
@@ -30,7 +25,7 @@ export default function Contact() {
                 </Section>
                 <Section icon={<Phone size={20} />} title='Telefon'>
                     <a href='tel:+905000000000' className='text-blue-500 hover:underline'>
-                        +90 553 425 0000
+                        +90 500 000 00 00
                     </a>
                 </Section>
                 <Section icon={<MapPin size={20} />} title='Konum'>

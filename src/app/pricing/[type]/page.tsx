@@ -9,7 +9,14 @@ type PageProps = Readonly<{
 }>
 
 export async function generateMetadata({ params: { type } }: PageProps): Promise<Metadata> {
-    const plan = pricing.find((plan) => plan.type === type) ?? notFound()
+    const plan = pricing.find((plan) => plan.type === type)
+
+    if (!plan)
+        return {
+            title: 'Sayfa bulunamadı',
+            description: 'Sayfa bulunamadı',
+        }
+
     return {
         title: `${plan.name} | Fiyatlandırma`,
         description: plan.description,
