@@ -2,7 +2,7 @@ import Container from 'components/Containers'
 import hygraph, { gql } from '@/graphql'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { DetailedHTMLProps, HTMLAttributes } from 'react'
-import Image, { ImageProps } from 'next/image'
+import Image from 'next/image'
 import { Badge } from 'components/ui/badge'
 
 const components = {

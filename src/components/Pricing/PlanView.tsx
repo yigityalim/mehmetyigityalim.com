@@ -12,9 +12,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'c
 type SelectedOptions = Partial<Record<keyof typeof addPricing, boolean>>
 
 const FormSchema = z.object({
-    items: z.array(z.string()).min(1, 'Select at least one item.'),
-    pageNumber: z.number().min(0, 'Page number cannot be negative.'),
-    revision: z.number().min(0, 'Revision cannot be negative.'),
+    items: z.array(z.string()).min(1, 'En az bir özellik seçmelisiniz.'),
+    pageNumber: z.number().min(0, 'Sayfa sayısı negatif olamaz.'),
+    revision: z.number().min(0, 'Revizyon sayısı negatif olamaz'),
 })
 
 export const PlanView: React.FC<{ plan: Pricing }> = React.memo(({ plan }) => {
@@ -217,7 +217,7 @@ export const PlanView: React.FC<{ plan: Pricing }> = React.memo(({ plan }) => {
                 <div
                     className={cn(
                         'fixed left-2 right-2 flex flex-row items-center justify-between gap-x-2 rounded-lg bg-card p-3 transition-all duration-300 dark:bg-wash-dark',
-                        isInView ? '-bottom-full' : 'bottom-2'
+                        isInView ? '-bottom-full' : 'bottom-4'
                     )}
                 >
                     <div className='flex flex-col items-start justify-between gap-y-2'>

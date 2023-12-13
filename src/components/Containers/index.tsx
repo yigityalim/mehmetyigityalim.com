@@ -4,9 +4,15 @@ import { cn } from '@/utils'
 import { AnimatePresence, motion } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 
-type ContainerProps = Readonly<{ className?: string; children: React.ReactNode; title?: string }>
+type ContainerProps = Readonly<{ className?: string; children: React.ReactNode; title?: string; description?: string }>
 
-export default function Container({ className, children, title, ...props }: ContainerProps): React.JSX.Element {
+export default function Container({
+    className,
+    children,
+    title,
+    description,
+    ...props
+}: ContainerProps): React.JSX.Element {
     const pathname = usePathname()
     return (
         <AnimatePresence>
@@ -18,6 +24,7 @@ export default function Container({ className, children, title, ...props }: Cont
                 key={pathname}
                 className={cn(
                     'container mx-auto flex h-full w-full flex-col items-center justify-start gap-y-8 p-8 md:px-10 lg:px-12 xl:px-16',
+                    (title || description) && 'items-start',
                     className
                 )}
                 {...props}
@@ -28,10 +35,21 @@ export default function Container({ className, children, title, ...props }: Cont
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.5 }}
-                        className='w-full text-start text-3xl font-semibold text-gray-100'
+                        className='text-4xl font-bold leading-tight tracking-wide'
                     >
                         {title}
                     </motion.h1>
+                )}
+                {description && (
+                    <motion.p
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.5 }}
+                        className='text-base font-medium leading-tight tracking-wide text-gray-500 dark:text-gray-400'
+                    >
+                        <span className='text-xs'>{description}</span>
+                    </motion.p>
                 )}
                 {children}
             </motion.div>

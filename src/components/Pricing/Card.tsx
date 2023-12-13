@@ -60,7 +60,7 @@ export function PricingCard({ pricing }: PricingCardProps): React.ReactElement {
                 </CardContent>
                 <CardFooter
                     className={cn(
-                        'pt-auto',
+                        'mt-auto',
                         pricing.button.length === 1 ? 'justify-center' : 'justify-between gap-x-2'
                     )}
                 >

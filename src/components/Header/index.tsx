@@ -5,8 +5,12 @@ import { OverlayMenu } from 'components/Header/OverlayMenu'
 import { Title } from 'components/Header/Title'
 import { cn } from '@/utils'
 import { useOverlayMenu } from 'store/menu'
-export default function Header(): React.JSX.Element {
+
+export default function Header(): React.ReactElement {
     const { menu } = useOverlayMenu()
+
+    // TODO - buradaki title komponentinde anasayfa hariç resmim ve ismim olacak. basında / olacak.
+    // FIXME - bunu da useEffect ile yap ve loading state eklemeyi unutma
 
     return (
         <>

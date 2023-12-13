@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function Contact() {
     return (
-        <Container>
+        <Container title='İletişim' description='İletişim bilgilerim'>
             <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
                 <Section icon={<Mail size={20} />} title='E-Posta'>
                     <a href='mailto:mehmetyigityalim@gmail.com' className='text-blue-500 hover:underline'>

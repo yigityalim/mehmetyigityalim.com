@@ -16,14 +16,19 @@ export default function useMenu(): Menu[] {
             path: '/',
         },
         {
-            title: t('Fiyatlar', 'Pricing'),
+            title: t('Paketler', 'Packages'),
             name: 'pricing',
-            path: '/pricing',
+            path: '/packages',
         },
         {
             title: t('İletişim', 'Contact'),
             name: 'contact',
             path: '/contact',
+        },
+        {
+            title: t('Referanslar', 'References'),
+            name: 'references',
+            path: '/references',
         },
         {
             title: t('Projeler', 'Projects'),
