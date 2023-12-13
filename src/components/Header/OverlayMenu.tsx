@@ -5,40 +5,39 @@ import { AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import ThemeSwitcher from 'components/ThemeSwitch'
 import { cn } from '@/utils'
-import LanguageSwitch from 'components/LanguageSwitch'
-import useMenu from '@/utils/menu'
+//import LanguageSwitch from 'components/LanguageSwitch'
+import menu from '@/utils/menu'
 import { OVERLAY_MENU_HEIGHT } from 'utils/constants'
 
 export function OverlayMenu(): React.JSX.Element {
-    const { menu, setMenu } = useOverlayMenu()
-    const Menu = useMenu()
+    const { menu: overlayMenu, setMenu } = useOverlayMenu()
 
     useEffect(() => {
         // burada scrollbar yok olduğu için width değişiyor. bu yüzden width'i sabit tutmak için padding-right ekliyoruz
-        if (menu) {
+        if (overlayMenu) {
             document.body.style.overflow = 'hidden'
             if (window.innerWidth > 768) document.body.style.paddingRight = '15px'
         } else {
             document.body.style.overflow = ''
             if (window.innerWidth > 768) document.body.style.paddingRight = ''
         }
-    }, [menu])
+    }, [overlayMenu])
 
     return (
         <AnimatePresence initial={false}>
-            {menu && (
+            {overlayMenu && (
                 <div
                     style={{ top: OVERLAY_MENU_HEIGHT }}
                     className={cn(
                         'container fixed bottom-0 left-0 right-0 z-[52] mx-auto flex flex-col items-center justify-between gap-y-4 p-8 transition-all duration-300',
-                        menu
+                        overlayMenu
                             ? 'bg-white dark:bg-wash-dark-2'
                             : 'bg-opacity-70 backdrop-blur-md dark:bg-opacity-70 dark:backdrop-blur-2xl'
                     )}
                 >
                     <div />
                     <div className='flex w-full flex-col items-center justify-center gap-y-4'>
-                        {Menu.map(({ path, icon, title }) => (
+                        {menu.map(({ path, icon, title }) => (
                             <div key={path} className='w-full'>
                                 <Link
                                     href={path}
@@ -55,7 +54,7 @@ export function OverlayMenu(): React.JSX.Element {
                         ))}
                     </div>
                     <div className='items-center-justify-center flex w-56 flex-col gap-y-2'>
-                        <LanguageSwitch />
+                        {/* <LanguageSwitch /> */}
                         <ThemeSwitcher as='button' fullWidth />
                     </div>
                 </div>
