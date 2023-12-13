@@ -1,10 +1,10 @@
 'use client'
 import { usePathname } from 'next/navigation'
 import useMenu, { Menu } from '@/utils/menu'
+import menu from '@/utils/menu'
 
 export default function useTitle() {
     const pathname: string = usePathname()
-    const menu = useMenu()
     const handleSubMenu = () => {
         const pathParts = pathname.split('/').filter(Boolean)
         const isParentRoute = menu.find((item: Menu) => item.path === pathname)
