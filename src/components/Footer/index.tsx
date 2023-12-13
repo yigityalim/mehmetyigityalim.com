@@ -4,11 +4,10 @@ import { cn } from '@/utils'
 import useTitle from 'components/Header/useTitle'
 import Link from 'next/link'
 import ThemeSwitcher from 'components/ThemeSwitch'
-import useMenu from '@/utils/menu'
+import menu from '@/utils/menu'
 
 export default function Footer(): React.JSX.Element {
     const { pathname, title } = useTitle()
-    const menu = useMenu()
     return (
         <footer
             className={cn(
