@@ -5,9 +5,9 @@ import hygraph from '@/graphql'
 import Image from 'next/image'
 import { SocialMediaSwitchContainer } from 'components/SocialMedia'
 import type { Home } from 'lib/types/home'
-import RequestProject from 'components/RequestProject'
-import { Spinner } from 'components/Spinner'
+import RequestPackage from 'src/components/RequestPackage'
 import RequestJob from 'components/RequestJob'
+import Mdx from 'components/MDX'
 
 const HOME_PAGE_QUERY: string = gql`
     {
@@ -49,11 +49,11 @@ export default async function Home(): Promise<JSX.Element> {
                 priority
             />
             <h1 className='text-4xl font-bold tracking-tight text-gray-900 dark:text-white'>{title}</h1>
-            <pre className='max-w-full overflow-x-scroll p-0.5 font-sans text-base text-gray-600 dark:text-gray-400'>
-                {description}
-            </pre>
+            <div>
+                <Mdx source={description} />
+            </div>
             <RequestJob />
-            <RequestProject />
+            <RequestPackage />
             <SocialMediaSwitchContainer social={social} />
         </Container>
     )

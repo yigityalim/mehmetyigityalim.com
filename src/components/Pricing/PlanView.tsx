@@ -8,6 +8,7 @@ import { useInView } from 'framer-motion'
 import { z } from 'zod'
 import { useToast } from 'components/ui/use-toast'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'components/ui/select'
+import { OVERLAY_MENU_HEIGHT } from 'utils/constants'
 
 type SelectedOptions = Partial<Record<keyof typeof addPricing, boolean>>
 
@@ -19,7 +20,7 @@ const FormSchema = z.object({
 
 export const PlanView: React.FC<{ plan: Pricing }> = React.memo(({ plan }) => {
     const priceRef: React.RefObject<HTMLHeadingElement> = React.useRef<HTMLHeadingElement>(null)
-    const isInView = useInView(priceRef, { margin: '-88px' })
+    const isInView = useInView(priceRef, { margin: `-${OVERLAY_MENU_HEIGHT}px` })
 
     const [selectedOptions, setSelectedOptions] = React.useState<SelectedOptions>({})
     const [pageNumber, setPageNumber] = React.useState<number>(plan.pageNumber ?? 1)
@@ -30,7 +31,7 @@ export const PlanView: React.FC<{ plan: Pricing }> = React.memo(({ plan }) => {
 
     const handleOptionSelect = React.useCallback<(optionKey: keyof typeof addPricing) => void>(
         (optionKey) => {
-            const selectedPlan: HasAddPricing | undefined = hasAddPricing.find((p) => p.type === plan.type)
+            const selectedPlan: HasAddPricing | undefined = hasAddPricing.find(({ type }) => type === plan.type)
             const allowedOptions: (keyof Pricing)[] = selectedPlan ? selectedPlan.add : []
 
             if (selectedOptions[optionKey]) {

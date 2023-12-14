@@ -1,5 +1,26 @@
 import type { Config } from 'tailwindcss'
 import colors from './colors'
+import plugin from 'tailwindcss/plugin'
+
+const iOsHeight = plugin(function ({ addUtilities }) {
+    const supportsTouchable = '@supports (-webkit-touch-callout: none)'
+    const webkitFillAvailable = '-webkit-fill-available'
+
+    const utilities = {
+        '.min-h-screen-ios': {
+            [supportsTouchable]: {
+                minHeight: webkitFillAvailable,
+            },
+        },
+        '.h-screen-ios': {
+            [supportsTouchable]: {
+                height: webkitFillAvailable,
+            },
+        },
+    }
+
+    addUtilities(utilities, { respectPrefix: false, respectImportant: false })
+})
 
 const config: Config = {
     darkMode: ['class'],
@@ -73,6 +94,7 @@ const config: Config = {
         require('tailwindcss-animate'),
         require('@tailwindcss/typography'),
         require('@tailwindcss/container-queries'),
+        iOsHeight,
     ],
 } satisfies Config
 export default config

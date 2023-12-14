@@ -13,14 +13,8 @@ export function OverlayMenu(): React.JSX.Element {
     const { menu: overlayMenu, setMenu } = useOverlayMenu()
 
     useEffect(() => {
-        // burada scrollbar yok olduğu için width değişiyor. bu yüzden width'i sabit tutmak için padding-right ekliyoruz
-        if (overlayMenu) {
-            document.body.style.overflow = 'hidden'
-            if (window.innerWidth > 768) document.body.style.paddingRight = '15px'
-        } else {
-            document.body.style.overflow = ''
-            if (window.innerWidth > 768) document.body.style.paddingRight = ''
-        }
+        document.body.style.overflow = overlayMenu ? 'hidden' : ''
+        if (window.innerWidth > 768) document.body.style.paddingRight = overlayMenu ? '15px' : ''
     }, [overlayMenu])
 
     return (
