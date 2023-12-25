@@ -37,7 +37,7 @@ export const PlanView: React.FC<{ plan: Pricing }> = React.memo(({ plan }) => {
             if (selectedOptions[optionKey]) {
                 if (!allowedOptions.includes(optionKey)) {
                     toast({
-                        duration: 5000,
+                        duration: 2000,
                         variant: 'destructive',
                         title: 'Bu özellik bu plana dahil değil.',
                         description: 'Lütfen diğer planlara göz atın.',

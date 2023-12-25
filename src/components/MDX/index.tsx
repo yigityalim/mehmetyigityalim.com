@@ -27,7 +27,7 @@ export const components = {
         <h4 className='scroll-m-20 text-xl font-semibold tracking-tight' {...props} />
     ),
     p: (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>) => (
-        <p className='leading-7 [&:not(:first-child)]:mt-6' {...props} />
+        <p className='leading-7 [&:not(:first-child)]:mt-2' {...props} />
     ),
     bloquote: (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLQuoteElement>, HTMLQuoteElement>) => (
         <blockquote className='mt-6 border-l-2 pl-6 italic' {...props} />

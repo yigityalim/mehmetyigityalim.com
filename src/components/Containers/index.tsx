@@ -28,7 +28,7 @@ export default function Container({
                 transition={{ duration: 0.5 }}
                 key={pathname}
                 className={cn(
-                    'container top-[88px] mx-auto flex h-full w-full flex-col items-center justify-start gap-y-8 p-8 md:px-10 lg:px-12 xl:px-16',
+                    'container mx-auto flex h-full w-full flex-col items-center justify-start gap-y-8 p-8 pt-[88px] md:px-10 lg:px-12 xl:px-16',
                     (title || description) && 'items-start',
                     className
                 )}

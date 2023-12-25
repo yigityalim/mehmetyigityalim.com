@@ -108,7 +108,7 @@ export default async function Home(): Promise<JSX.Element> {
                 width={picture.width}
                 height={picture.height}
             />
-            <div className='flex flex-col gap-y-8 px-8 md:px-10 lg:px-12 xl:px-16'>
+            <div className='flex w-full flex-col gap-y-8 px-8 pt-4 md:px-10 lg:px-12 xl:px-16'>
                 <h1 className='scroll-m-20 text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white'>
                     {title}
                 </h1>
