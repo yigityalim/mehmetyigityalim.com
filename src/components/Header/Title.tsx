@@ -26,14 +26,7 @@ export function Title(): React.JSX.Element {
                     <path d='m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z' />
                 </svg>
             ) : (
-                <h1
-                    className={cn(
-                        'w-full text-2xl font-bold leading-9 tracking-wider transition',
-                        menu && 'translate-y-[-5px] opacity-0'
-                    )}
-                >
-                    {title}
-                </h1>
+                <React.Fragment />
             )}
         </div>
     )

@@ -4,7 +4,7 @@ import { cn } from '@/utils'
 import useTitle from 'components/Header/useTitle'
 import Link from 'next/link'
 import ThemeSwitcher from 'components/ThemeSwitch'
-import menu from '@/utils/menu'
+import menu from 'lib/menu'
 
 export default function Footer(): React.JSX.Element {
     const { pathname, title } = useTitle()

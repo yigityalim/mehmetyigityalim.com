@@ -1,6 +1,6 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
-import { pricing } from 'utils/pricing'
+import { pricing } from 'lib/pricing'
 import { PlanView } from 'components/Pricing/PlanView'
 import { Metadata } from 'next'
 

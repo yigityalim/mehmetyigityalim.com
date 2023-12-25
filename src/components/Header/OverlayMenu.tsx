@@ -6,7 +6,7 @@ import Link from 'next/link'
 import ThemeSwitcher from 'components/ThemeSwitch'
 import { cn } from '@/utils'
 //import LanguageSwitch from 'components/LanguageSwitch'
-import menu from '@/utils/menu'
+import menu from 'lib/menu'
 import { OVERLAY_MENU_HEIGHT } from 'utils/constants'
 
 export function OverlayMenu(): React.JSX.Element {

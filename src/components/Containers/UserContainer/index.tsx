@@ -1,11 +1,9 @@
 import { CardContent, Card } from 'components/ui/card'
-import { Button } from 'components/ui/button'
 import { Author } from '@/lib/types/Author'
 import { JSX } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import { Badge } from 'components/ui/badge'
-import SocialMedia from '@/utils/socialMedia'
+import SocialMedia from 'lib/socialMedia'
 import crypto from 'crypto'
 import { CodeIcon } from 'lucide-react'
 

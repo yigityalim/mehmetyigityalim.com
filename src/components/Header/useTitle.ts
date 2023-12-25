@@ -1,7 +1,7 @@
 'use client'
 import { usePathname } from 'next/navigation'
-import useMenu, { Menu } from '@/utils/menu'
-import menu from '@/utils/menu'
+import useMenu, { Menu } from 'lib/menu'
+import menu from 'lib/menu'
 
 export default function useTitle() {
     const pathname: string = usePathname()

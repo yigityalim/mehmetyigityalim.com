@@ -3,7 +3,7 @@ import React from 'react'
 import type { VercelProject } from '@/lib/types/vercel'
 import { SiVercel as Vercel } from 'react-icons/si'
 import { motion, Variants } from 'framer-motion'
-import frameworks from 'utils/frameworks'
+import frameworks from 'lib/frameworks'
 import { cn } from '@/utils'
 
 const containerVariants: Variants = {

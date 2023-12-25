@@ -9,17 +9,40 @@ import { gql } from 'graphql-request'
 import { Metadata } from 'next'
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-    const { blog } = await hygraph.request<{ blog: Blog }>(BLOG_BY_SLUG, {
-        slug: params.id,
-    })
+    const { blog } = await hygraph.request<{
+        blog: {
+            title: string
+            content: {
+                text: string
+            }
+        }
+    }>(
+        gql`
+            query BlogsBySlug($slug: String!) {
+                blog(where: { slug: $slug }) {
+                    title
+                    content {
+                        text
+                    }
+                }
+            }
+        `,
+        {
+            slug: params.id,
+        }
+    )
     return {
         title: blog.title,
-        description: blog.content.raw.children[0].children[0].text,
+        description: blog.content.text,
     }
 }
 
 export async function generateStaticParams(): Promise<{ params: { id: string } }[]> {
-    const { blogs } = await hygraph.request<{ blogs: Blog[] }>(`
+    const { blogs } = await hygraph.request<{
+        blogs: {
+            slug: string
+        }[]
+    }>(gql`
         query {
             blogs {
                 slug
@@ -30,7 +53,7 @@ export async function generateStaticParams(): Promise<{ params: { id: string } }
     return blogs.map(({ slug }) => ({ params: { id: slug } }))
 }
 
-export default async function Page({ params }: { params: { id: string } }): Promise<React.JSX.Element> {
+export default async function Page({ params }: Readonly<{ params: { id: string } }>): Promise<React.JSX.Element> {
     const { blog } = await hygraph.request<{ blog: Blog }>(BLOG_BY_SLUG, {
         slug: params.id,
     })

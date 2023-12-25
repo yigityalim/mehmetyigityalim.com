@@ -12,35 +12,35 @@ export type Menu = {
 
 export default [
     {
-        title: 'Ana Sayfa', // TODO: t('Ana Sayfa', 'Home')
+        title: 'Ana Sayfa',
         name: 'home',
         path: '/',
         changefreq: 'always',
         priority: 1,
     },
     {
-        title: 'Paketler', // TODO: t('Paketler', 'Packages')
+        title: 'Paketler',
         name: 'pricing',
         path: '/packages',
         changefreq: 'daily',
         priority: 0.9,
     },
     {
-        title: 'İletişim', // TODO: t('İletişim', 'Contact')
+        title: 'İletişim',
         name: 'contact',
         path: '/contact',
         changefreq: 'monthly',
         priority: 0.8,
     },
     {
-        title: 'Referanslar', // TODO: t('Referanslar', 'References')
+        title: 'Referanslar',
         name: 'references',
         path: '/references',
         changefreq: 'weekly',
         priority: 0.8,
     },
     {
-        title: 'Projeler', // TODO: t('Projeler', 'Projects')
+        title: 'Projeler',
         name: 'projects',
         path: '/projects',
         changefreq: 'weekly',
@@ -54,14 +54,7 @@ export default [
         priority: 0.8,
     },
     {
-        title: 'Kullanıcılar',
-        name: 'user',
-        path: '/user',
-        changefreq: 'weekly',
-        priority: 0.8,
-    },
-    {
-        title: 'Hakkımda', // TODO: t('Hakkımda', 'About')
+        title: 'Hakkımda',
         name: 'about',
         path: '/about',
         changefreq: 'monthly',

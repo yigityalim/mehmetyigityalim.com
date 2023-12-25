@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { Button } from 'components/ui/button'
-import { type Pricing, type HasAddPricing, addPricing, hasAddPricing } from 'utils/pricing'
+import { type Pricing, type HasAddPricing, addPricing, hasAddPricing } from 'lib/pricing'
 import { cn, formatPrice } from '@/utils'
 import Container from 'components/Containers'
 import { useInView } from 'framer-motion'

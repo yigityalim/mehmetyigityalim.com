@@ -1,6 +1,6 @@
 import React from 'react'
 import Container from 'components/Containers'
-import { pricing } from 'utils/pricing'
+import { pricing } from 'lib/pricing'
 import { PricingCard } from 'components/Pricing'
 
 export default function NotFound(): React.ReactElement {

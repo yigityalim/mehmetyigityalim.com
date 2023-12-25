@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { pricing } from 'utils/pricing'
+import { pricing } from 'lib/pricing'
 import { PricingCard } from 'components/Pricing'
 import { motion, Variants } from 'framer-motion'
 

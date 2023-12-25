@@ -8,7 +8,6 @@ import { useOverlayMenu } from 'store/menu'
 
 export default function Header(): React.ReactElement {
     const { menu } = useOverlayMenu()
-
     // TODO - buradaki title komponentinde anasayfa hariç resmim ve ismim olacak. basında / olacak.
     // FIXME - bunu da useEffect ile yap ve loading state eklemeyi unutma
 
@@ -16,9 +15,11 @@ export default function Header(): React.ReactElement {
         <>
             <header
                 className={cn(
-                    'container sticky top-0 z-[51] mx-auto flex w-full items-center justify-between bg-white px-8 py-6 transition-colors duration-300 dark:bg-wash-dark-2 md:p-10 lg:p-12 xl:p-16',
+                    'container fixed top-0 z-[51] mx-auto flex w-full items-center justify-between px-8 py-6 md:p-10 lg:p-12 xl:p-16',
                     {
-                        'bg-opacity-50 backdrop-blur-xl dark:bg-opacity-60 dark:backdrop-blur-2xl': !menu,
+                        '': !menu,
+                        'bg-white bg-opacity-100 backdrop-blur-none dark:bg-wash-dark-2 dark:bg-opacity-100 dark:backdrop-blur-none':
+                            menu,
                     }
                 )}
             >

@@ -1,6 +1,6 @@
 'use client'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 'components/ui/card'
-import { type QuickJobs } from 'utils/quickJob'
+import { type QuickJobs } from 'lib/quickJob'
 import React from 'react'
 import { Button } from 'components/ui/button'
 import { cn, formatPrice } from '@/utils'

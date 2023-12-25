@@ -1,10 +1,15 @@
 'use client'
 import React from 'react'
 import { cn } from '@/utils'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, MotionProps } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 
-type ContainerProps = Readonly<{ className?: string; children: React.ReactNode; title?: string; description?: string }>
+type ContainerProps = Readonly<
+    { className?: string; children: React.ReactNode; title?: string; description?: string } & Omit<
+        MotionProps,
+        'children'
+    >
+>
 
 export default function Container({
     className,
@@ -23,7 +28,7 @@ export default function Container({
                 transition={{ duration: 0.5 }}
                 key={pathname}
                 className={cn(
-                    'container mx-auto flex h-full w-full flex-col items-center justify-start gap-y-8 p-8 md:px-10 lg:px-12 xl:px-16',
+                    'container top-[88px] mx-auto flex h-full w-full flex-col items-center justify-start gap-y-8 p-8 md:px-10 lg:px-12 xl:px-16',
                     (title || description) && 'items-start',
                     className
                 )}
