@@ -30,17 +30,21 @@ export function SocialMediaSwitchContainer({ social }: SocialMediaSwitchProps): 
 
     return (
         <div className='flex w-full flex-col items-center justify-start gap-y-4'>
-            <div className='flex w-full flex-row items-center justify-between'>
-                <h4 className='text-xs font-semibold tracking-wide text-gray-800 dark:text-gray-600'>
-                    Görünüm: {socialMediaSwitch === 'grid' ? 'Kare' : 'Liste'}
-                </h4>
-                <Switch
-                    value={socialMediaSwitch}
-                    checked={socialMediaSwitch === 'list'}
-                    onCheckedChange={() => setSocialMediaSwitch(socialMediaSwitch === 'grid' ? 'list' : 'grid')}
-                />
-            </div>
             <SocialMedia social={social} type={socialMediaSwitch} />
         </div>
     )
 }
+
+/*
+SWİTCH
+<div className='flex w-full flex-row items-center justify-between'>
+    <h4 className='text-xs font-semibold tracking-wide text-gray-800 dark:text-gray-600'>
+        Görünüm: {socialMediaSwitch === 'grid' ? 'Kare' : 'Liste'}
+    </h4>
+    <Switch
+        value={socialMediaSwitch}
+        checked={socialMediaSwitch === 'list'}
+        onCheckedChange={() => setSocialMediaSwitch(socialMediaSwitch === 'grid' ? 'list' : 'grid')}
+    />
+</div>
+ */

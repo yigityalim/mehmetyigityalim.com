@@ -12,7 +12,7 @@ export type Menu = {
 
 export default [
     {
-        title: 'Ana Sayfa',
+        title: 'Anasayfa',
         name: 'home',
         path: '/',
         changefreq: 'always',

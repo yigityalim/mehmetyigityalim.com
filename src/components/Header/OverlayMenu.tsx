@@ -8,9 +8,11 @@ import { cn } from '@/utils'
 //import LanguageSwitch from 'components/LanguageSwitch'
 import menu from 'lib/menu'
 import { OVERLAY_MENU_HEIGHT } from 'utils/constants'
+import { usePathname } from 'next/navigation'
 
 export function OverlayMenu(): React.JSX.Element {
     const { menu: overlayMenu, setMenu } = useOverlayMenu()
+    const pathname = usePathname()
 
     useEffect(() => {
         document.body.style.overflow = overlayMenu ? 'hidden' : ''
@@ -23,7 +25,7 @@ export function OverlayMenu(): React.JSX.Element {
                 <div
                     style={{ top: OVERLAY_MENU_HEIGHT }}
                     className={cn(
-                        'container fixed bottom-0 left-0 right-0 z-[52] mx-auto flex flex-col items-center justify-between gap-y-4 p-8 transition-all duration-300',
+                        'container fixed bottom-0 left-0 right-0 z-[52] mx-auto flex flex-col items-center justify-between gap-y-4 p-8',
                         overlayMenu
                             ? 'bg-white dark:bg-wash-dark-2'
                             : 'bg-opacity-70 backdrop-blur-md dark:bg-opacity-70 dark:backdrop-blur-2xl'
@@ -35,7 +37,12 @@ export function OverlayMenu(): React.JSX.Element {
                             <div key={path} className='w-full'>
                                 <Link
                                     href={path}
-                                    className='flex w-full items-center justify-start gap-x-4 text-4xl font-bold leading-9 tracking-wider'
+                                    className={cn(
+                                        'flex w-full items-center justify-start gap-x-4 rounded p-1 text-4xl font-bold leading-9 tracking-wider',
+                                        path === pathname ||
+                                            (path.split('/')[1] === pathname.split('/')[1] &&
+                                                'bg-highlight dark:bg-wash-dark')
+                                    )}
                                     onClick={() => {
                                         setMenu(false)
                                         document.body.style.overflow = ''
@@ -49,7 +56,7 @@ export function OverlayMenu(): React.JSX.Element {
                     </div>
                     <div className='items-center-justify-center flex w-56 flex-col gap-y-2'>
                         {/* <LanguageSwitch /> */}
-                        <ThemeSwitcher as='button' fullWidth />
+                        {/* <ThemeSwitcher as='button' fullWidth /> */}
                     </div>
                 </div>
             )}

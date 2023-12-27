@@ -6,7 +6,7 @@ import { cn, formatPrice } from '@/utils'
 import Container from 'components/Containers'
 import { useInView } from 'framer-motion'
 import { z } from 'zod'
-import { useToast } from 'components/ui/use-toast'
+import { toast } from 'sonner'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'components/ui/select'
 import { OVERLAY_MENU_HEIGHT } from 'utils/constants'
 
@@ -27,8 +27,6 @@ export const PlanView: React.FC<{ plan: Pricing }> = React.memo(({ plan }) => {
     const [revision, setRevision] = React.useState<number>(plan.revision ?? 0)
     const [newPrice, setNewPrice] = React.useState<number>(plan.price)
 
-    const { toast } = useToast()
-
     const handleOptionSelect = React.useCallback<(optionKey: keyof typeof addPricing) => void>(
         (optionKey) => {
             const selectedPlan: HasAddPricing | undefined = hasAddPricing.find(({ type }) => type === plan.type)
@@ -36,12 +34,7 @@ export const PlanView: React.FC<{ plan: Pricing }> = React.memo(({ plan }) => {
 
             if (selectedOptions[optionKey]) {
                 if (!allowedOptions.includes(optionKey)) {
-                    toast({
-                        duration: 2000,
-                        variant: 'destructive',
-                        title: 'Bu özellik bu plana dahil değil.',
-                        description: 'Lütfen diğer planlara göz atın.',
-                    })
+                    toast.error('Bu özellik bu plana dahil değil. Lütfen diğer planlara göz atın.')
                 } else {
                     setSelectedOptions((prevSelectedOptions) => ({
                         ...prevSelectedOptions,
@@ -54,15 +47,10 @@ export const PlanView: React.FC<{ plan: Pricing }> = React.memo(({ plan }) => {
                     [optionKey]: !prevSelectedOptions[optionKey],
                 }))
             } else {
-                toast({
-                    duration: 5000,
-                    variant: 'destructive',
-                    title: 'Bu özellik bu plana dahil değil.',
-                    description: 'Lütfen diğer planlara göz atın.',
-                })
+                toast.error('Bu özellik bu plana dahil değil. Lütfen diğer planlara göz atın.')
             }
         },
-        [plan.type, setSelectedOptions, toast, selectedOptions]
+        [plan.type, setSelectedOptions, selectedOptions]
     )
 
     const handleFrameworkSelect = React.useCallback<(data: string) => void>(
@@ -147,14 +135,10 @@ export const PlanView: React.FC<{ plan: Pricing }> = React.memo(({ plan }) => {
             })
 
             if (data.success) {
-                toast({
-                    duration: 2000,
-                    title: 'Teklif Gönderiliyor...',
-                    description: JSON.stringify(data.data, null, 2),
-                })
+                toast.error('Bu özellik bu plana dahil değil. Lütfen diğer planlara göz atın.')
             }
         },
-        [selectedOptions, pageNumber, revision, toast]
+        [selectedOptions, pageNumber, revision]
     )
 
     React.useEffect(() => {

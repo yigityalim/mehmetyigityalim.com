@@ -100,14 +100,18 @@ export default async function Home(): Promise<JSX.Element> {
 
     return (
         <Container className='flex flex-col items-start justify-center gap-y-4 px-0 pt-0'>
-            <Image
-                src={picture.url}
-                alt='Picture of the author'
-                quality={100}
-                priority
-                width={picture.width}
-                height={picture.height}
-            />
+            <div className='relative w-full'>
+                <Image
+                    src={picture.url}
+                    alt='Picture of the author'
+                    quality={100}
+                    priority
+                    className='w-full object-cover'
+                    width={picture.width}
+                    height={picture.height}
+                />
+                <div className='absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white via-transparent to-transparent dark:from-black' />
+            </div>
             <div className='flex w-full flex-col gap-y-8 px-8 pt-4 md:px-10 lg:px-12 xl:px-16'>
                 <h1 className='scroll-m-20 text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white'>
                     {title}

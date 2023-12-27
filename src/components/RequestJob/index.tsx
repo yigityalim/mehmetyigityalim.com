@@ -45,7 +45,7 @@ export default function RequestJob(props: RequestJobProps): React.JSX.Element {
             </DialogContent>
         </Dialog>
     ) : (
-        <Drawer onOpenChange={setOpen}>
+        <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger className='text-lg'>
                 <VscFeedback />
             </DrawerTrigger>
@@ -65,20 +65,7 @@ export default function RequestJob(props: RequestJobProps): React.JSX.Element {
         <div className='relative flex h-full w-full cursor-pointer flex-row items-center justify-between gap-x-2 rounded-lg bg-card px-7 py-4 leading-none text-card-dark dark:bg-black dark:text-card'>
             <div className='absolute -inset-0.5 -z-10 animate-tilt rounded-lg bg-gradient-to-r from-blue-600 to-emerald-500 opacity-75 blur transition duration-1000 group-hover:opacity-100'></div>
             <h1>İş Teklifi gönder</h1>
-            <Drawer onOpenChange={setOpen}>
-                <DrawerTrigger className='text-lg'>
-                    <VscFeedback />
-                </DrawerTrigger>
-                <DrawerContent>
-                    <DrawerHeader>
-                        <DrawerTitle>İş Teklifi Başvuru Formu</DrawerTitle>
-                        <DrawerDescription>
-                            İş teklifi göndermek için aşağıdaki formu doldurunuz. En kısa sürede dönüş yapılacaktır.
-                        </DrawerDescription>
-                    </DrawerHeader>
-                    <ResendForm />
-                </DrawerContent>
-            </Drawer>
+            {content}
         </div>
     )
 }

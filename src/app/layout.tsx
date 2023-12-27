@@ -7,7 +7,7 @@ import React from 'react'
 import Providers from 'components/Providers/clientSideProvider'
 import ProductionMode from 'components/ProductionMode'
 import { cn } from '@/utils'
-import { Toaster } from 'components/ui/toaster'
+import { Toaster } from 'components/ui/sonner'
 
 const inter = Inter<'--font-inter'>({ subsets: ['latin'] })
 
@@ -48,7 +48,7 @@ export default function RootLayout({ children }: RootLayoutProps): React.JSX.Ele
     return (
         <html lang='en'>
             <body className={cn(inter.variable, poppins.variable, notoSans.variable)}>
-                <Providers attribute='class' defaultTheme='system' enableSystem>
+                <Providers attribute='class' defaultTheme='dark' forcedTheme='dark'>
                     <ProductionMode>{children}</ProductionMode>
                 </Providers>
                 <Analytics />

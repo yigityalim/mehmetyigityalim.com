@@ -5,9 +5,12 @@ import useTitle from 'components/Header/useTitle'
 import Link from 'next/link'
 import ThemeSwitcher from 'components/ThemeSwitch'
 import menu from 'lib/menu'
+import { usePathname } from 'next/navigation'
 
 export default function Footer(): React.JSX.Element {
-    const { pathname, title } = useTitle()
+    const { title } = useTitle()
+    const pathname = usePathname()
+
     return (
         <footer
             className={cn(
@@ -20,25 +23,29 @@ export default function Footer(): React.JSX.Element {
                 </h1>
             )}
             <div className='flex w-full flex-col items-center justify-center gap-y-4'>
-                {menu.map((m) => (
-                    <Link
-                        href={m.path}
-                        className={cn(
-                            'w-full rounded px-4 text-start text-xl font-bold leading-9 tracking-wider transition-all duration-300',
-                            pathname === m.path
-                                ? 'bg-black text-white dark:bg-white dark:text-black'
-                                : 'bg-white text-black shadow-md dark:bg-black dark:text-white dark:shadow-2xl'
-                            // FIXME - border kaldırılabilir. şimdilik itemler belli olsun diye ekledim
-                        )}
-                        key={m.name}
-                    >
-                        {m.title}
-                    </Link>
+                {menu.map(({ path, icon, title }) => (
+                    <div key={path} className='w-full'>
+                        <Link
+                            href={path}
+                            className={cn(
+                                'block w-full rounded px-4 text-start text-xl font-bold leading-9 tracking-wider transition-all duration-300',
+                                (path === pathname || path.split('/')[1] === pathname.split('/')[1]) &&
+                                    'bg-highlight dark:bg-wash-dark'
+                            )}
+                        >
+                            {icon}
+                            <span>{title}</span>
+                        </Link>
+                    </div>
                 ))}
             </div>
-            <ThemeSwitcher as='button' fullWidth />
+            {/* <ThemeSwitcher as='button' fullWidth /> */}
             <div className='flex w-full flex-col text-center'>
-                &copy; {new Date().getFullYear()} Mehmet Yiğit Yalım. <br /> Tüm hakları saklıdır.
+                &copy; {new Date().getFullYear()}{' '}
+                <a href='https://github.com/yigityalim' target='_blank' rel='noreferrer'>
+                    Mehmet Yiğit Yalım
+                </a>
+                Tüm hakları saklıdır.
             </div>
         </footer>
     )

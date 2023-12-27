@@ -10,10 +10,7 @@ body {
     tracking-normal
     font-sans
     antialiased
-    overflow-x-hidden
-    bg-primary
-
-    dark:bg-wash-dark-2
+    overflow-x-hidden bg-primary dark:bg-wash-dark-2
 }
 
 .font-poppins {

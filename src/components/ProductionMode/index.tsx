@@ -46,16 +46,11 @@ export default function ProductionMode({ children }: ProductionModeState): JSX.E
 
     return (
         <Suspense fallback={<Spinner className='min-h-screen' />}>
-            <Header />
-            {children}
-            <Footer />
+            <div vaul-drawer-wrapper=''>
+                <Header />
+                {children}
+                <Footer />
+            </div>
         </Suspense>
     )
 }
-
-/*
-
-                <Button size='lg' className='text-lg' onClick={handleClick}>
-                    Sayfaya git
-                </Button>
- */

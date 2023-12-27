@@ -6,9 +6,5 @@ import { NextUIProvider } from '@nextui-org/react'
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
 
 export default function ClientSideProvider({ children, ...props }: Readonly<ThemeProviderProps>) {
-    return (
-        <NextUIProvider>
-            <NextThemesProvider {...props}>{children}</NextThemesProvider>
-        </NextUIProvider>
-    )
+    return <NextThemesProvider {...props}>{children}</NextThemesProvider>
 }
