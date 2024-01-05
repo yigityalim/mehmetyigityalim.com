@@ -4,14 +4,21 @@ import { SocialMedia } from 'components/SocialMedia/socialMedia'
 import { Social } from '@/lib/types/home'
 import { Switch } from 'components/ui/switch'
 
-type SocialMediaSwitchProps = Readonly<{
-    social: Social[]
-}>
+type SocialMediaSwitchProps = Readonly<{ social: Social[] }>
 
-type SocialMediaSwitchType = 'grid' | 'list'
+//type SocialMediaSwitchType = 'grid' | 'list'
 
 export function SocialMediaSwitchContainer({ social }: SocialMediaSwitchProps): React.JSX.Element {
-    const [socialMediaSwitch, setSocialMediaSwitch] = React.useState<SocialMediaSwitchType>('grid')
+    return (
+        <div className='flex w-full flex-col items-center justify-start gap-y-4'>
+            <SocialMedia social={social} type='grid' />
+        </div>
+    )
+}
+
+/*
+LOGİC
+ const [socialMediaSwitch, setSocialMediaSwitch] = React.useState<SocialMediaSwitchType>('grid')
 
     useEffect(() => {
         const socialMediaSwitchLs = localStorage.getItem('socialMediaSwitch')
@@ -27,13 +34,7 @@ export function SocialMediaSwitchContainer({ social }: SocialMediaSwitchProps): 
     useEffect(() => {
         localStorage.setItem('socialMediaSwitch', socialMediaSwitch)
     }, [socialMediaSwitch])
-
-    return (
-        <div className='flex w-full flex-col items-center justify-start gap-y-4'>
-            <SocialMedia social={social} type={socialMediaSwitch} />
-        </div>
-    )
-}
+ */
 
 /*
 SWİTCH
@@ -46,5 +47,6 @@ SWİTCH
         checked={socialMediaSwitch === 'list'}
         onCheckedChange={() => setSocialMediaSwitch(socialMediaSwitch === 'grid' ? 'list' : 'grid')}
     />
+    <SocialMedia social={social} type={socialMediaSwitch} />
 </div>
  */

@@ -59,8 +59,8 @@ export const pricing: Pricing[] = [
         type: 'basic',
         description:
             'Temel web siteleri için ideal bir başlangıç. HTML, CSS ve JS ile oluşturulmuş, kullanımı kolay ve hızlı.',
-        price: 5000,
-        pageNumber: 3,
+        price: 10000,
+        pageNumber: 1,
         revision: 2,
         framework: [
             {
@@ -100,8 +100,8 @@ export const pricing: Pricing[] = [
         type: 'standart',
         description:
             'Vite.js ile güçlendirilmiş, hızlı ve modern web siteleri için ideal. TypeScript desteğiyle performansı artırın.',
-        price: 10000,
-        pageNumber: 5,
+        price: 15000,
+        pageNumber: 3,
         revision: 3,
         framework: [
             {
@@ -151,8 +151,8 @@ export const pricing: Pricing[] = [
         type: 'advanced',
         description:
             'Next.js ile en gelişmiş web sitelerini oluşturun. TypeScript, testler, oturum yönetimi, ödeme entegrasyonu ve SEO desteği ile güçlendirilmiş.',
-        price: 15000, // 'Custom',
-        pageNumber: 10,
+        price: 20000, // 'Custom',
+        pageNumber: 6,
         revision: 5,
         framework: [
             {
@@ -219,28 +219,28 @@ export type AddPricing = {
     i18n: number
 }
 export const addPricing: AddPricing = {
-    pageNumber: 500,
-    revision: 500,
+    pageNumber: 1000,
+    revision: 800,
     framework: [
         {
             tech: 'Vite.js',
-            cost: 1000,
+            cost: 2000,
         },
         {
             tech: 'Next.js',
-            cost: 1000,
+            cost: 4000,
         },
     ],
-    typeScript: 500,
-    testing: 500,
+    typeScript: 1000,
+    testing: 2000,
     design: 500,
-    auth: 500,
-    payment: 500,
-    seo: 500,
-    analytics: 500,
-    hosting: 500,
+    auth: 5000,
+    payment: 5000,
+    seo: 3000,
+    analytics: 1000,
+    hosting: 1000,
     dns: 500,
-    i18n: 500,
+    i18n: 2000,
 } as AddPricing
 
 export type HasAddPricing = {
@@ -256,16 +256,16 @@ export const hasAddPricing: HasAddPricing[] = [
         type: 'basic',
         add: ['pageNumber', 'revision', 'dns', 'design', 'hosting'],
         priceValue: {
-            min: 5000,
-            max: 7999,
+            min: 8000,
+            max: 14999,
         },
     },
     {
         type: 'standart',
         add: ['pageNumber', 'design', 'revision', 'typeScript', 'testing', 'analytics', 'dns', 'i18n'],
         priceValue: {
-            min: 8000,
-            max: 14999,
+            min: 15000,
+            max: 19999,
         },
     },
     {
@@ -285,7 +285,7 @@ export const hasAddPricing: HasAddPricing[] = [
             'i18n',
         ],
         priceValue: {
-            min: 15000,
+            min: 20000,
             max: Infinity,
         },
     },

@@ -17,12 +17,31 @@ export default function Footer(): React.JSX.Element {
                 'container mx-auto flex w-full flex-col items-center justify-center gap-y-4 p-8 md:p-10 lg:p-12 xl:p-16'
             )}
         >
-            {title && pathname !== '/' && (
-                <h1 className='w-full text-start text-2xl font-bold leading-9 tracking-wider transition-all duration-300'>
-                    {title}
-                </h1>
+            {title && pathname !== '/' ? (
+                <div className='flex w-full flex-row items-center justify-between gap-x-2'>
+                    <span className='block h-px w-full bg-white/40' />
+                    <h1 className='w-full text-center text-2xl font-bold leading-9 tracking-wider transition-all duration-300'>
+                        {title}
+                    </h1>
+                    <span className='block h-px w-full bg-white/40' />
+                </div>
+            ) : (
+                <span className='block h-px w-full bg-white/40' />
             )}
-            <div className='flex w-full flex-col items-center justify-center gap-y-4'>
+            {/* <ThemeSwitcher as='button' fullWidth /> */}
+            <div className='flex w-full flex-col text-center'>
+                &copy; {new Date().getFullYear()}{' '}
+                <a href='https://instagram.com/yigityalim' target='_blank' rel='noreferrer'>
+                    Mehmet Yiğit Yalım
+                </a>
+                Tüm hakları saklıdır.
+            </div>
+        </footer>
+    )
+}
+
+/*
+<div className='flex w-full flex-col items-center justify-center gap-y-4'>
                 {menu.map(({ path, icon, title }) => (
                     <div key={path} className='w-full'>
                         <Link
@@ -39,14 +58,4 @@ export default function Footer(): React.JSX.Element {
                     </div>
                 ))}
             </div>
-            {/* <ThemeSwitcher as='button' fullWidth /> */}
-            <div className='flex w-full flex-col text-center'>
-                &copy; {new Date().getFullYear()}{' '}
-                <a href='https://github.com/yigityalim' target='_blank' rel='noreferrer'>
-                    Mehmet Yiğit Yalım
-                </a>
-                Tüm hakları saklıdır.
-            </div>
-        </footer>
-    )
-}
+ */

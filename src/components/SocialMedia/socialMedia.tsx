@@ -83,8 +83,8 @@ export function SocialMedia({ social, type }: SoicalMediaContainerProps): JSX.El
                         transition={{ duration: 0.5 }}
                         key={id}
                         className={cn(
-                            'flex aspect-square w-full flex-col items-center justify-between gap-y-2 overflow-hidden rounded-lg bg-wash p-8 shadow-md dark:bg-wash-dark'
-                            // idx === 0 ? 'col-span-2 max-h-[175px] overflow-hidden' : 'col-span-1'
+                            'flex aspect-square w-full flex-col items-center justify-center gap-y-2 overflow-hidden rounded-lg bg-wash p-8 shadow-md dark:bg-wash-dark'
+                            //idx === 0 ? 'col-span-2 max-h-[175px] overflow-hidden' : 'col-span-1'
                         )}
                     >
                         <div className={cn('flex flex-col items-center gap-y-2')}>

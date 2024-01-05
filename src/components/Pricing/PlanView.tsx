@@ -19,7 +19,7 @@ const FormSchema = z.object({
 })
 
 export const PlanView: React.FC<{ plan: Pricing }> = React.memo(({ plan }) => {
-    const priceRef: React.RefObject<HTMLHeadingElement> = React.useRef<HTMLHeadingElement>(null)
+    const priceRef = React.useRef<React.ElementRef<'h2'>>(null)
     const isInView = useInView(priceRef, { margin: `-${OVERLAY_MENU_HEIGHT}px` })
 
     const [selectedOptions, setSelectedOptions] = React.useState<SelectedOptions>({})

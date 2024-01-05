@@ -30,7 +30,7 @@ const Spinner: ForwardRefExoticComponent<LoadingProps & RefAttributes<HTMLSpanEl
     LoadingProps
 >(({ className, variant, size, ...props }: LoadingProps, ref: ForwardedRef<HTMLSpanElement>) => {
     return (
-        <div className={cn('flex h-full w-full items-center justify-center', className)}>
+        <div className={cn('flex h-[calc(100dvh-4rem)] w-full items-center justify-center', className)}>
             <span className={cn(loaderVariants({ variant, size }))} ref={ref} {...props} />
         </div>
     )

@@ -22,7 +22,7 @@ export const quickJobs = [
         type: 'quickjob',
         description: "TailwindCSS ile tasarımınızın HTML ve CSS'ini çıkartalım.",
         price: {
-            value: 500,
+            value: 1500,
             type: 'fixed',
         },
         color: {
@@ -37,7 +37,7 @@ export const quickJobs = [
         type: 'quickjob',
         description: 'TypeScript desteği ekleyelim.',
         price: {
-            value: 500,
+            value: 1500,
             type: 'fixed',
         },
         color: {
@@ -52,7 +52,7 @@ export const quickJobs = [
         type: 'quickjob',
         description: 'Web Teknolojileri için yardımcı olalım.',
         price: {
-            value: 300,
+            value: 500,
             type: 'hourly',
         },
         color: {
@@ -66,7 +66,7 @@ export const quickJobs = [
         type: 'quickjob',
         description: 'Oturum yönetimi ekleyelim.',
         price: {
-            value: 1000,
+            value: 3000,
             type: 'yearly',
         },
     },
@@ -76,7 +76,7 @@ export const quickJobs = [
         type: 'quickjob',
         description: 'Ödeme entegrasyonu ekleyelim.',
         price: {
-            value: 1500,
+            value: 5000,
             type: 'yearly',
         },
     },
@@ -86,7 +86,7 @@ export const quickJobs = [
         type: 'quickjob',
         description: 'SEO Optimizasyonu ekleyelim.',
         price: {
-            value: 1000,
+            value: 2500,
             type: 'fixed',
         },
     },
@@ -96,7 +96,7 @@ export const quickJobs = [
         type: 'quickjob',
         description: 'Analitik ekleyelim.',
         price: {
-            value: 1000,
+            value: 1500,
             type: 'yearly',
         },
     },
@@ -106,7 +106,7 @@ export const quickJobs = [
         type: 'quickjob',
         description: 'Hosting ekleyelim.',
         price: {
-            value: 500,
+            value: 1000,
             type: 'monthly',
         },
     },
@@ -126,7 +126,7 @@ export const quickJobs = [
         type: 'quickjob',
         description: 'Çoklu dil desteği ekleyelim.',
         price: {
-            value: 1000,
+            value: 2000,
             type: 'fixed',
         },
     },

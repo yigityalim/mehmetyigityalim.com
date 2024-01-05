@@ -15,7 +15,7 @@ export default function Header(): React.ReactElement {
         <>
             <header
                 className={cn(
-                    'container fixed top-0 z-[51] mx-auto flex w-full items-center justify-between px-8 py-6 md:p-10 lg:p-12 xl:p-16',
+                    'fixed left-0 right-0 top-0 z-[51] mx-auto flex items-center justify-between px-8 py-6 md:static',
                     {
                         '': !menu,
                         'bg-white bg-opacity-100 backdrop-blur-none dark:bg-wash-dark-2 dark:bg-opacity-100 dark:backdrop-blur-none':

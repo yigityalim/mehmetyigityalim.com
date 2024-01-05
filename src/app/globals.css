@@ -11,6 +11,8 @@ body {
     font-sans
     antialiased
     overflow-x-hidden bg-primary dark:bg-wash-dark-2
+    max-w-4xl w-full mx-auto
+    flex items-center justify-center
 }
 
 .font-poppins {
