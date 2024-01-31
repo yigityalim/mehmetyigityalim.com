@@ -10,6 +10,7 @@
     "vercel": "vercel deploy",
     "turbo:lint": "turbo build lint",
     "turbo:dev": "turbo dev",
+    "turob:build": "turbo build",
     "generate": "contentlayer build"
   },
   "dependencies": {

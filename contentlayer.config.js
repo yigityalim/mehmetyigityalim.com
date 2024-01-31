@@ -68,7 +68,7 @@ export const Author = defineNestedType(() => ({
 }))
 
 export default makeSource({
-    contentDirPath: 'src/content',
+    contentDirPath: 'content',
     documentTypes: [Post],
     mdx: {
         remarkPlugins: [remarkGfm],

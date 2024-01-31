@@ -1,17 +1,16 @@
 'use client'
-import React, { memo } from 'react'
+import React from 'react'
 import { Button } from 'components/ui/button'
-import { hasAddPlan, plans } from 'lib/plans'
-import type { Plan, HasAddPlan, OptionPrices } from 'lib/types/plan'
+import { plans } from 'lib/plans'
+import type { Plan } from 'lib/types/plan'
 import { cn, formatPrice } from '@/utils'
 import Container from 'components/Containers'
 import { useInView } from 'framer-motion'
-import { z } from 'zod'
 import { OVERLAY_MENU_HEIGHT } from 'utils/constants'
 import { Select as SelectPrimitive, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'components/ui/select'
 import { notFound } from 'next/navigation'
 
-export default function PlanView({ type }: Readonly<{ type: Plan['type'] }>): React.ReactElement {
+export function PlanView({ type }: Readonly<{ type: Plan['type'] }>): React.ReactElement {
     const priceRef = React.useRef<React.ElementRef<'h2'>>(null)
     const isInView = useInView(priceRef, { margin: `-${OVERLAY_MENU_HEIGHT}px` })
     const plan = plans.find((plan) => plan.type === type) ?? notFound()

@@ -1,10 +1,9 @@
 import React from 'react'
-import { notFound } from 'next/navigation'
 import { plans } from 'lib/plans'
-import PlanView from 'components/Plan/PlanView'
+import {PlanView} from 'components/Plan/PlanView'
 import { Metadata } from 'next'
-import { usePlanStore } from 'store/plan'
 import { Plan } from 'lib/types/plan'
+import { notFound } from 'next/navigation'
 
 type PageProps = Readonly<{ params: { type: Plan['type'] } }>
 
@@ -24,5 +23,6 @@ export async function generateMetadata({ params: { type } }: PageProps): Promise
 }
 
 export default function Page({ params: { type } }: PageProps): React.ReactElement {
+    if (!plans.find((plan) => plan.type === type)) notFound()
     return <PlanView type={type} />
 }

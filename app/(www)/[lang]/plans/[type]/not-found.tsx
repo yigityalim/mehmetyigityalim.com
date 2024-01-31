@@ -1,7 +1,7 @@
 import React from 'react'
 import Container from 'components/Containers'
 import { plans } from 'lib/plans'
-import { PackageCard } from 'src/components/Plan'
+import { PlanCard } from 'components/Plan'
 
 export default function NotFound(): React.ReactElement {
     return (
@@ -11,7 +11,7 @@ export default function NotFound(): React.ReactElement {
                 <span className='text-xs'>İşte! diğer tüm planlar:</span>
             </p>
             {plans.map((p) => (
-                <PackageCard pack={p} key={p.id} />
+                <PlanCard plan={p} key={p.id} />
             ))}
         </Container>
     )
