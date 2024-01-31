@@ -1,13 +1,17 @@
-import { defineDocumentType, makeSource } from 'contentlayer/source-files'
+import { defineDocumentType, defineNestedType, makeSource } from 'contentlayer/source-files'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
-/** @[type] {import('contentlayer/source-files').ComputedFields} */
+
 const computedFields = {
-    url: {
+    slug: {
         type: 'string',
-        resolve: (post) => `/blog/${post._raw.flattenedPath}`,
+        resolve: (doc) => `/${doc._raw.flattenedPath}`,
+    },
+    slugAsParams: {
+        type: 'string',
+        resolve: (doc) => doc._raw.flattenedPath.split('/').slice(1).join('/'),
     },
 }
 
@@ -32,8 +36,35 @@ export const Post = defineDocumentType(() => ({
             type: 'date',
             required: true,
         },
+        coverImage: {
+            type: 'string',
+            required: true,
+        },
+        readMinutes: {
+            type: 'number',
+            required: true,
+        },
+        author: {
+            type: 'nested',
+            of: Author,
+            required: true,
+        },
     },
     computedFields,
+}))
+
+export const Author = defineNestedType(() => ({
+    name: 'Author',
+    fields: {
+        name: {
+            type: 'string',
+            required: true,
+        },
+        avatar: {
+            type: 'string',
+            required: true,
+        },
+    },
 }))
 
 export default makeSource({

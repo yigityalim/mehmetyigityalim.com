@@ -1,0 +1,16 @@
+{
+  "navigation": {
+    "home": "Anasayfa",
+    "about": "Hakkımızda"
+  },
+  "page": {
+    "home": {
+      "title": "NextJs 13 App-Router'da Uluslararasılaştırma",
+      "description": "NextJs 13 App-Router'da Uluslararasılaştırma"
+    },
+    "about": {
+      "title": "Hakkımızda",
+      "description": "hakkında sayfası"
+    }
+  }
+}

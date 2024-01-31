@@ -25,22 +25,22 @@
     ],
     "paths": {
       "@/*": [
-        "./src/*"
+        "./*"
       ],
       "contentlayer/generated": [
         "./.contentlayer/generated"
       ],
       "components/*": [
-        "./src/components/*"
+        "./components/*"
       ],
       "lib/*": [
-        "./src/lib/*"
+        "./lib/*"
       ],
       "store/*": [
-        "./src/store/*"
+        "./store/*"
       ],
       "utils/*": [
-        "./src/utils/*"
+        "./utils/*"
       ]
     }
   },
