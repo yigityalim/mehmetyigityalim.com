@@ -1,4 +1,4 @@
-import type { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 import i18n from './i18n.config'
 import { match as matchLocale } from '@formatjs/intl-localematcher'
@@ -24,7 +24,7 @@ export function middleware(request: NextRequest) {
 
     const locale = getLocale(request)
     request.nextUrl.pathname = `/${locale}${pathname}`
-    return Response.redirect(request.nextUrl)
+    return NextResponse.redirect(request.nextUrl)
 }
 
 export const config = {

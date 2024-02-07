@@ -4,8 +4,6 @@ import useTitle from 'components/Header/useTitle'
 import { useOverlayMenu } from 'store/menu'
 import { useRouter } from 'next/navigation'
 import { cn } from '@/utils'
-import { useFetch } from 'lib/hooks/useFetch'
-import { gql } from 'graphql-request'
 
 export function Title(): React.JSX.Element {
     const { isSub, title } = useTitle()
