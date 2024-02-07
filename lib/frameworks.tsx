@@ -121,7 +121,7 @@ export default [
                         gradientUnits='userSpaceOnUse'
                     >
                         <stop stopColor='#FF1639' />
-                        <stop offset='1' stopColor='#FF1639' stop-opacity='0' />
+                        <stop offset='1' stopColor='#FF1639' stopOpacity='0' />
                     </linearGradient>
                 </defs>
             </svg>
@@ -210,6 +210,6 @@ export default [
 ] as Frameworks[]
 
 type Frameworks = {
-    framework: VercelProject['projects'][0]['framework']
+    framework: VercelProject['projects'][number]['framework']
     icon: React.ReactNode
 }

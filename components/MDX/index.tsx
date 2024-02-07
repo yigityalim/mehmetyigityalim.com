@@ -139,7 +139,7 @@ const components = {
     ),
     pre: ({ className, ...props }: React.HTMLAttributes<HTMLPreElement>) => (
         <pre
-            className={cn('mb-4 mt-6 max-w-full overflow-x-auto break-words rounded-sm bg-gray-800 p-4', className)}
+            className={cn('mb-4 mt-6 max-w-full overflow-x-auto break-words rounded-sm bg-black p-4', className)}
             {...props}
         />
     ),

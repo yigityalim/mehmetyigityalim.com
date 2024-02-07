@@ -54,13 +54,13 @@ export function VercelProject({ projects }: Readonly<VercelProjectProps>): React
                         <div className='flex flex-row items-center justify-center gap-x-2'>
                             <span
                                 className={cn(
-                                    'inline-block h-2.5 w-2.5 rounded-full',
+                                    'inline-block size-2.5 rounded-full',
                                     project.latestDeployments[0].readyState === 'READY' && 'bg-[#50e3c2]',
                                     project.latestDeployments[0].readyState === 'ERROR' && 'bg-red-300',
                                     project.latestDeployments[0].readyState === 'BUILDING' && 'bg-[#f5a623]'
                                 )}
-                            ></span>
-                            {frameworkIcon && <div className='h-6 w-6'>{frameworkIcon}</div>}
+                            />
+                            {frameworkIcon && <div className='size-6'>{frameworkIcon}</div>}
                         </div>
                     </motion.a>
                 )

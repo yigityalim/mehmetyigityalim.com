@@ -52,12 +52,5 @@ export default [
         path: '/blog',
         changefreq: 'weekly',
         priority: 0.8,
-    },
-    {
-        title: 'Hakkımda',
-        name: 'about',
-        path: '/about',
-        changefreq: 'monthly',
-        priority: 0.7,
-    },
+    }
 ] as Menu[]

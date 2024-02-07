@@ -11,8 +11,6 @@ type ContainerProps = Readonly<
     >
 >
 
-export interface Test extends React.HTMLAttributes<HTMLBodyElement> {}
-
 export default function Container({
     className,
     children,
@@ -30,7 +28,7 @@ export default function Container({
                 transition={{ duration: 0.5 }}
                 key={pathname}
                 className={cn(
-                    'container mx-auto flex h-full w-full flex-col items-center justify-start gap-y-8 p-8 pt-[88px]',
+                    'container mx-auto max-w-xl flex h-full w-full flex-col items-center justify-start gap-y-8 p-8 pt-[88px]',
                     (title || description) && 'items-start',
                     className
                 )}

@@ -7,7 +7,7 @@ import { cn } from '@/utils'
 export function ToggleMenu(): React.JSX.Element {
     const { menu, setMenu } = useOverlayMenu()
 
-    const classNames: string = cn('h-0.5 w-2/3 bg-black transition-all duration-300 transform dark:bg-white')
+    const classNames: string = cn('h-0.5 w-2/3 bg-black transition-all duration-300 transform dark:bg-white bg-blend-difference')
 
     const onClick = useCallback(() => {
         setMenu(!menu)

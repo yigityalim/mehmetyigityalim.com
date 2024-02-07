@@ -4,11 +4,18 @@ import { useTheme } from 'next-themes'
 
 import { Button } from 'components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from 'components/ui/dropdown-menu'
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
 import { cn } from '@/utils'
 import { Skeleton } from 'components/ui/skeleton'
 
 type Props = Readonly<{
-    as?: 'button' | 'dropdown'
+    as?: 'button' | 'dropdown' | 'select'
     fullWidth?: boolean
     className?: string
 }>
@@ -77,25 +84,33 @@ function ThemeButtons({
 }
 
 export default function ThemeSwitcher({ as = 'dropdown', fullWidth, className }: Props): React.JSX.Element | null {
-    const { theme, setTheme } = useTheme()
+    const { theme, themes, setTheme } = useTheme()
     const [mounted, setMounted] = useState(false)
     useEffect(() => setMounted(true), [])
 
-    if (!mounted && as === 'button') {
-        return <SkeletonLoader fullWidth={fullWidth} />
-    }
-
-    if (!mounted && as === 'dropdown') {
+    if (!mounted && as === 'button') return <SkeletonLoader fullWidth={fullWidth} />
+    if (!mounted && as === 'dropdown')
         return (
             <Skeleton className={cn(className)}>
                 <Skeleton className='h-10 w-10 rounded-md' />
             </Skeleton>
         )
-    }
+    if (as === 'button') return <ThemeButtons theme={theme} setTheme={setTheme} fullWidth={fullWidth} />
 
-    if (as === 'button') {
-        return <ThemeButtons theme={theme} setTheme={setTheme} fullWidth={fullWidth} />
-    }
+    if (as === 'select') return (
+        <Select onValueChange={(theme) => setTheme(theme)}>
+            <SelectTrigger className="w-full">
+                <SelectValue placeholder="Theme" />
+            </SelectTrigger>
+            <SelectContent>
+                {themes.map((theme) => (
+                    <SelectItem value={theme} key={theme}>
+                        {theme}
+                    </SelectItem>
+                ))}
+            </SelectContent>
+        </Select>
+    )
 
     return (
         <DropdownMenu>

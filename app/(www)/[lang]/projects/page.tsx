@@ -1,9 +1,18 @@
 import React, { JSX } from 'react'
 import Container from 'components/Containers'
 import { Metadata } from 'next'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from 'components/ui/tabs'
-import { GithubProject, VercelProject } from 'components/Project'
-import { useGithub, useVercel } from 'lib/hooks'
+import { GithubProject } from 'components/Project'
+import type { GithubRepositoryType } from 'lib/types/github'
+import vercelProjects from 'lib/vercelProjects'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 'components/ui/card'
+import { Badge } from 'components/ui/badge'
+import { formatDistance } from 'date-fns'
+import { tr } from 'date-fns/locale'
+
+async function useGithub(): Promise<GithubRepositoryType[]> {
+    const response: Response = await fetch(process.env.GITHUB_USER_URL!)
+    return (await response.json()) as GithubRepositoryType[]
+}
 
 export const metadata: Metadata = {
     title: 'Projeler',
@@ -11,22 +20,45 @@ export const metadata: Metadata = {
 }
 
 export default async function Page(): Promise<JSX.Element> {
-    const [github, vercel] = await Promise.all([useGithub(), useVercel()])
+    const [github] = await Promise.all([useGithub()])
 
     return (
         <Container>
-            <Tabs defaultValue='github' className='w-full'>
-                <TabsList className='mb-4 grid w-full grid-cols-2'>
-                    <TabsTrigger value='github'>Github</TabsTrigger>
-                    <TabsTrigger value='vercel'>Vercel</TabsTrigger>
-                </TabsList>
-                <TabsContent value='github' className='w-full'>
-                    <GithubProject repo={github} />
-                </TabsContent>
-                <TabsContent value='vercel' className='w-full'>
-                    <VercelProject projects={vercel} />
-                </TabsContent>
-            </Tabs>
+            <h1 className="w-full text-3xl text-start font-bold">Projelerim</h1>
+            <div className="w-full flex flex-col gap-y-2 items-center justify-center">
+                {vercelProjects.map((project) => (
+                    <a href={project.url} target="_blank" rel="noopener noreferrer" key={project.id} className="w-full h-full">
+                        <Card key={project.id} className="w-full h-full">
+                            <CardHeader>
+                                <CardTitle>{project.name}</CardTitle>
+                                <CardDescription>{project.description}</CardDescription>
+                                <p className='text-base font-bold'>
+                                    {formatDistance(new Date(project.createdAt), new Date(), {
+                                        addSuffix: true,
+                                        locale: tr,
+                                    })}
+                                </p>
+                            </CardHeader>
+                            <CardContent>
+                                {project.tags.map((tag) => (
+                                    <Badge key={tag} className="mr-2">
+                                        {tag}
+                                    </Badge>
+                                ))}
+                            </CardContent>
+                            <CardFooter>
+                                <a href={project.github} target="_blank" rel="noopener noreferrer">
+                                    Github
+                                </a>
+                            </CardFooter>
+                        </Card>
+                    </a>
+                ))}
+            </div>
+            <h1 className="w-full text-3xl text-start font-bold">Github Projelerim</h1>
+            <div className="w-full flex flex-col gap-y-2 items-center justify-center">
+                <GithubProject repo={github} />
+            </div>
         </Container>
     )
 }

@@ -9,7 +9,7 @@ import { usePathname } from 'next/navigation'
 
 export default function Footer(): React.JSX.Element {
     const { title } = useTitle()
-    const pathname = usePathname()
+    const pathname = usePathname().split('/')[1]
 
     return (
         <footer
@@ -20,7 +20,7 @@ export default function Footer(): React.JSX.Element {
             {title && pathname !== '/' ? (
                 <div className='flex w-full flex-row items-center justify-between gap-x-2'>
                     <span className='block h-px w-full bg-black/40 dark:bg-white/40' />
-                    <h1 className='w-full text-center text-2xl font-bold leading-9 tracking-wider transition-all duration-300'>
+                    <h1 className='w-full text-center text-2xl font-bold capitalize leading-9 tracking-wider transition-all duration-300'>
                         {title}
                     </h1>
                     <span className='block h-px w-full bg-black/40 dark:bg-white/40' />
@@ -28,7 +28,7 @@ export default function Footer(): React.JSX.Element {
             ) : (
                 <span className='block h-px w-full bg-black/40 dark:bg-white/40' />
             )}
-            {/* <ThemeSwitcher as='button' fullWidth /> */}
+            <ThemeSwitcher as='button' fullWidth />
             <div className='flex w-full flex-col text-center'>
                 &copy; {new Date().getFullYear()}{' '}
                 <a href='https://instagram.com/yigityalim' target='_blank' rel='noreferrer'>

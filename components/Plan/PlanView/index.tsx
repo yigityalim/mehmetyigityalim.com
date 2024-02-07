@@ -1,24 +1,41 @@
 'use client'
 import React from 'react'
-import { Button } from 'components/ui/button'
-import { plans } from 'lib/plans'
-import type { Plan } from 'lib/types/plan'
+import { Button } from '@/components/ui/button'
+import { plans } from '@/lib/plans'
+import type { Plan } from '@/lib/types/plan'
 import { cn, formatPrice } from '@/utils'
-import Container from 'components/Containers'
+import Container from '@/components/Containers'
 import { useInView } from 'framer-motion'
-import { OVERLAY_MENU_HEIGHT } from 'utils/constants'
-import { Select as SelectPrimitive, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'components/ui/select'
-import { notFound } from 'next/navigation'
+import { OVERLAY_MENU_HEIGHT } from '@/utils/constants'
+import {
+    Select as SelectPrimitive,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select'
+import { useToast } from '@/components/ui/use-toast'
 
-export function PlanView({ type }: Readonly<{ type: Plan['type'] }>): React.ReactElement {
+export function PlanView({ type }: Readonly<{ type?: Plan['type'] }>): React.ReactElement {
     const priceRef = React.useRef<React.ElementRef<'h2'>>(null)
     const isInView = useInView(priceRef, { margin: `-${OVERLAY_MENU_HEIGHT}px` })
-    const plan = plans.find((plan) => plan.type === type) ?? notFound()
-    const [selectedOptions, setSelectedOptions] = React.useState<Plan['optionals']>({} as Plan['optionals'])
+    const plan = plans.find((plan) => plan.type === type)!
+    const { toast } = useToast()
+
+    const [selectedOptions, setSelectedOptions] = React.useState<Plan['optionals']>(() => {
+        const optionals = Object.keys(plan.optionals).filter((key) => key !== 'pageNumber' && key !== 'revision')
+        const initialOptions = optionals.reduce((acc, key) => ({ ...acc, [key]: { has: false } }), {})
+        return {
+            ...initialOptions,
+            pageNumber: { has: false, value: plan.pageNumbers.page },
+            revision: { has: false, value: plan.revisions.revision },
+        }
+    })
+
     const [pageNumber, setPageNumber] = React.useState(plan.pageNumbers.page)
     const [revision, setRevision] = React.useState(plan.revisions.revision)
     const [currentPrice, setCurrentPrice] = React.useState<number>(plan.price)
-    const incrementPageNumber = () => setPageNumber((prev) => prev + 1)
+    const incrementPageNumber = React.useCallback(() => setPageNumber((prev) => prev + 1), [])
     const decrementPageNumber = () => setPageNumber((prev) => prev - 1)
     const incrementRevision = () => setRevision((prev) => prev + 1)
     const decrementRevision = () => setRevision((prev) => prev - 1)
@@ -26,11 +43,25 @@ export function PlanView({ type }: Readonly<{ type: Plan['type'] }>): React.Reac
     const decrementPageNumberDisabled = pageNumber <= plan.pageNumbers.min
     const incretmentRevisionDisabled = revision >= plan.revisions.max
     const decrementRevisionDisabled = revision <= plan.revisions.min
+
     const handleOptionSelect = (key: keyof Plan['optionals']) => {
         setSelectedOptions((prev) => {
-            const updatedOptions = { ...prev, [key]: !prev[key] }
+            const currentOption = prev[key]
+            if (!currentOption) return prev
+
+            const updatedOptions = { ...prev, [key]: { has: !currentOption.has } }
+
+            if (!currentOption.has) {
+                toast({
+                    title: 'Uyarı',
+                    description: 'Bu seçenek şu anda eklenemez.',
+                    variant: 'destructive',
+                })
+                return prev
+            }
+
             const optionPrice = plan.optionals[key]?.cost || 0
-            const updatedPrice = prev[key] ? currentPrice - optionPrice : currentPrice + optionPrice
+            const updatedPrice = currentOption.has ? currentPrice - optionPrice : currentPrice + optionPrice
             setCurrentPrice(updatedPrice)
             return updatedOptions
         })
@@ -53,7 +84,7 @@ export function PlanView({ type }: Readonly<{ type: Plan['type'] }>): React.Reac
             <div className='flex w-full flex-col items-start justify-center gap-y-8 md:flex-row md:items-stretch md:justify-start md:gap-x-8 md:gap-y-0'>
                 <div
                     className={cn(
-                        'fixed left-2 right-2 flex flex-row items-center justify-between gap-x-2 rounded-lg bg-card p-3 transition-all duration-300 dark:bg-wash-dark',
+                        'bg-card dark:bg-wash-dark fixed left-2 right-2 flex flex-row items-center justify-between gap-x-2 rounded-lg p-3 transition-all duration-300',
                         isInView ? '-bottom-full' : 'bottom-4'
                     )}
                 >
@@ -80,7 +111,7 @@ export function PlanView({ type }: Readonly<{ type: Plan['type'] }>): React.Reac
                             .filter((key) => key !== 'pageNumber' && key !== 'revision')
                             .map((key) => {
                                 if (key === 'framework' && plan.framework)
-                                    if (plan.framework.length > 0)
+                                    if (plan.framework.length > 1)
                                         return (
                                             <SelectPrimitive key={key} onValueChange={handleFrameworkSelect}>
                                                 <SelectTrigger className='mb-4'>
@@ -119,7 +150,7 @@ export function PlanView({ type }: Readonly<{ type: Plan['type'] }>): React.Reac
                                                         : 'text-gray-600 dark:text-gray-400'
                                                 )}
                                             >
-                                                {key} {plan.optionals[key as keyof Plan['optionals']]?.cost}
+                                                {key} {plan.optionals[key as keyof Plan['optionals']].cost}
                                             </button>
                                         </div>
                                     )

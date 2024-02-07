@@ -7,8 +7,11 @@ import type { Home } from 'lib/types/home'
 import RequestPlan from 'components/RequestPlan'
 import RequestJob from 'components/RequestJob'
 import Mdx from 'components/MDX'
-import { getDictionary } from 'lib/dictionary'
+//import { getDictionary } from 'lib/dictionary'
 import { type Locale } from '@/i18n.config'
+import HeroSection from 'components/HeroSection'
+import db from '@/db'
+import { countries } from '@/db/schema'
 
 const HOME_PAGE_QUERY: string = gql`
     query HomePage {
@@ -34,29 +37,14 @@ const HOME_PAGE_QUERY: string = gql`
     }
 `
 export default async function Home({ params: { lang } }: { params: { lang: Locale } }) {
-    const { page } = await getDictionary(lang)
+    //const { page } = await getDictionary(lang)
     const { homePages } = await hygraph.request<{ homePages: Home[] }>(HOME_PAGE_QUERY)
     const { title, picture, description, social } = homePages[0]
 
     return (
         <Container className='flex flex-col items-start justify-center gap-y-4 px-0 pt-0'>
-            <div className='relative w-full'>
-                <Image
-                    src={picture.url}
-                    alt='Picture of the author'
-                    quality={100}
-                    priority
-                    className='w-full object-cover'
-                    width={picture.width}
-                    height={picture.height}
-                />
-                <div className='absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white via-transparent to-transparent dark:from-black' />
-            </div>
+           <HeroSection picture={picture} title={title} />
             <div className='flex w-full flex-col gap-y-8 px-8 pt-4 md:px-10'>
-                <h1 className='scroll-m-20 text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white'>
-                    {title}
-                </h1>
-                {page.home.title}
                 <Mdx source={description} />
                 <RequestJob />
                 <RequestPlan />

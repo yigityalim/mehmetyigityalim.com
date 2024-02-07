@@ -9,6 +9,7 @@ import { cn } from '@/utils'
 import menu from 'lib/menu'
 import { OVERLAY_MENU_HEIGHT } from 'utils/constants'
 import { usePathname } from 'next/navigation'
+import LocaleSwitcher from 'components/LocaleSwitcher'
 
 export function OverlayMenu(): React.JSX.Element {
     const { menu: overlayMenu, setMenu } = useOverlayMenu()
@@ -25,23 +26,22 @@ export function OverlayMenu(): React.JSX.Element {
                 <div
                     style={{ top: OVERLAY_MENU_HEIGHT }}
                     className={cn(
-                        'container fixed bottom-0 left-0 right-0 z-[52] mx-auto flex flex-col items-center justify-between gap-y-4 p-8',
+                        'container fixed bottom-0 left-0 right-0 top-0 z-[52] mx-auto flex flex-col items-center justify-start gap-y-4 p-8',
                         overlayMenu
-                            ? 'bg-white dark:bg-wash-dark-2'
+                            ? 'bg-white dark:bg-wash-dark-2 bg-opacity-40 dark:bg-opacity-50 backdrop-blur-2xl dark:backdrop-blur-2xl'
                             : 'bg-opacity-70 backdrop-blur-md dark:bg-opacity-70 dark:backdrop-blur-2xl'
                     )}
                 >
-                    <div />
                     <div className='flex w-full flex-col items-center justify-center gap-y-4'>
                         {menu.map(({ path, icon, title }) => (
                             <div key={path} className='w-full'>
                                 <Link
                                     href={path}
                                     className={cn(
-                                        'flex w-full items-center justify-start gap-x-4 rounded p-1 text-4xl font-bold leading-9 tracking-wider',
+                                        'z-[53] flex w-full items-center justify-start gap-x-4 rounded p-1 text-4xl font-bold leading-9 tracking-wider',
                                         path === pathname ||
-                                            (path.split('/')[1] === pathname.split('/')[1] &&
-                                                'bg-highlight dark:bg-wash-dark')
+                                        (path.split('/')[1] === pathname.split('/')[1] &&
+                                            'bg-highlight dark:bg-wash-dark')
                                     )}
                                     onClick={() => {
                                         setMenu(false)
@@ -54,9 +54,9 @@ export function OverlayMenu(): React.JSX.Element {
                             </div>
                         ))}
                     </div>
-                    <div className='items-center-justify-center flex w-56 flex-col gap-y-2'>
-                        {/* <LanguageSwitch /> */}
-                        <ThemeSwitcher as='button' fullWidth />
+                    <div className='flex flex-row items-center justify-between w-full gap-x-2 mt-auto'>
+                        <LocaleSwitcher />
+                        <ThemeSwitcher as='select' fullWidth className='z-[100] w-full' />
                     </div>
                 </div>
             )}

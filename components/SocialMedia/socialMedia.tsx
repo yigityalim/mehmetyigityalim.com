@@ -10,31 +10,31 @@ type SoicalMediaContainerProps = Readonly<{ social: Social[]; type: 'grid' | 'li
 
 const Icons = [
     {
-        icon: <BsInstagram size={36} />,
+        icon: <BsInstagram size={48} />,
         title: 'Instagram',
     },
     {
-        icon: <BsLinkedin size={36} />,
+        icon: <BsLinkedin size={48} />,
         title: 'Linkedin',
     },
     {
-        icon: <BsSnapchat size={36} />,
+        icon: <BsSnapchat size={48} />,
         title: 'Snapchat',
     },
     {
-        icon: <BsDiscord size={36} />,
+        icon: <BsDiscord size={48} />,
         title: 'Discord',
     },
     {
-        icon: <BsSpotify size={36} />,
+        icon: <BsSpotify size={48} />,
         title: 'Spotify',
     },
     {
-        icon: <BsGithub size={36} />,
+        icon: <BsGithub size={48} />,
         title: 'Github',
     },
     {
-        icon: <BsTwitterX size={36} />,
+        icon: <BsTwitterX size={48} />,
         title: 'twitter',
     },
 ]
@@ -70,47 +70,40 @@ export function SocialMedia({ social, type }: SoicalMediaContainerProps): JSX.El
     return type === 'grid' ? (
         <motion.div
             variants={containerVariants}
-            initial='hidden'
-            animate='visible'
-            className='grid w-full grid-cols-2 gap-4'
+            initial="hidden"
+            animate="visible"
+            className="grid w-full grid-cols-2 gap-4"
         >
             {social.map(({ id, social, url }, idx) => {
                 const icon: JSX.Element | undefined = Icons.find(({ title }) => title.toLowerCase() === social)?.icon
                 return (
-                    <motion.div
+                    <motion.a
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         variants={childrenVariants}
                         whileInView={{ opacity: 1 }}
                         transition={{ duration: 0.5 }}
                         key={id}
                         className={cn(
-                            'flex aspect-square w-full flex-col items-center justify-center gap-y-2 overflow-hidden rounded-lg bg-wash p-8 shadow-md dark:bg-wash-dark'
+                            'flex aspect-square w-full flex-col items-center justify-center gap-y-2 overflow-hidden rounded-lg bg-wash p-8 shadow-md dark:bg-wash-dark',
                             //idx === 0 ? 'col-span-2 max-h-[175px] overflow-hidden' : 'col-span-1'
                         )}
                     >
                         <div className={cn('flex flex-col items-center gap-y-2')}>
-                            {icon && <>{icon}</>}
-                            <span className='text-xs font-semibold tracking-wide'>{social.toUpperCase()}</span>
-                            <a
-                                href={url}
-                                target='_blank'
-                                rel='noopener noreferrer'
-                                className={cn(
-                                    'rounded-lg bg-syntax px-4 py-2 text-xs font-semibold tracking-wide dark:bg-wash-dark-2'
-                                )}
-                            >
-                                Takip Et
-                            </a>
+                            {icon && <span className='text-4xl'>{icon}</span>}
+                            <span className="text-base font-semibold tracking-wide">{social.toUpperCase()}</span>
                         </div>
-                    </motion.div>
+                    </motion.a>
                 )
             })}
         </motion.div>
     ) : (
         <motion.div
             variants={containerVariants}
-            initial='hidden'
-            animate='visible'
-            className='flex w-full flex-col items-center justify-start gap-y-4'
+            initial="hidden"
+            animate="visible"
+            className="flex w-full flex-col items-center justify-start gap-y-4"
         >
             {social.map(({ id, social, url }, idx) => {
                 const icon: JSX.Element | undefined = Icons.find(({ title }) => title.toLowerCase() === social)?.icon
@@ -121,19 +114,19 @@ export function SocialMedia({ social, type }: SoicalMediaContainerProps): JSX.El
                         transition={{ duration: 0.5 }}
                         key={id}
                         className={cn(
-                            'flex w-full flex-row items-center justify-between gap-x-4 overflow-hidden rounded-lg bg-wash p-8 shadow-md dark:bg-wash-dark'
+                            'flex w-full flex-row items-center justify-between gap-x-4 overflow-hidden rounded-lg bg-wash p-8 shadow-md dark:bg-wash-dark',
                         )}
                     >
                         <div className={cn('flex flex-row items-center gap-x-4')}>
                             {icon && <>{icon}</>}
-                            <span className='text-xs font-semibold tracking-wide'>{social.toUpperCase()}</span>
+                            <span className="text-xs font-semibold tracking-wide">{social.toUpperCase()}</span>
                         </div>
                         <a
                             href={url}
-                            target='_blank'
-                            rel='noopener noreferrer'
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className={cn(
-                                'rounded-lg bg-syntax px-4 py-2 text-xs font-semibold tracking-wide dark:bg-wash-dark-2'
+                                'rounded-lg bg-syntax px-4 py-2 text-xs font-semibold tracking-wide dark:bg-wash-dark-2',
                             )}
                         >
                             Takip Et

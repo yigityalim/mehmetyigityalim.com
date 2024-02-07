@@ -13,7 +13,7 @@ export function Title(): React.JSX.Element {
     const { back } = useRouter()
     return (
         <div className={cn('flex h-full w-full items-center gap-x-4 transition', menu && 'opacity-0')}>
-            {isSub ? (
+            {isSub() ? (
                 <svg
                     onClick={() => {
                         back()

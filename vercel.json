@@ -1,0 +1,4 @@
+{
+  "buildCommand": "contentlayer build && next build",
+  "devCommand": "next dev"
+}
