@@ -14,8 +14,8 @@ export function ToggleMenu(): React.JSX.Element {
     }, [menu, setMenu])
 
     return (
-        <Button variant='link' size='icon' onClick={onClick}>
-            <div className='z-[9999] flex h-full w-full flex-col items-center justify-center gap-y-2'>
+        <Button variant='link' size='icon' onClick={onClick} className='fixed top-4 right-4 z-[9999]'>
+            <div className='flex h-full w-full flex-col items-center justify-center gap-y-2'>
                 <span
                     className={cn(
                         classNames,

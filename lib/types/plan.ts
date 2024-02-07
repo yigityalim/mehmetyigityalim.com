@@ -50,6 +50,7 @@ export interface Optionals<T = Optional> {
     dns: T
     i18n: T
 }
+
 type Optional<T = {}> = T extends boolean
     ? boolean
     : {
