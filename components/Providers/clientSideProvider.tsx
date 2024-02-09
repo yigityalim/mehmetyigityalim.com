@@ -2,9 +2,21 @@
 
 import * as React from 'react'
 import { type ThemeProviderProps } from 'next-themes/dist/types'
-import { NextUIProvider } from '@nextui-org/react'
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
+import { type AbstractIntlMessages, NextIntlClientProvider } from 'next-intl'
+import { Locale } from '@/config/locale'
 
-export default function ClientSideProvider({ children, ...props }: Readonly<ThemeProviderProps>) {
-    return <NextThemesProvider {...props}>{children}</NextThemesProvider>
+export interface ClientSideProviderProps extends ThemeProviderProps {
+    locale: Locale
+    messages: AbstractIntlMessages
+}
+
+export function ClientSideProvider({ children, locale, messages, ...props }: Readonly<ClientSideProviderProps>) {
+    return (
+        <NextThemesProvider {...props}>
+            <NextIntlClientProvider locale={locale} messages={messages}>
+                {children}
+            </NextIntlClientProvider>
+        </NextThemesProvider>
+    )
 }

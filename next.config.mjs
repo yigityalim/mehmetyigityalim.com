@@ -1,8 +1,8 @@
-const { withContentlayer } = require('next-contentlayer')
+import createNextIntlPlugin from 'next-intl/plugin'
 
-/**
- * @type {import('next').NextConfig}
- * */
+const withNextIntl = createNextIntlPlugin()
+
+/** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
         remotePatterns: [
@@ -26,6 +26,6 @@ const nextConfig = {
     },
     reactStrictMode: true,
     swcMinify: true,
-}
+};
 
-module.exports = withContentlayer(nextConfig)
+export default withNextIntl(nextConfig)

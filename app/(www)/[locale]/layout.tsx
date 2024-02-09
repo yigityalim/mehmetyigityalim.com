@@ -4,12 +4,12 @@ import type { Metadata, Viewport } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import '@/styles/globals.css'
 import React from 'react'
-
-import Providers from '@/components/Providers/clientSideProvider'
+import { getMessages, unstable_setRequestLocale } from 'next-intl/server'
+import { ClientSideProvider } from '@/components/Providers/clientSideProvider'
 import Intro from 'components/Intro'
 import { cn } from '@/utils'
 import { Toaster } from '@/components/ui/toaster'
-import i18n, { type Locale } from '@/i18n.config'
+import { Locale, locales } from '@/config/locale'
 import TailwindIndicator from '@/components/TailwindIndicator'
 
 export const metadata: Metadata = {
@@ -34,20 +34,26 @@ export const viewport: Viewport = {
 
 type RootLayoutProps = Readonly<{
     children: React.ReactNode
-    params: { lang: Locale }
+    params: { locale: Locale }
 }>
 
-export async function generateStaticParams(): Promise<{ lang: Locale }[]> {
-    return i18n.locales.map((locale) => ({ lang: locale }))
+export function generateStaticParams() {
+    return locales.map((locale) => ({ locale }))
 }
 
-export default function RootLayout({ children, params }: RootLayoutProps): React.ReactElement {
+export default async function RootLayout({
+                                             children,
+                                             params: { locale },
+                                         }: RootLayoutProps): Promise<React.JSX.Element> {
+    unstable_setRequestLocale(locale)
+    const messages = await getMessages()
     return (
-        <html lang={params.lang} suppressHydrationWarning>
+        <html lang={locale} suppressHydrationWarning>
             <body className={cn(GeistSans.className)}>
-                <Providers attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
+            <ClientSideProvider locale={locale} messages={messages} attribute="class" defaultTheme="system" enableSystem
+                                disableTransitionOnChange>
                     <Intro>{children}</Intro>
-                </Providers>
+            </ClientSideProvider>
                 <Analytics />
                 <SpeedInsights />
                 <TailwindIndicator />

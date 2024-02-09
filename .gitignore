@@ -38,6 +38,9 @@ yarn-error.log*
 # turbo
 .turbo
 
+#drizzle
+.drizzle
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

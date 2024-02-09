@@ -1,7 +1,22 @@
 {
+  "Metadata": {
+    "title": "NextJs 13 App-Router'da Uluslararasılaştırma",
+    "description": "NextJs 13 App-Router'da Uluslararasılaştırma"
+  },
   "navigation": {
     "home": "Anasayfa",
-    "about": "Hakkımızda"
+    "about": "Hakkımızda",
+    "plans": "Planlar",
+    "contact": "İletişim",
+    "references": "Referanslar",
+    "projects": "Projeler",
+    "blog": "Blog"
+  },
+  "theme": {
+    "default": "Tema",
+    "light": "Açık",
+    "dark": "Koyu",
+    "system": "Sistem"
   },
   "page": {
     "home": {

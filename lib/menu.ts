@@ -2,8 +2,8 @@ import type { MetadataRoute } from 'next'
 
 export type Menu = {
     title: string
-    name: string
-    path: string
+    name: keyof Messages['navigation']
+    path: `/${keyof Messages['navigation']}`
     icon?: string
 
     changefreq?: MetadataRoute.Sitemap[number]['changeFrequency']

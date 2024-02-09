@@ -23,14 +23,20 @@ const loaderVariants = cva(
     }
 )
 
-interface LoadingProps extends HTMLAttributes<HTMLSpanElement>, VariantProps<typeof loaderVariants> {}
+interface LoadingProps extends HTMLAttributes<HTMLSpanElement>, VariantProps<typeof loaderVariants> {
+    justSpinner?: boolean
+}
 
 const Spinner: ForwardRefExoticComponent<LoadingProps & RefAttributes<HTMLSpanElement>> = forwardRef<
     HTMLSpanElement,
     LoadingProps
->(({ className, variant, size, ...props }: LoadingProps, ref: ForwardedRef<HTMLSpanElement>) => {
+>(({ className, variant, size, justSpinner, ...props }: LoadingProps, ref: ForwardedRef<HTMLSpanElement>) => {
     return (
-        <div className={cn('flex h-[calc(100dvh-4rem)] w-full items-center justify-center', className)}>
+        <div
+            className={cn(
+                justSpinner ? 'flex h-auto w-auto items-center justify-center' : 'flex h-[calc(100dvh-4rem)] w-full items-center justify-center',
+                className,
+            )}>
             <span className={cn(loaderVariants({ variant, size }))} ref={ref} {...props} />
         </div>
     )

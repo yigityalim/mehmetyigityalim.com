@@ -1,13 +1,12 @@
 import Container from 'components/Containers'
 import { gql } from 'graphql-request'
 import hygraph from '@/graphql'
-import Image from 'next/image'
 import { SocialMediaSwitchContainer } from 'components/SocialMedia'
 import type { Home } from 'lib/types/home'
 import RequestPlan from 'components/RequestPlan'
 import RequestJob from 'components/RequestJob'
 import Mdx from 'components/MDX'
-import { type Locale } from '@/i18n.config'
+import { getTranslations } from 'next-intl/server'
 import HeroSection from 'components/HeroSection'
 
 const HOME_PAGE_QUERY: string = gql`
@@ -33,10 +32,10 @@ const HOME_PAGE_QUERY: string = gql`
         }
     }
 `
-export default async function Home({ params: { lang } }: { params: { lang: Locale } }) {
-    //const { page } = await getDictionary(lang)
+export default async function Home() {
     const { homePages } = await hygraph.request<{ homePages: Home[] }>(HOME_PAGE_QUERY)
     const { title, picture, description, social } = homePages[0]
+    const t = await getTranslations('page')
 
     return (
         <Container className='flex flex-col items-start justify-center gap-y-4 px-0 pt-0'>

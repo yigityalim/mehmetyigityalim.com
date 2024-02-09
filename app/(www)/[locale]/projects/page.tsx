@@ -1,4 +1,4 @@
-import React, { JSX } from 'react'
+import React from 'react'
 import Container from 'components/Containers'
 import { Metadata } from 'next'
 import { GithubProject } from 'components/Project'
@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from 'components/ui/badge'
 import { formatDistance } from 'date-fns'
 import { tr } from 'date-fns/locale'
+import { Spinner } from '@/components/Spinner'
 
 async function useGithub(): Promise<GithubRepositoryType[]> {
     const response: Response = await fetch(process.env.GITHUB_USER_URL!)
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
     description: 'Projelerim',
 }
 
-export default async function Page(): Promise<JSX.Element> {
+export default async function Page(): Promise<React.JSX.Element> {
     const [github] = await Promise.all([useGithub()])
 
     return (
@@ -57,7 +58,9 @@ export default async function Page(): Promise<JSX.Element> {
             </div>
             <h1 className="w-full text-3xl text-start font-bold">Github Projelerim</h1>
             <div className="w-full flex flex-col gap-y-2 items-center justify-center">
-                <GithubProject repo={github} />
+                <React.Suspense fallback={<Spinner justSpinner />}>
+                    <GithubProject repo={github} />
+                </React.Suspense>
             </div>
         </Container>
     )

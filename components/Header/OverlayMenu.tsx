@@ -2,17 +2,17 @@
 import React, { useEffect } from 'react'
 import { useOverlayMenu } from 'store/menu'
 import { AnimatePresence, motion } from 'framer-motion'
-import Link from 'next/link'
 import ThemeSwitcher from 'components/ThemeSwitch'
 import { cn } from '@/utils'
 import menu from 'lib/menu'
-import { OVERLAY_MENU_HEIGHT } from 'utils/constants'
-import { usePathname } from 'next/navigation'
 import LocaleSwitcher from 'components/LocaleSwitcher'
+import { useTranslations } from 'next-intl'
+import { Link, usePathname } from '@/lib/navigation'
 
 export function OverlayMenu(): React.JSX.Element {
     const { menu: overlayMenu, setMenu } = useOverlayMenu()
     const pathname = usePathname()
+    const t = useTranslations('navigation')
 
     useEffect(() => {
         document.body.style.overflow = overlayMenu ? 'hidden' : ''
@@ -30,29 +30,24 @@ export function OverlayMenu(): React.JSX.Element {
                     transition={{ duration: 0.2 }}
                     className={cn(
                         'container fixed inset-0 z-[52] mx-auto flex flex-col items-center justify-start gap-y-4 p-8',
-                        overlayMenu
-                            ? 'bg-white dark:bg-wash-dark-2 bg-opacity-40 dark:bg-opacity-50 backdrop-blur-2xl dark:backdrop-blur-2xl'
-                            : 'bg-opacity-70 backdrop-blur-md dark:bg-opacity-70 dark:backdrop-blur-2xl'
+                        overlayMenu && 'bg-white dark:bg-wash-dark-2 bg-opacity-40 dark:bg-opacity-50 backdrop-blur-2xl dark:backdrop-blur-2xl',
                     )}
                 >
                     <div className='flex w-full flex-col items-center justify-center gap-y-4 pt-24'>
-                        {menu.map(({ path, icon, title }) => (
+                        {menu.map(({ path, name }) => (
                             <div key={path} className='w-full'>
                                 <Link
                                     href={path}
                                     className={cn(
-                                        'z-[53] flex w-full items-center justify-start gap-x-4 rounded p-1 text-4xl font-bold leading-9 tracking-wider',
-                                        path === pathname ||
-                                        (path.split('/')[1] === pathname.split('/')[1] &&
-                                            'bg-highlight dark:bg-wash-dark')
+                                        'z-[53] flex w-full items-center justify-end gap-x-4 rounded p-1 text-5xl font-bold',
+                                        path === pathname && 'bg-white dark:bg-wash-dark dark:shadow-lg dark:border  dark:border-card-dark',
                                     )}
                                     onClick={() => {
                                         setMenu(false)
                                         document.body.style.overflow = ''
                                     }}
                                 >
-                                    {icon}
-                                    <span>{title}</span>
+                                    {t(name)}
                                 </Link>
                             </div>
                         ))}

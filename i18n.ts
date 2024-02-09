@@ -1,9 +1,12 @@
-const i18n = {
-    defaultLocale: 'tr',
-    locales: ['tr', 'en'],
-} as const
+import { notFound } from 'next/navigation'
+import { getRequestConfig } from 'next-intl/server'
+import { type Locale, locales } from '@/config/locale'
 
-type Locale = (typeof i18n)['locales'][number]
-
-export default i18n
-export type { Locale }
+export default getRequestConfig(async ({ locale }) => {
+    if (!locales.includes(locale as Locale)) notFound()
+    return {
+        messages: (await import(`./messages/${locale}.json`)).default,
+        timeZone: 'Europe/Istanbul',
+        now: new Date(),
+    }
+})

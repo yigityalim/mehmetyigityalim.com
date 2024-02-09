@@ -1,32 +1,10 @@
-import { NextRequest, NextResponse } from 'next/server'
+import createMiddleware from 'next-intl/middleware'
 
-import i18n from './i18n.config'
-import { match as matchLocale } from '@formatjs/intl-localematcher'
-import Negotiator from 'negotiator'
-
-function getLocale(request: NextRequest): string | undefined {
-    const negotiatorHeaders: Record<string, string> = {}
-    request.headers.forEach((value, key) => (negotiatorHeaders[key] = value))
-
-    // @ts-ignore
-    const locales: string[] = i18n.locales
-    const languages: string[] = new Negotiator({ headers: negotiatorHeaders }).languages()
-    return matchLocale(languages, locales, i18n.defaultLocale)
-}
-
-export function middleware(request: NextRequest) {
-    const { pathname } = request.nextUrl
-    const pathnameHasLocale = i18n.locales.some(
-        (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-    )
-
-    if (pathnameHasLocale) return
-
-    const locale = getLocale(request)
-    request.nextUrl.pathname = `/${locale}${pathname}`
-    return NextResponse.redirect(request.nextUrl)
-}
+export default createMiddleware({
+    locales: ['tr', 'en'],
+    defaultLocale: 'tr',
+})
 
 export const config = {
-    matcher: ["/((?!.*\\.).*)", "/favicon.ico"],
+    matcher: ['/', '/(tr|en)/:path*'],
 }
