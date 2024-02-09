@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { cn } from '@/utils'
+import { cn } from 'lib/utils'
 import { AnimatePresence, motion, MotionProps } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 

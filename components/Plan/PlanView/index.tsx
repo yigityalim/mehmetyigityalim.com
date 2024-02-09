@@ -3,10 +3,9 @@ import React from 'react'
 import { Button } from '@/components/ui/button'
 import { plans } from '@/lib/plans'
 import type { Optionals, Plan } from '@/lib/types/plan'
-import { cn, formatPrice } from '@/utils'
+import { cn, formatPrice } from 'lib/utils'
 import Container from '@/components/Containers'
 import { useInView } from 'framer-motion'
-import { OVERLAY_MENU_HEIGHT } from '@/utils/constants'
 import {
     Select as SelectPrimitive,
     SelectContent,
@@ -18,7 +17,7 @@ import { useToast } from '@/components/ui/use-toast'
 
 export function PlanView({ type }: Readonly<{ type?: Plan['type'] }>): React.ReactElement {
     const priceRef = React.useRef<React.ElementRef<'h2'>>(null)
-    const isInView = useInView(priceRef, { margin: `-${OVERLAY_MENU_HEIGHT}px` })
+    const isInView = useInView(priceRef, { margin: `-88px` })
     const plan = plans.find((plan) => plan.type === type)!
     const { toast } = useToast()
 

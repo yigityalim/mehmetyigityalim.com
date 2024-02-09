@@ -2,7 +2,7 @@
 import React, { useCallback } from 'react'
 import { useOverlayMenu } from 'store/menu'
 import { Button } from 'components/ui/button'
-import { cn } from '@/utils'
+import { cn } from 'lib/utils'
 
 export function ToggleMenu(): React.JSX.Element {
     const { menu, setMenu } = useOverlayMenu()

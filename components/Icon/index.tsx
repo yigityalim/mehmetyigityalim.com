@@ -1,5 +1,5 @@
 import React from 'react'
-import { cn } from '@/utils'
+import { cn } from 'lib/utils'
 
 export const ArrowLeft = ({ className }: { className?: string }) => (
     <svg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24' className={cn(className)}>

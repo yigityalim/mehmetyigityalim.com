@@ -1,5 +1,5 @@
 import React from 'react'
-import { cn } from '@/utils'
+import { cn } from 'lib/utils'
 
 type TailwindIndicatorProps = Readonly<{
     align?: 'left' | 'center' | 'right'

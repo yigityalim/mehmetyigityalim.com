@@ -1,10 +1,8 @@
 'use client'
 import React from 'react'
-import { cn } from '@/utils'
+import { cn } from 'lib/utils'
 import useTitle from 'components/Header/useTitle'
-import Link from 'next/link'
 import ThemeSwitcher from 'components/ThemeSwitch'
-import menu from 'lib/menu'
 import { usePathname } from 'next/navigation'
 
 export default function Footer(): React.JSX.Element {

@@ -4,7 +4,7 @@ import type { VercelProject } from '@/lib/types/vercel'
 import { SiVercel as Vercel } from 'react-icons/si'
 import { motion, Variants } from 'framer-motion'
 import frameworks from 'lib/frameworks'
-import { cn } from '@/utils'
+import { cn } from 'lib/utils'
 
 const containerVariants: Variants = {
     hidden: {

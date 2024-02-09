@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import { Button } from 'components/ui/button'
 import Link from 'next/link'
-import { cn, formatPrice } from '@/utils'
+import { cn, formatPrice } from 'lib/utils'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from 'components/ui/hover-card'
 import type { Plan } from 'lib/types/plan'
 

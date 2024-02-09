@@ -2,7 +2,7 @@
 import React from 'react'
 import { locales, usePathname, useRouter } from 'lib/navigation'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { cn } from '@/utils'
+import { cn } from 'lib/utils'
 import { useLocale } from 'next-intl'
 
 export default function LocaleSwitcher(): React.ReactElement {

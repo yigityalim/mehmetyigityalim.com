@@ -1,9 +1,9 @@
 'use client'
 
-import { JSX, useState } from 'react'
-import { cn } from '@/utils'
+import { JSX } from 'react'
+import { cn } from 'lib/utils'
 import type { Social } from '@/lib/types/home'
-import { BsInstagram, BsLinkedin, BsSnapchat, BsDiscord, BsSpotify, BsGithub, BsTwitterX } from 'react-icons/bs'
+import { BsDiscord, BsGithub, BsInstagram, BsLinkedin, BsSnapchat, BsSpotify, BsTwitterX } from 'react-icons/bs'
 import { motion, Variants } from 'framer-motion'
 
 type SoicalMediaContainerProps = Readonly<{ social: Social[]; type: 'grid' | 'list' }>

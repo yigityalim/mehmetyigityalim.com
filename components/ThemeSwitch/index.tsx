@@ -5,7 +5,7 @@ import { useTheme } from 'next-themes'
 import { Button } from 'components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from 'components/ui/dropdown-menu'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { cn } from '@/utils'
+import { cn } from 'lib/utils'
 import { Skeleton } from 'components/ui/skeleton'
 import { useTranslations } from 'next-intl'
 

@@ -4,7 +4,7 @@ import { motion, Variants } from 'framer-motion'
 import { GithubRepositoryType } from '@/lib/types/github'
 import { Badge } from 'components/ui/badge'
 import { format } from 'date-fns'
-import { textColorForBackground } from '@/utils'
+import { textColorForBackground } from 'lib/utils'
 
 const containerVariants: Variants = {
     hidden: {

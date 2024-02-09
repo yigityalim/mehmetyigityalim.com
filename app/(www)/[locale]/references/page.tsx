@@ -3,7 +3,7 @@ import Container from 'components/Containers'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 'components/ui/card'
 import { buttonVariants } from 'components/ui/button'
 import Link from 'next/link'
-import { cn } from '@/utils'
+import { cn } from 'lib/utils'
 import { Badge } from 'components/ui/badge'
 
 function ReferenceCard({ name, url, icon, description, tags }: Readonly<Reference>): React.ReactElement {

@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { type QuickJobs } from 'lib/quickJob'
 import React from 'react'
 import { Button } from 'components/ui/button'
-import { cn, formatPrice } from '@/utils'
+import { cn, formatPrice } from 'lib/utils'
 import { useToast } from 'components/ui/use-toast'
 
 type QuickJobProps = Readonly<{

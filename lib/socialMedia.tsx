@@ -1,10 +1,9 @@
-import { BsInstagram, BsLinkedin, BsSnapchat, BsDiscord, BsSpotify, BsGithub } from 'react-icons/bs'
-import { FaXTwitter, FaSquareThreads } from 'react-icons/fa6'
+import { BsDiscord, BsGithub, BsInstagram, BsLinkedin, BsSnapchat, BsSpotify } from 'react-icons/bs'
+import { FaSquareThreads, FaXTwitter } from 'react-icons/fa6'
 import React from 'react'
-import hygraph, { gql } from '@/graphql'
 import { Button } from 'components/ui/button'
 import { Author } from 'lib/types/Author'
-import { cn } from '@/utils'
+import { cn } from 'lib/utils'
 
 type Props = Author['social'][number] & {
     text?: boolean

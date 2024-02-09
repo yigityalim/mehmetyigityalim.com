@@ -3,7 +3,7 @@ import React from 'react'
 import useTitle from 'components/Header/useTitle'
 import { useOverlayMenu } from 'store/menu'
 import { useRouter } from 'next/navigation'
-import { cn } from '@/utils'
+import { cn } from 'lib/utils'
 
 export function Title(): React.JSX.Element {
     const { isSub, title } = useTitle()

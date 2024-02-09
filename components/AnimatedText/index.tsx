@@ -1,6 +1,6 @@
 import { ElementType, JSX, RefObject, useEffect, useRef, useState } from 'react'
 import { AnimationControls, motion, useAnimation, useInView, type Variants } from 'framer-motion'
-import { cn } from '@/utils'
+import { cn } from 'lib/utils'
 import { v4 } from 'uuid'
 
 const defaultAnimations: Variants = {
