@@ -5,7 +5,6 @@ export type Menu = {
     name: keyof Messages['navigation']
     path: `/${keyof Omit<Messages['navigation'], 'home'>}` & '/'
     icon?: string
-
     changefreq?: MetadataRoute.Sitemap[number]['changeFrequency']
     priority?: MetadataRoute.Sitemap[number]['priority']
 }
