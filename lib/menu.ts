@@ -3,7 +3,7 @@ import type { MetadataRoute } from 'next'
 export type Menu = {
     title: string
     name: keyof Messages['navigation']
-    path: `/${keyof Messages['navigation']}`
+    path: `/${keyof Omit<Messages['navigation'], 'home'>}` & '/'
     icon?: string
 
     changefreq?: MetadataRoute.Sitemap[number]['changeFrequency']
