@@ -1,4 +1,4 @@
-    import { Analytics } from '@vercel/analytics/react'
+import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata, Viewport } from 'next'
 import { GeistSans } from 'geist/font/sans'
@@ -6,7 +6,7 @@ import '@/styles/globals.css'
 import React from 'react'
 
 import Providers from '@/components/Providers/clientSideProvider'
-import ProductionMode from '@/components/ProductionMode'
+import Intro from 'components/Intro'
 import { cn } from '@/utils'
 import { Toaster } from '@/components/ui/toaster'
 import i18n, { type Locale } from '@/i18n.config'
@@ -37,7 +37,7 @@ type RootLayoutProps = Readonly<{
     params: { lang: Locale }
 }>
 
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<{ lang: Locale }[]> {
     return i18n.locales.map((locale) => ({ lang: locale }))
 }
 
@@ -46,7 +46,7 @@ export default function RootLayout({ children, params }: RootLayoutProps): React
         <html lang={params.lang} suppressHydrationWarning>
             <body className={cn(GeistSans.className)}>
                 <Providers attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
-                    <ProductionMode>{children}</ProductionMode>
+                    <Intro>{children}</Intro>
                 </Providers>
                 <Analytics />
                 <SpeedInsights />
