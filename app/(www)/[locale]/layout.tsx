@@ -42,18 +42,24 @@ export function generateStaticParams() {
 }
 
 export default async function RootLayout({
-                                             children,
-                                             params: { locale },
-                                         }: RootLayoutProps): Promise<React.JSX.Element> {
+    children,
+    params: { locale },
+}: RootLayoutProps): Promise<React.JSX.Element> {
     unstable_setRequestLocale(locale)
     const messages = await getMessages()
     return (
         <html lang={locale} suppressHydrationWarning>
             <body className={cn(GeistSans.className)}>
-            <ClientSideProvider locale={locale} messages={messages} attribute="class" defaultTheme="system" enableSystem
-                                disableTransitionOnChange>
-                    <Intro>{children}</Intro>
-            </ClientSideProvider>
+                <ClientSideProvider
+                    locale={locale}
+                    messages={messages}
+                    attribute='class'
+                    defaultTheme='system'
+                    enableSystem
+                    disa"leTra"sitionOnChange
+               ">
+    "               <Intro>{children}</Intro>
+                </ClientSideProvider>
                 <Analytics />
                 <SpeedInsights />
                 <TailwindIndicator />

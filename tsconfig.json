@@ -3,6 +3,8 @@
     "baseUrl": ".",
     "target": "esnext",
     "lib": [
+      "ES6",
+      "ES5",
       "dom",
       "dom.iterable",
       "esnext"

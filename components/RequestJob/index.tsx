@@ -3,25 +3,21 @@ import React from 'react'
 import { VscFeedback } from 'react-icons/vsc'
 import {
     Drawer,
-    DrawerClose,
     DrawerContent,
     DrawerDescription,
     DrawerHeader,
     DrawerTitle,
     DrawerTrigger,
-    DrawerFooter,
 } from 'components/ui/drawer'
 import {
     Dialog,
-    DialogTrigger,
     DialogContent,
+    DialogDescription,
     DialogHeader,
     DialogTitle,
-    DialogDescription,
+    DialogTrigger,
 } from 'components/ui/dialog'
 import ResendForm from './form'
-import { Button } from 'components/ui/button'
-import { useMediaQuery } from 'usehooks-ts'
 
 type RequestJobProps = Readonly<{}>
 

@@ -9,6 +9,9 @@ export const pathnames = {
     '/contact': '/contact',
     '/plans': '/plans',
     '/references': '/references',
+
+    '/blog/[id]': '/blog/[id]',
+    '/plans/[type]': '/plans/[type]',
 } satisfies NextIntlPathnames<typeof locales>
 
 export const { Link, redirect, usePathname, useRouter, getPathname } = createLocalizedPathnamesNavigation({

@@ -6,7 +6,7 @@ readMinutes: 10
 coverImage: https://media.graphassets.com/7HXjVVTKRNm3QABmOkxo
 author:
     name: Mehmet Yiğit Yalım
-    avatar: https://media.graphassets.com/7HXjVVTKRNm3QABmOkxo
+avatar: /images/cover.png
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aut consequatur doloribus incidunt, ipsa laboriosam magnam neque repellendus saepe sequi temporibus tenetur, vero vitae. Atque cum dolor, ducimus eaque natus necessitatibus neque nostrum quaerat quis reprehenderit? Adipisci aperiam aut et nihil odio. Accusantium aut et eum incidunt minima minus quaerat.
@@ -23,7 +23,9 @@ bu bir resim örneğidir:
 [![resim](https://media.graphassets.com/7HXjVVTKRNm3QABmOkxo)](https://media.graphassets.com/7HXjVVTKRNm3QABmOkxo)
 
 bu da bir kod örneği:
-```ts
+```tsx
+import React from 'react'
+
 export default async function Page({ params }: { params: { slug: string } }): Promise<React.JSX.Element> {
     const post = await getPostFromParams(params.slug)
     return (

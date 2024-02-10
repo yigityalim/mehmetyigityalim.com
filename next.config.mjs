@@ -1,4 +1,9 @@
 import createNextIntlPlugin from 'next-intl/plugin'
+import createJiti from 'jiti'
+
+const jiti = createJiti(new URL(import.meta.url).pathname)
+
+jiti('./env')
 
 const withNextIntl = createNextIntlPlugin()
 
@@ -26,6 +31,7 @@ const nextConfig = {
     },
     reactStrictMode: true,
     swcMinify: true,
+    transpilePackages: ['lucide-react'],
 };
 
 export default withNextIntl(nextConfig)

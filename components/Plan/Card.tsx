@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 'components/ui/card'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import { Button } from 'components/ui/button'
-import Link from 'next/link'
+import { Link } from 'lib/navigation'
 import { cn, formatPrice } from 'lib/utils'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from 'components/ui/hover-card'
 import type { Plan } from 'lib/types/plan'
@@ -78,7 +78,12 @@ export function PlanCard({ plan }: planageCardProps): React.ReactElement {
                             size='sm'
                             asChild
                         >
-                            <Link href={supPage ? href : `/plans/${href}`}>
+                            <Link
+                                href={{
+                                    pathname: '/plans/[type]',
+                                    params: { type: plan.type },
+                                }}
+                            >
                                 {text} <ArrowRight className='h-4 w-4' />
                             </Link>
                         </Button>

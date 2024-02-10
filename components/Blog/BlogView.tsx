@@ -5,10 +5,9 @@ import { motion } from 'framer-motion'
 import * as fns from 'date-fns'
 import * as locale from 'date-fns/locale'
 import Image from 'next/image'
-import Link from 'next/link'
-import { ArrowRight } from 'components/Icon'
-import { allPosts, Post } from 'contentlayer/generated'
-import { Button } from 'components/ui/button'
+import { Link } from 'lib/navigation'
+import { Icon } from 'components/Icon'
+import { allPosts } from 'contentlayer/generated'
 
 export default function BlogView(): React.JSX.Element {
     return (
@@ -20,8 +19,8 @@ export default function BlogView(): React.JSX.Element {
             <h1 className='w-full text-start text-xl font-semibold'>Tüm Bloglar</h1>
             {allPosts.map(
                 ({ _id, title, description, published, readMinutes, date, coverImage, body, author, slug }, index) => (
-                    <>
-                        <div key={_id} className='relative flex w-full flex-col gap-y-2 overflow-hidden'>
+                    <React.Fragment key={_id}>
+                        <div className='relative flex w-full flex-col gap-y-2 overflow-hidden'>
                             <span className='absolute bottom-0 left-0 top-0 z-10 h-full w-0.5 rounded-full bg-black dark:bg-white' />
                             <div className='flex w-full flex-col justify-between gap-y-8 pl-4'>
                                 <div className='flex w-full flex-row items-center justify-between gap-x-2'>
@@ -57,17 +56,20 @@ export default function BlogView(): React.JSX.Element {
                                 </div>
                                 <div className='flex flex-row items-center justify-between gap-y-2'>
                                     <Link
-                                        href={`/blog/${slug}`}
+                                        href={{
+                                            pathname: '/blog/[id]',
+                                            params: { id: slug },
+                                        }}
                                         className='flex h-full w-full flex-row items-center justify-between gap-x-2 rounded bg-black px-4 py-0.5 text-end text-white dark:bg-white dark:text-black'
                                     >
                                         Blog&apos;a git
-                                        <ArrowRight className='h-4 w-4 fill-white dark:fill-black' />
+                                        <Icon name='arrow-right' className='h-4 w-4 fill-white dark:fill-black' />
                                     </Link>
                                 </div>
                             </div>
                         </div>
                         {index !== allPosts.length - 1 && <Separator className='md:hidden' />}
-                    </>
+                    </React.Fragment>
                 )
             )}
         </motion.div>
