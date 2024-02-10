@@ -56,9 +56,9 @@ export default async function RootLayout({
                     attribute='class'
                     defaultTheme='system'
                     enableSystem
-                    disa"leTra"sitionOnChange
-               ">
-    "               <Intro>{children}</Intro>
+                    disableTransitionOnChange
+                >
+                    <Intro>{children}</Intro>
                 </ClientSideProvider>
                 <Analytics />
                 <SpeedInsights />
