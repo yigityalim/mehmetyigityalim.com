@@ -1,7 +1,7 @@
 import Container from 'components/Containers'
 import { Metadata } from 'next'
 import React from 'react'
-import { Mail, Linkedin, Phone, MapPin, BookOpen, User } from 'lucide-react' // Icons for contacts
+import { Icon } from '@/components/Icon'
 
 export const metadata: Metadata = {
     title: 'İletişim',
@@ -13,28 +13,28 @@ export default function Contact() {
     return (
         <Container title='İletişim' description='İletişim bilgilerim'>
             <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-                <Section icon={<Mail size={20} />} title='E-Posta'>
+                <Section icon={<Icon name='mail' size={20} />} title='E-Posta'>
                     <a href='mailto:mehmetyigityalim@gmail.com' className='text-blue-500 hover:underline'>
                         mehmetyigityalim@gmail.com
                     </a>
                 </Section>
-                <Section icon={<Linkedin size={20} />} title='LinkedIn'>
+                <Section icon={<Icon name='linkedin' size={20} />} title='LinkedIn'>
                     <a href='https://linkedin.com/in/yigityalim' className='text-blue-500 hover:underline'>
                         linkedin.com/in/yigityalim
                     </a>
                 </Section>
-                <Section icon={<Phone size={20} />} title='Telefon'>
+                <Section icon={<Icon name='phone' size={20} />} title='Telefon'>
                     <a href='tel:+905000000000' className='text-blue-500 hover:underline'>
                         +90 500 000 00 00
                     </a>
                 </Section>
-                <Section icon={<MapPin size={20} />} title='Konum'>
+                <Section icon={<Icon name='map-pin' size={20} />} title='Konum'>
                     Ankara, Turkey | Muğla, Turkey
                 </Section>
-                <Section icon={<BookOpen size={20} />} title='Eğitim'>
+                <Section icon={<Icon name='book-open' size={20} />} title='Eğitim'>
                     Başkent University, Management Information Systems
                 </Section>
-                <Section icon={<User size={20} />} title='Pozisyon'>
+                <Section icon={<Icon name='user' size={20} />} title='Pozisyon'>
                     Freelancer
                 </Section>
             </div>

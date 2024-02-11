@@ -3,6 +3,7 @@ import RequestPlan from 'components/RequestPlan'
 import RequestJob from 'components/RequestJob'
 import { getTranslations } from 'next-intl/server'
 import HeroSection from 'components/HeroSection'
+import {SocialMedia} from 'components/SocialMedia/'
 
 export default async function Home() {
     const t = await getTranslations('page')
@@ -16,7 +17,7 @@ export default async function Home() {
                 </div>
                 <RequestJob />
                 <RequestPlan />
-                {/*<SocialMediaSwitchContainer social={social} />*/}
+                <SocialMedia type='grid' />
             </div>
         </Container>
     )

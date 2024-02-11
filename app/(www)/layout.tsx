@@ -9,7 +9,6 @@ import { ClientSideProvider } from '@/components/Providers/clientSideProvider'
 import Intro from 'components/Intro'
 import { cn } from 'lib/utils'
 import { Toaster } from '@/components/ui/toaster'
-import { Locale, locales } from '@/config/locale'
 import TailwindIndicator from '@/components/TailwindIndicator'
 
 export const metadata: Metadata = {
@@ -37,9 +36,6 @@ type RootLayoutProps = Readonly<{
     params: { locale: Locale }
 }>
 
-export function generateStaticParams() {
-    return locales.map((locale) => ({ locale }))
-}
 
 export default async function RootLayout({
     children,
