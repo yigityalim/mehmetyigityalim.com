@@ -123,9 +123,6 @@ const config: Config = {
                 tilt: 'tilt 20s infinite cubic-bezier(.01,.01,.01,.01)',
             },
         },
-        fontFamily: {
-            sans: ['var(--font-geist-sans)', ...fontFamily.sans],
-        },
     },
     plugins: [
         require('tailwindcss-animate'),
