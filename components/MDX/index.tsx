@@ -8,12 +8,18 @@ import Link from 'next/link'
 import { CopyButton, CopyNpmCommandButton } from 'components/MDX/CopyButton'
 import type { NpmCommands } from 'lib/types/unist'
 import type { Event } from 'lib/events'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 
 const components = {
     Accordion,
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
+    Alert: ({ className, ...props }: React.ComponentProps<typeof Alert>) => (
+        <Alert className={cn('my-4', className)} {...props} />
+    ),
+    AlertTitle,
+    AlertDescription,
     h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
         <h1 className={cn('mt-2 scroll-m-20 text-4xl font-bold', className)} {...props} />
     ),
