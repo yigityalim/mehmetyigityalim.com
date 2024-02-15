@@ -3,20 +3,9 @@
 import * as React from 'react'
 import { type ThemeProviderProps } from 'next-themes/dist/types'
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
-import { type AbstractIntlMessages, NextIntlClientProvider } from 'next-intl'
-import { Locale } from '@/config/locale'
 
-export interface ClientSideProviderProps extends ThemeProviderProps {
-    locale: Locale
-    messages: AbstractIntlMessages
-}
+export interface ClientSideProviderProps extends ThemeProviderProps {}
 
-export function ClientSideProvider({ children, locale, messages, ...props }: Readonly<ClientSideProviderProps>) {
-    return (
-        <NextThemesProvider {...props}>
-            <NextIntlClientProvider locale={locale} messages={messages}>
-                {children}
-            </NextIntlClientProvider>
-        </NextThemesProvider>
-    )
+export function ClientSideProvider({ children, ...props }: Readonly<ClientSideProviderProps>) {
+    return <NextThemesProvider {...props}>{children}</NextThemesProvider>
 }

@@ -5,7 +5,7 @@ type TailwindIndicatorProps = Readonly<{
     align?: 'left' | 'center' | 'right'
 }>
 
-export default function TailwindIndicator({ align = 'left' }: TailwindIndicatorProps): React.JSX.Element | null {
+export function TailwindIndicator({ align = 'left' }: TailwindIndicatorProps): React.JSX.Element | null {
     if (process.env.NODE_ENV === 'production') return null
     return (
         <div

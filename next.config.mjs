@@ -1,11 +1,8 @@
-import createNextIntlPlugin from 'next-intl/plugin'
 import createJiti from 'jiti'
-
+import { createContentlayerPlugin } from 'next-contentlayer'
 const jiti = createJiti(new URL(import.meta.url).pathname)
 
 jiti('./env')
-
-const withNextIntl = createNextIntlPlugin()
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -32,6 +29,10 @@ const nextConfig = {
     reactStrictMode: true,
     swcMinify: true,
     transpilePackages: ['lucide-react'],
-};
+}
 
-export default withNextIntl(nextConfig)
+const withContentlayer = createContentlayerPlugin({
+    // Additional Contentlayer config options
+})
+
+export default withContentlayer(nextConfig)

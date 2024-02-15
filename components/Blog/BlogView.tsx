@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import * as fns from 'date-fns'
 import * as locale from 'date-fns/locale'
 import Image from 'next/image'
-import { Link } from 'lib/navigation'
+import Link from 'next/link'
 import { Icon } from 'components/Icon'
 import { allPosts } from 'contentlayer/generated'
 
@@ -56,10 +56,7 @@ export default function BlogView(): React.JSX.Element {
                                 </div>
                                 <div className='flex flex-row items-center justify-between gap-y-2'>
                                     <Link
-                                        href={{
-                                            pathname: '/blog/[id]',
-                                            params: { id: slug },
-                                        }}
+                                        href={`/blog/${slug}`}
                                         className='flex h-full w-full flex-row items-center justify-between gap-x-2 rounded bg-black px-4 py-0.5 text-end text-white dark:bg-white dark:text-black'
                                     >
                                         Blog&apos;a git

@@ -1,79 +1,60 @@
-import { BsDiscord, BsGithub, BsInstagram, BsLinkedin, BsSnapchat, BsSpotify } from 'react-icons/bs'
-import { FaSquareThreads, FaXTwitter } from 'react-icons/fa6'
-import React from 'react'
-import { Button } from 'components/ui/button'
-import { Author } from 'lib/types/Author'
-import { cn } from 'lib/utils'
+import type { Social } from '@/lib/types/home'
 
-type Props = Author['social'][number] & {
-    text?: boolean
-    iterator?: number
-}
-
-export default async function SocialMedia(props: Props): Promise<React.JSX.Element> {
-    const Icon = socials.find((s) => s.title === props.title)?.icon
-    return (
-        <Button
-            className={cn(
-                'w-full gap-x-2 font-semibold transition-all duration-200 hover:bg-gray-700 hover:text-white',
-                props.iterator === 3 && 'last:col-span-2'
-            )}
-            size='sm'
-            asChild={true}
-        >
-            <a className='flex w-full items-center justify-center' href={props.url}>
-                {Icon}
-                {props.text && <span className='ml-2'>Takip Et</span>}
-            </a>
-        </Button>
-    )
-}
-
-type IconProps = {
-    icon: React.ReactNode
-    title: string
-    url: string
-}
-
-const socials = [
+export const socialMedia = [
     {
-        icon: <BsInstagram size={24} />,
-        title: 'instagram',
-        url: 'https://www.instagram.com/mehmet_yigit_yalim',
-    },
-    {
-        icon: <FaXTwitter size={24} />,
-        title: 'twitter',
+        id: '1',
+        title: 'Twitter',
         url: 'https://twitter.com/yigityalim',
+        color: [{ hex: '#1DA1F2' }],
+        username: '@yigityalim',
+        social: 'twitter',
     },
     {
-        icon: <BsLinkedin size={24} />,
-        title: 'linkedin',
-        url: 'https://www.linkedin.com/in/yigityalim',
-    },
-    {
-        icon: <BsSnapchat size={24} />,
-        title: 'snapchat',
-        url: 'https://www.snapchat.com/add/yigityalim',
-    },
-    {
-        icon: <FaSquareThreads size={24} />,
-        title: 'threads',
-        url: 'https://www.threads.net/yigityalim',
-    },
-    {
-        icon: <BsDiscord size={24} />,
-        title: 'discord',
-        url: 'https://discord.gg/yigityalim',
-    },
-    {
-        icon: <BsSpotify size={24} />,
-        title: 'spotify',
-        url: 'https://open.spotify.com/user/yigityalim',
-    },
-    {
-        icon: <BsGithub size={24} />,
-        title: 'github',
+        id: '2',
+        title: 'Github',
         url: 'https://github.com/yigityalim',
+        color: [{ hex: '#181717' }],
+        username: '@yigityalim',
+        social: 'github',
     },
-] as IconProps[]
+    {
+        id: '3',
+        title: 'Linkedin',
+        url: 'https://www.linkedin.com/in/yigityalim/',
+        color: [{ hex: '#0077B5' }],
+        username: '@yigityalim',
+        social: 'linkedin',
+    },
+    {
+        id: '4',
+        title: 'Instagram',
+        url: 'https://www.instagram.com/yigityalim/',
+        color: [{ hex: '#833ab4' }],
+        username: '@yigityalim',
+        social: 'instagram',
+    },
+    {
+        id: '5',
+        title: 'Snapchat',
+        url: 'https://www.snapchat.com/add/yigityalim',
+        color: [{ hex: '#FFFC00' }],
+        username: '@yigityalim',
+        social: 'snapchat',
+    },
+    {
+        id: '6',
+        title: 'Discord',
+        url: 'https://discord.com/users/1234567890',
+        color: [{ hex: '#7289DA' }],
+        username: '@yigityalim',
+        social: 'discord',
+    },
+    {
+        id: '7',
+        title: 'Spotify',
+        url: 'https://open.spotify.com/user/yigityalim',
+        color: [{ hex: '#1DB954' }],
+        username: '@yigityalim',
+        social: 'spotify',
+    },
+] satisfies Social[]

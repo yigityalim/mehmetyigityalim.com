@@ -7,7 +7,6 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { cn } from 'lib/utils'
 import { Skeleton } from 'components/ui/skeleton'
-import { useTranslations } from 'next-intl'
 
 type Props = Readonly<{
     as?: 'button' | 'dropdown' | 'select'
@@ -82,7 +81,6 @@ export default function ThemeSwitcher({ as = 'dropdown', fullWidth, className }:
     const { theme, themes, setTheme } = useTheme()
     const [mounted, setMounted] = useState(false)
     useEffect(() => setMounted(true), [])
-    const t = useTranslations('theme')
 
     if (!mounted && as === 'button') return <SkeletonLoader fullWidth={fullWidth} />
     if (!mounted && as === 'dropdown')
@@ -93,20 +91,21 @@ export default function ThemeSwitcher({ as = 'dropdown', fullWidth, className }:
         )
     if (as === 'button') return <ThemeButtons theme={theme} setTheme={setTheme} fullWidth={fullWidth} />
 
-    if (as === 'select') return (
-        <Select onValueChange={(theme) => setTheme(theme)}>
-            <SelectTrigger className="w-full">
-                <SelectValue placeholder={t('default')} />
-            </SelectTrigger>
-            <SelectContent>
-                {themes.map((theme) => (
-                    <SelectItem value={theme} key={theme}>
-                        {t(theme as 'light' | 'dark' | 'system')}
-                    </SelectItem>
-                ))}
-            </SelectContent>
-        </Select>
-    )
+    if (as === 'select')
+        return (
+            <Select defaultValue='system' value={theme} onValueChange={(theme) => setTheme(theme)}>
+                <SelectTrigger className='w-full'>
+                    <SelectValue placeholder={theme ? theme : 'Tema Seçiniz'} />
+                </SelectTrigger>
+                <SelectContent>
+                    {themes.map((theme) => (
+                        <SelectItem value={theme} key={theme}>
+                            {theme}
+                        </SelectItem>
+                    ))}
+                </SelectContent>
+            </Select>
+        )
 
     return (
         <DropdownMenu>

@@ -1,84 +1,107 @@
 ---
-title: Başlık
-description: bu bir mdx dosyasıdır
-date: 2021-10-20
-readMinutes: 10
+title: Koyu Mod
+description: Nextjs projenize koyu mod ekleyin.
+date: 2024-02-15
+readMinutes: 5
 coverImage: https://media.graphassets.com/7HXjVVTKRNm3QABmOkxo
 author:
     name: Mehmet Yiğit Yalım
-avatar: /images/cover.png
+    avatar: /images/cover.png
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aut consequatur doloribus incidunt, ipsa laboriosam magnam neque repellendus saepe sequi temporibus tenetur, vero vitae. Atque cum dolor, ducimus eaque natus necessitatibus neque nostrum quaerat quis reprehenderit? Adipisci aperiam aut et nihil odio. Accusantium aut et eum incidunt minima minus quaerat.
+## Nextjs koyu mod ekleme
 
-# Başlık 2
+<Steps>
 
-- lorem
-- ipsum
-- dolor
-- sit
-- amet
+### next-themes paketini yükle
 
-bu bir resim örneğidir:
-[![resim](https://media.graphassets.com/7HXjVVTKRNm3QABmOkxo)](https://media.graphassets.com/7HXjVVTKRNm3QABmOkxo)
+`next-themes` paketini yükleyerek başlayalım.
 
-bu da bir kod örneği:
-```tsx
-import React from 'react'
+```bash
+npm install next-themes
+```
 
-export default async function Page({ params }: { params: { slug: string } }): Promise<React.JSX.Element> {
-    const post = await getPostFromParams(params.slug)
-    return (
-        <div>
-            <MDX code={post.body.code} />
-        </div>
-    )
-    return (
-        <Container className={cn(blog.title.length > 10 ? 'gap-y-4' : 'gap-y-1')}>
-            <div className='flex w-full items-center justify-between gap-x-2'>
-                <h1 className='text-4xl font-bold italic'>{blog.title}</h1>
-            </div>
-            <div className='flex w-full flex-row items-center justify-between'>
-                <p className='mt-auto h-full italic text-black/50 dark:text-white/50'>
-                    {formatDateTime(blog.datePublished)}
-                </p>
-                <Link href={`/user/${blog.author.slug}`} className='flex flex-col items-end gap-y-2'>
-                    <Image
-                        className='aspect-square h-8 w-8 rounded-full object-cover'
-                        alt='user'
-                        src={blog.author.picture.url}
-                        width={blog.author.picture.width}
-                        height={blog.author.picture.height}
-                    />
-                    <p className='text-black/50 dark:text-white/60'>{blog.author.name}</p>
-                </Link>
-            </div>
-            <div className='flex flex-col items-start justify-center gap-y-4 md:flex-col-reverse md:justify-between md:gap-x-12'>
-                <Image
-                    className='h-full w-full object-cover dark:border dark:bg-white md:w-96 lg:w-[28rem] xl:w-[32rem] 2xl:w-[34rem]'
-                    alt='blog'
-                    src={blog.coverPhoto.url}
-                    width={blog.coverPhoto.width}
-                    height={blog.coverPhoto.height}
-                />
-                <div className='text-left text-xl'>
-                    {blog.content.raw.children.map(({ children }: any) =>
-                        children.map(({ text }: any) => (
-                            <p key={text} className='text-base text-black dark:text-white'>
-                                {text}
-                            </p>
-                        ))
-                    )}
-                </div>
-            </div>
-            <Link
-                href='/blog'
-                className='group flex w-full items-center justify-start gap-x-4 border border-zinc-900 bg-white px-4 py-2 transition hover:bg-zinc-900 hover:text-white dark:border-white dark:bg-zinc-900 dark:hover:bg-white dark:hover:text-zinc-900'
-            >
-                <ArrowLeft className='fill-black transition group-hover:-translate-x-2 dark:fill-white dark:hover:fill-black' />
-                geri
-            </Link>
-        </Container>
-    )
+### Tema sağlayıcısını oluştur
+
+```tsx title="components/theme-provider.tsx"
+"use client"
+
+import * as React from "react"
+import { ThemeProvider as NextThemesProvider } from "next-themes"
+import { type ThemeProviderProps } from "next-themes/dist/types"
+
+export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
+    return <NextThemesProvider {...props}>{children}</NextThemesProvider>
 }
+```
+
+### Wrap your root layout
+
+`ThemeProvider` componentini root layout dosyanızda kullanarak tüm uygulamanızı sarmalayın.
+
+```tsx {1,9-11} title="app/layout.tsx"
+import { ThemeProvider } from "@/components/theme-provider"
+
+export default function RootLayout({ children }: RootLayoutProps) {
+  return (
+    <>
+      <html lang="en" suppressHydrationWarning>
+        <head />
+        <body>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </body>
+      </html>
+    </>
+  )
+}
+```
+
+### Tema değiştirme düğmesi ekle
+
+```tsx title="@/components/theme-toggle.tsx"
+import * as React from "react"
+import { useTheme } from "next-themes"
+
+export function ThemeToggle() {
+  const { theme, setTheme } = useTheme()
+
+  return (
+    <button
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      className="p-3 rounded-full bg-gray-200 dark:bg-gray-800"
+    >
+      {theme === "dark" ? "🌞" : "🌜"}
+    </button>
+  )
+}
+```
+
+</Steps>
+
+## Sonuç
+
+Artık koyu modu etkinleştirmek için `next-themes` paketini kullanabilirsiniz.
+
+```tsx title="pages/index.tsx"
+import { ThemeToggle } from "@/components/theme-toggle"
+
+export default function Home() {
+  return (
+    <div className="flex items-center justify-center h-screen">
+      <ThemeToggle />
+    </div>
+  )
+}
+```
+İşte bu kadar! Artık projenizde koyu modu etkinleştirebilirsiniz.
+
+```bash
+npm run dev
 ```

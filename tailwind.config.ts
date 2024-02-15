@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss'
-import colors from './colors'
+import { fontFamily } from 'tailwindcss/defaultTheme'
 import plugin from 'tailwindcss/plugin'
 
 const iOsHeight = plugin(function ({ addUtilities }) {
@@ -29,17 +29,51 @@ const config: Config = {
         './components/**/*.{ts,tsx,md,mdx}',
         './app/**/*.{ts,tsx,md,mdx}',
         './src/**/*.{ts,tsx,md,mdx}',
+        'content/**/*.mdx',
     ],
     theme: {
         container: {
             center: true,
-            padding: '2rem',
             screens: {
                 '2xl': '1400px',
             },
         },
         extend: {
-            colors,
+            colors: {
+                border: 'hsl(var(--border))',
+                input: 'hsl(var(--input))',
+                ring: 'hsl(var(--ring))',
+                background: 'hsl(var(--background))',
+                foreground: 'hsl(var(--foreground))',
+                primary: {
+                    DEFAULT: 'hsl(var(--primary))',
+                    foreground: 'hsl(var(--primary-foreground))',
+                },
+                secondary: {
+                    DEFAULT: 'hsl(var(--secondary))',
+                    foreground: 'hsl(var(--secondary-foreground))',
+                },
+                destructive: {
+                    DEFAULT: 'hsl(var(--destructive) / <alpha-value>)',
+                    foreground: 'hsl(var(--destructive-foreground) / <alpha-value>)',
+                },
+                muted: {
+                    DEFAULT: 'hsl(var(--muted))',
+                    foreground: 'hsl(var(--muted-foreground))',
+                },
+                accent: {
+                    DEFAULT: 'hsl(var(--accent))',
+                    foreground: 'hsl(var(--accent-foreground))',
+                },
+                popover: {
+                    DEFAULT: 'hsl(var(--popover))',
+                    foreground: 'hsl(var(--popover-foreground))',
+                },
+                card: {
+                    DEFAULT: 'hsl(var(--card))',
+                    foreground: 'hsl(var(--card-foreground))',
+                },
+            },
             backgroundImage: {
                 'gradient-left-dark':
                     'conic-gradient(from 90deg at -10% 100%, #2B303B 0deg, #2B303B 90deg, #16181D 360deg)',
@@ -88,6 +122,9 @@ const config: Config = {
                 'accordion-up': 'accordion-up 0.2s ease-out',
                 tilt: 'tilt 20s infinite cubic-bezier(.01,.01,.01,.01)',
             },
+        },
+        fontFamily: {
+            sans: ['var(--font-geist-sans)', ...fontFamily.sans],
         },
     },
     plugins: [

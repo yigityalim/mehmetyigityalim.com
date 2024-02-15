@@ -2,8 +2,8 @@ import type { MetadataRoute } from 'next'
 
 export type Menu = {
     title: string
-    name: keyof Messages['navigation']
-    path: `/${keyof Omit<Messages['navigation'], 'home'>}` & '/'
+    name: string
+    path: `/${string}`
     icon?: string
     changefreq?: MetadataRoute.Sitemap[number]['changeFrequency']
     priority?: MetadataRoute.Sitemap[number]['priority']
@@ -51,5 +51,5 @@ export default [
         path: '/blog',
         changefreq: 'weekly',
         priority: 0.8,
-    }
+    },
 ] as Menu[]

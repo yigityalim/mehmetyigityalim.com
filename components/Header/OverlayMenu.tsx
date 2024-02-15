@@ -5,14 +5,12 @@ import { AnimatePresence, motion } from 'framer-motion'
 import ThemeSwitcher from 'components/ThemeSwitch'
 import { cn } from 'lib/utils'
 import menu from 'lib/menu'
-import LocaleSwitcher from 'components/LocaleSwitcher'
-import { useTranslations } from 'next-intl'
-import { Link, usePathname } from '@/lib/navigation'
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 
 export function OverlayMenu(): React.JSX.Element {
     const { menu: overlayMenu, setMenu } = useOverlayMenu()
     const pathname = usePathname()
-    const t = useTranslations('navigation')
 
     useEffect(() => {
         document.body.style.overflow = overlayMenu ? 'hidden' : ''
@@ -29,31 +27,32 @@ export function OverlayMenu(): React.JSX.Element {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.2 }}
                     className={cn(
-                        'container fixed inset-0 z-[52] mx-auto flex flex-col items-center justify-start gap-y-4 p-8',
-                        overlayMenu && 'bg-white dark:bg-wash-dark-2 bg-opacity-40 dark:bg-opacity-50 backdrop-blur-2xl dark:backdrop-blur-2xl',
+                        'fixed inset-0 z-[52] flex flex-col items-center justify-start gap-y-4 p-8 md:container md:mx-auto md:max-w-xl',
+                        overlayMenu &&
+                            'bg-white bg-opacity-40 backdrop-blur-2xl dark:bg-black dark:bg-opacity-50 dark:backdrop-blur-2xl'
                     )}
                 >
                     <div className='flex w-full flex-col items-center justify-center gap-y-4 pt-24'>
-                        {menu.map(({ path, name }) => (
+                        {menu.map(({ path, title }) => (
                             <div key={path} className='w-full'>
                                 <Link
                                     href={path}
                                     className={cn(
                                         'z-[53] flex w-full items-center justify-end gap-x-4 rounded p-1 text-5xl font-bold',
-                                        path === pathname && 'bg-white dark:bg-wash-dark dark:shadow-lg dark:border  dark:border-card-dark',
+                                        path === pathname &&
+                                            'bg-white dark:border dark:border-black/30 dark:bg-black dark:shadow-lg'
                                     )}
                                     onClick={() => {
                                         setMenu(false)
                                         document.body.style.overflow = ''
                                     }}
                                 >
-                                    {t(name)}
+                                    {title}
                                 </Link>
                             </div>
                         ))}
                     </div>
-                    <div className='flex flex-row items-center justify-between w-full gap-x-2 mt-auto'>
-                        <LocaleSwitcher />
+                    <div className='mt-auto flex w-full flex-row items-center justify-center gap-x-2'>
                         <ThemeSwitcher as='select' fullWidth className='z-[100] w-full' />
                     </div>
                 </motion.div>

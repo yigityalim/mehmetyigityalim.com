@@ -1,12 +1,3 @@
-import createMiddleware from 'next-intl/middleware'
+import { NextRequest } from 'next/server'
 
-export default createMiddleware({
-    locales: ['tr', 'en'],
-    defaultLocale: 'tr',
-    localePrefix: 'always',
-    localeDetection: true,
-})
-
-export const config = {
-    matcher: ['/', '/(tr|en)/:path*'],
-}
+export default async function middleware(req: NextRequest, next: () => Promise<void>) {}

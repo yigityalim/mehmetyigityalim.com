@@ -3,7 +3,7 @@ import Container from 'components/Containers'
 import { plans } from 'lib/plans'
 import type { Plan } from 'lib/types/plan'
 import { quickJobs } from 'lib/quickJob'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from 'components/ui/accordion'
 import QuickJobCard from 'components/Plan/QuickJobCard'
 import PlanContainer from 'components/Containers/PlanContainer'
@@ -17,7 +17,7 @@ export async function generateStaticParams(): Promise<{ params: { type: Plan['ty
     return plans.map((p) => ({ params: { type: p.type } }))
 }
 
-export default function PlansPage(): React.ReactElement {
+export default function PlansPage(): React.JSX.Element {
     return (
         <Container
             title='Projeleriniz için fiyatlandırma listesi'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'lib/navigation'
+import Link from 'next/link'
 
 export default function RequestPlan(): React.JSX.Element {
     return (
@@ -10,7 +10,7 @@ export default function RequestPlan(): React.JSX.Element {
                     <span className='pr-6'>Paketler</span>
                 </span>
                 <span className='p"-6 flex flex-row items-center justify-center gap-x-1 text-indigo-600 transition duration-200 group-hover:text-gray-100 dark:text-indigo-400'>
-                    Teklifleri gör "{' '}
+                    Teklifleri gör
                 </span>
             </button>
         </Link>
