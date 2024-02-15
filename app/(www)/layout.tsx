@@ -10,7 +10,7 @@ import { cn } from 'lib/utils'
 import { Toaster } from '@/components/ui/toaster'
 import { TailwindIndicator } from '@/components/TailwindIndicator'
 
-export const metadata = {
+export const metadata: Metadata = {
     title: 'Mehmet Yiğit Yalım',
     description: 'Mehmet Yiğit Yalim personal website.',
     keywords:
@@ -21,14 +21,14 @@ export const metadata = {
         name: 'Mehmet Yiğit Yalım',
     },
     referrer: 'no-referrer',
-} satisfies Metadata
+} as Metadata satisfies Metadata
 
-export const viewport = {
+export const viewport: Viewport = {
     width: 'device-width',
-    initialScale: 1.0,
-    maximumScale: 1.0,
+    initialScale: 1,
+    maximumScale: 1,
     userScalable: false,
-} satisfies Viewport
+} as Viewport satisfies Viewport
 
 type RootLayoutProps = Readonly<{ children: React.ReactNode }>
 
