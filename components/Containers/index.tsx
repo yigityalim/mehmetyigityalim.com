@@ -20,7 +20,7 @@ export default function Container({
 }: ContainerProps): React.JSX.Element {
     const pathname = usePathname()
     return (
-        <AnimatePresence>
+        <AnimatePresence mode='wait'>
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -28,11 +28,10 @@ export default function Container({
                 transition={{ duration: 0.5 }}
                 key={pathname}
                 className={cn(
-                    'container mx-auto max-w-xl flex h-full w-full flex-col items-center justify-start gap-y-8 p-8 pt-[88px]',
+                    'container mx-auto flex h-full w-full max-w-xl flex-col items-center justify-start gap-y-8 p-8 pt-[88px]',
                     (title || description) && 'items-start',
                     className
                 )}
-
                 {...props}
             >
                 {(title || description) && (

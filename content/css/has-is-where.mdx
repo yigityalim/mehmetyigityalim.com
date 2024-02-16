@@ -1,0 +1,92 @@
+---
+title: Has, Is, Where
+description: CSS :has, :is, and :where sahte sınıflarını kullanarak kodunuzu daha okunabilir ve sürdürülebilir hale getirin.
+date: 2024-02-17 17:00:00
+readMinutes: 10
+tags:
+    - css
+    - index
+    - style
+---
+
+## :where()
+
+Bu arkadaşın içine birden fazla seçici ekleyebiliyoruz. Örneğin h1, h2 ve p etiketlerini seçelim:
+
+```css
+:where(h1, h2, p) {
+	color: red
+}
+```
+
+ama tabi bu kullanım yerine zaten virgül ile şöyle ayırıp seçebiliyoruz:
+
+```css
+h1, h2, p {
+  color: red;
+}
+```
+
+fakat eğer h1, h2 ve p etiketleri içindeki span etiketini seçmek isteseydik? İşte o zaman son örneğimiz şöyle uzayacaktı:
+
+```css
+h1 span,
+h2 span,
+p span {
+	color: red
+}
+```
+
+ancak ilk örneğimiz harikalığını korumaya devam edecekti
+
+```css
+:where(h1, h2, p) span {
+  color: red;
+}
+```
+
+İşte bu yüzden gerçekten de gerekli bir özellik olmuş.
+
+## :is()
+
+Bu arkadaşta `:where()` sözde sınıfını ile aynı. Öncelik dışında bir farkı yok, biliyorsunuz elemanları seçerken bazı öncelikler var. Eğer id ile seçtiysek onun stili uygulanıyor, düz etiket ile seçmek yerine sınıf ile seçersek o daha öncelikli oluyor vs. vs. bu da aynı mantıkta işliyor.
+
+ancak buna da farklı bir örnek vermek gerekirse şöyle bir örnek verebilirdik. mesela input'un `:hover` ve `:focus` özellikleri aynı olursa ayrı ayrı şöyle yazmak gerekiyor:
+
+```css
+input:hover,
+input:focus {
+  background-color: lightgreen;
+}
+```
+
+ama artık `:is()` ile şöyle yazabiliyoruz:
+
+```css
+:is(input:hover, input:focus) {
+  background-color: lightgreen;
+}
+```
+
+## :has()
+
+Bu arkadaş ise biraz daha farklı. Bu arkadaşın içine yazdığımız seçiciye göre, içinde o seçiciyi barındıran elemanları seçiyor. Örneğin:
+
+```css
+div:has(p) {
+  background-color: lightgreen;
+}
+```
+
+yukarıdaki örnekte div etiketleri içinde p etiketi olanları seçiyoruz. Bu özellik şu an için sadece JavaScript'te kullanılıyor. Ama CSS'te de kullanılabilir olması için çalışmalar devam ediyor.
+
+Örneğin article etiketleri içinde h1 ve h2 etiketi varsa h1 etiketinin marginini düşürelim, yoksa daha yüksek yapalım demek istersek:
+
+```css
+article h1 {
+    margin-bottom: 15px;
+}
+article:has(h2) h1 {
+    margin-bottom: 5px;
+}
+```

@@ -7,14 +7,9 @@ import { notFound } from 'next/navigation'
 import { format } from 'date-fns'
 import { tr } from 'date-fns/locale'
 import Container from 'components/Containers'
-import '@/styles/mdx.css'
-
+import { Badge } from 'components/ui/badge'
 export default async function Page({ params }: PostPageProps): Promise<React.JSX.Element> {
-    const blog = await getPostFromParams({ params })
-
-    if (!blog) {
-        notFound()
-    }
+    const blog: Post = (await getPostFromParams({ params })) ?? notFound()
 
     return (
         <Container>
@@ -25,13 +20,6 @@ export default async function Page({ params }: PostPageProps): Promise<React.JSX
                         <p className='italic text-black/50 dark:text-white/50'>
                             {format(new Date(blog?.date), 'PP', { locale: tr })}
                         </p>
-                        <Image
-                            className='aspect-square h-8 w-8 rounded-full object-contain'
-                            alt='user'
-                            src={blog.author.avatar}
-                            width={32}
-                            height={32}
-                        />
                     </div>
                     <div className='flex w-full items-center justify-between'>
                         <span className='text-start text-sm italic text-black/30 dark:text-white/40 md:text-base'>
@@ -39,7 +27,13 @@ export default async function Page({ params }: PostPageProps): Promise<React.JSX
                                 ? `${Math.floor(blog.readMinutes / 60)} saat ${blog.readMinutes % 60} dakika`
                                 : `${blog.readMinutes} dakika` + ' okuma süresi'}
                         </span>
-                        <p className='text-muted-foreground'>{blog.author.name}</p>
+                    </div>
+                    <div className='flex w-full items-center justify-start gap-x-2'>
+                        {blog.tags.map((tag) => (
+                            <Badge key={tag} variant='secondary'>
+                                {tag}
+                            </Badge>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -52,14 +46,13 @@ export default async function Page({ params }: PostPageProps): Promise<React.JSX
 
 type PostPageProps = Readonly<{
     params: {
-        id: string
+        slug: string[]
     }
 }>
 
 async function getPostFromParams({ params }: PostPageProps): Promise<Post | null> {
-    const slug: string = params.id
-    const post: Post | undefined = allPosts.find((doc) => doc.slug.replace('/', '') === slug)
-
+    const slug = `/${params.slug?.join('/') || ''}`
+    const post: Post | undefined = allPosts.find((doc) => doc.slug === slug)
     if (!post) return null
     return post
 }

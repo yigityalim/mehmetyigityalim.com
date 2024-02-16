@@ -43,35 +43,17 @@ export const Post = defineDocumentType(() => ({
             type: 'date',
             required: true,
         },
-        coverImage: {
-            type: 'string',
+        tags: {
+            type: 'list',
+            of: { type: 'string' },
             required: true,
         },
         readMinutes: {
             type: 'number',
             required: true,
         },
-        author: {
-            type: 'nested',
-            of: Author,
-            required: true,
-        },
     },
     computedFields,
-}))
-
-export const Author = defineNestedType(() => ({
-    name: 'Author',
-    fields: {
-        name: {
-            type: 'string',
-            required: true,
-        },
-        avatar: {
-            type: 'string',
-            required: true,
-        },
-    },
 }))
 
 export default makeSource({

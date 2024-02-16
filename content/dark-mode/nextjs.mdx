@@ -1,15 +1,15 @@
 ---
 title: Koyu Mod
-description: Nextjs projenize koyu mod ekleyin.
+description: Next.js projenize koyu mod ekleyin.
 date: 2024-02-15
-readMinutes: 5
-coverImage: https://media.graphassets.com/7HXjVVTKRNm3QABmOkxo
-author:
-    name: Mehmet Yiğit Yalım
-    avatar: /images/cover.png
+readMinutes: 10
+tags:
+    - darkmode
+    - Next.js
+    - tailwindcss
 ---
 
-## Nextjs koyu mod ekleme
+## Next.js koyu mod ekleme
 
 <Steps>
 
@@ -35,7 +35,7 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
 }
 ```
 
-### Tema sağlayıcısını Ana Root Layout dosyanızda kullanın
+### Tema sağlayıcısını Root Layout dosyanızda kullanın
 
 `ThemeProvider` componentini root layout dosyanızda kullanarak tüm uygulamanızı sarmalayın.
 
@@ -46,7 +46,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
       <html lang="en" suppressHydrationWarning>
-        <head />
         <body>
           <ThemeProvider
             attribute="class"
@@ -66,6 +65,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 ### Tema değiştirme düğmesi ekle
 
 ```tsx title="@/components/theme-toggle.tsx"
+"use client"
 import * as React from "react"
 import { useTheme } from "next-themes"
 
@@ -95,7 +95,7 @@ import { ThemeToggle } from "@/components/theme-toggle"
 export default function Home() {
   return (
     <div className="flex items-center justify-center h-screen">
-      <ThemeToggle />
+        <ThemeToggle />
     </div>
   )
 }

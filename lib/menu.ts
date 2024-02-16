@@ -48,7 +48,7 @@ export default [
     {
         title: 'Blog',
         name: 'blog',
-        path: '/blog',
+        path: '/dark-mode',
         changefreq: 'weekly',
         priority: 0.8,
     },

@@ -7,11 +7,11 @@ import BlogView from 'components/Blog/BlogView'
 export const metadata: Metadata = {
     title: 'Blog Sayfası',
     description: 'Tüm Bloglar',
-    keywords: 'blog, bloglar, tüm bloglar',
-}
+    keywords: 'bloglar, tüm bloglar',
+} as Metadata satisfies Metadata
 
-export async function generateStaticParams(): Promise<{ params: { id: string } }[]> {
-    return allPosts.map((post) => ({ params: { id: post.slug } }))
+export async function generateStaticParams(): Promise<{ params: { slug: string } }[]> {
+    return allPosts.map((post) => ({ params: { slug: post.slug } }))
 }
 
 export default async function Page(): Promise<React.JSX.Element> {
