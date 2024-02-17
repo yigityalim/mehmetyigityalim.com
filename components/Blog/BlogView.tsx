@@ -1,13 +1,13 @@
 'use client'
 import React from 'react'
 import { Separator } from 'components/ui/separator'
-import { motion } from 'framer-motion'
+import { MotionLink } from 'components/motion'
 import * as fns from 'date-fns'
 import * as locale from 'date-fns/locale'
-import Image from 'next/image'
-import Link from 'next/link'
-import { Icon } from 'components/Icon'
-import { allPosts, Post } from 'contentlayer/generated'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
+import { motion } from 'framer-motion'
+import { allPosts } from 'contentlayer/generated'
+import type { Post } from 'contentlayer/generated'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { cn } from 'lib/utils'
 import { Badge } from 'components/ui/badge'
+import Balancer from 'react-wrap-balancer'
 
 export default function BlogView(): React.JSX.Element {
     const [blogs, setBlogs] = React.useState<Post[]>(allPosts)
@@ -66,7 +67,9 @@ export default function BlogView(): React.JSX.Element {
                 <h1 className='text-start text-xl font-semibold'>Tüm Bloglar</h1>
                 <DropdownMenu onOpenChange={setDropdownOpen} open={dropdownOpen}>
                     <DropdownMenuTrigger asChild>
-                        <span className='text-base font-semibold text-black/50 dark:text-white/50'>Sırala</span>
+                        <span className='px-4 py-2 text-base font-semibold text-black/50 dark:text-white/50'>
+                            Sırala
+                        </span>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align='end'>
                         <DropdownMenuLabel>Sırala</DropdownMenuLabel>
@@ -90,14 +93,17 @@ export default function BlogView(): React.JSX.Element {
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuLabel>Filtrele</DropdownMenuLabel>
-                        {allPosts
-                            .reduce<string[]>((tags, post) => tags.concat(post.tags), [])
-                            .filter((tag, index, self) => self.indexOf(tag) === index)
-                            .map((tag) => (
-                                <DropdownMenuItem key={tag} onClick={() => handleFilterByTag(tag)}>
-                                    {tag}
-                                </DropdownMenuItem>
-                            ))}
+                        <ScrollArea className='h-[8rem] w-full p-1'>
+                            {allPosts
+                                .reduce<string[]>((tags, post) => tags.concat(post.tags), [])
+                                .filter((tag, index, self) => self.indexOf(tag) === index)
+                                .map((tag) => (
+                                    <DropdownMenuItem key={tag} onClick={() => handleFilterByTag(tag)}>
+                                        {tag}
+                                    </DropdownMenuItem>
+                                ))}
+                            <ScrollBar />
+                        </ScrollArea>
                         {hasFilters && (
                             <DropdownMenuItem className='bg-red-500 dark:bg-red-700' onClick={handleClearFilters}>
                                 Filtreyi Temizle
@@ -108,7 +114,8 @@ export default function BlogView(): React.JSX.Element {
             </div>
             {blogs.map(({ _id, title, tags, readMinutes, date, slug }, index) => (
                 <React.Fragment key={_id}>
-                    <motion.div
+                    <MotionLink
+                        href={`/blog/${slug}`}
                         className={cn(
                             'relative flex w-full flex-col gap-y-2 overflow-hidden',
                             index !== blogs.length - 1 && 'md:border-b md:border-black/10'
@@ -119,7 +126,9 @@ export default function BlogView(): React.JSX.Element {
                         <div className='flex w-full flex-col justify-between gap-y-8 pl-4'>
                             <div className='flex w-full items-center justify-start gap-x-2'>
                                 <div className='flex flex-col items-start justify-between gap-y-2'>
-                                    <span className='text-lg font-bold italic lg:text-xl xl:text-2xl'>{title}</span>
+                                    <span className='text-lg font-bold italic lg:text-xl xl:text-2xl'>
+                                        <Balancer as={React.Fragment}>{title}</Balancer>
+                                    </span>
                                     <span className='text-sm text-black/50 dark:text-white/40 md:text-base'>
                                         {fns.formatDistance(new Date(date), new Date(), {
                                             addSuffix: true,
@@ -132,7 +141,7 @@ export default function BlogView(): React.JSX.Element {
                                             : `${readMinutes} dakika` + ' okuma süresi'}
                                     </span>
                                     <div className='flex flex-row items-center justify-start gap-x-2'>
-                                        {tags.map((tag) => (
+                                        {tags.map((tag: string) => (
                                             <Badge key={tag} variant='secondary'>
                                                 {tag}
                                             </Badge>
@@ -140,17 +149,8 @@ export default function BlogView(): React.JSX.Element {
                                     </div>
                                 </div>
                             </div>
-                            <div className='flex flex-row items-center justify-between gap-y-2'>
-                                <Link
-                                    href={`/blog/${slug}`}
-                                    className='flex h-full w-full flex-row items-center justify-between gap-x-2 rounded bg-black px-4 py-0.5 text-end text-white dark:bg-white dark:text-black'
-                                >
-                                    Blog&apos;a git
-                                    <Icon name='arrow-right' className='h-4 w-4 fill-white dark:fill-black' />
-                                </Link>
-                            </div>
                         </div>
-                    </motion.div>
+                    </MotionLink>
                     {index !== allPosts.length - 1 && <Separator className='md:hidden' />}
                 </React.Fragment>
             ))}
