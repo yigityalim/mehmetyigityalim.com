@@ -1,46 +1,63 @@
 'use client'
 import React from 'react'
-import { Separator } from 'components/ui/separator'
-import { MotionLink } from 'components/motion'
-import * as fns from 'date-fns'
-import * as locale from 'date-fns/locale'
+import { Separator } from '@/components/ui/separator'
+import { MotionLink } from '@/components/motion'
+import { formatDistance, compareDesc } from 'date-fns'
+import { tr } from 'date-fns/locale'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
-import { motion } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { allPosts } from 'contentlayer/generated'
 import type { Post } from 'contentlayer/generated'
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { cn } from 'lib/utils'
-import { Badge } from 'components/ui/badge'
+import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
+import { cn, formatReadMinute } from '@/lib/utils'
+import { Badge } from '@/components/ui/badge'
 import Balancer from 'react-wrap-balancer'
+import { Button } from '@/components/ui/button'
+import { Toggle } from '@/components/ui/toggle'
 
 export default function BlogView(): React.JSX.Element {
-    const [blogs, setBlogs] = React.useState<Post[]>(allPosts)
+    const [blogs, setBlogs] = React.useState<Post[]>(
+        allPosts.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
+    )
     const [selectedTag, setSelectedTag] = React.useState<string | null>(null)
-    const [dropdownOpen, setDropdownOpen] = React.useState<boolean>(false)
-    const [hasFilters, setHasFilters] = React.useState<boolean>(false)
+
+    const [dateSortOrder, setDateSortOrder] = React.useState<'desc' | 'asc'>('desc')
+    const [readMinutesSortOrder, setReadMinutesSortOrder] = React.useState<'desc' | 'asc'>('asc')
 
     const handleClearFilters = React.useCallback(() => {
         setBlogs(allPosts)
         setSelectedTag(null)
-        setHasFilters(false)
+        setDateSortOrder('desc')
+        setReadMinutesSortOrder('desc')
     }, [])
 
-    const handleSort = React.useCallback(
-        (sortFunction: (a: Post, b: Post) => number) => {
-            if (selectedTag) handleClearFilters()
-            setBlogs((prevstate) => [...prevstate].sort(sortFunction))
-            setSelectedTag(null)
-            setHasFilters(true)
-        },
-        [handleClearFilters, selectedTag]
-    )
+    const handleSortByDate = React.useCallback(() => {
+        if (selectedTag) handleClearFilters()
+
+        setBlogs((prevstate) =>
+            [...prevstate].sort((a, b) => {
+                const result = compareDesc(new Date(a.date), new Date(b.date))
+                return dateSortOrder === 'desc' ? result : -result
+            })
+        )
+
+        setSelectedTag(null)
+        setDateSortOrder((prevOrder) => (prevOrder === 'desc' ? 'asc' : 'desc'))
+    }, [handleClearFilters, selectedTag, dateSortOrder])
+
+    const handleSortByReadMinutes = React.useCallback(() => {
+        if (selectedTag) handleClearFilters()
+
+        setBlogs((prevstate) =>
+            [...prevstate].sort((a, b) => {
+                const result = a.readMinutes - b.readMinutes
+                return readMinutesSortOrder === 'desc' ? result : -result
+            })
+        )
+
+        setSelectedTag(null)
+        setReadMinutesSortOrder((prevOrder) => (prevOrder === 'desc' ? 'asc' : 'desc'))
+    }, [handleClearFilters, selectedTag, readMinutesSortOrder])
 
     const handleFilterByTag = React.useCallback(
         (tag: string) => {
@@ -52,7 +69,6 @@ export default function BlogView(): React.JSX.Element {
                 setBlogs(filteredBlogs)
                 setSelectedTag(tag)
             }
-            setHasFilters(true)
         },
         [selectedTag]
     )
@@ -61,99 +77,107 @@ export default function BlogView(): React.JSX.Element {
         <motion.div
             layout
             id='blog-container'
+            transition={{ staggerChildren: 0.1 }}
             className='flex w-full flex-col flex-wrap items-center justify-between gap-4 md:flex-row'
         >
             <div className='flex w-full items-center justify-between'>
                 <h1 className='text-start text-xl font-semibold'>Tüm Bloglar</h1>
-                <DropdownMenu onOpenChange={setDropdownOpen} open={dropdownOpen}>
-                    <DropdownMenuTrigger asChild>
-                        <span className='px-4 py-2 text-base font-semibold text-black/50 dark:text-white/50'>
-                            Sırala
-                        </span>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align='end'>
-                        <DropdownMenuLabel>Sırala</DropdownMenuLabel>
-                        <DropdownMenuItem asChild>
-                            <button
-                                className='w-full'
-                                onClick={() =>
-                                    handleSort((a, b) => fns.compareDesc(new Date(a.date), new Date(b.date)))
-                                }
+                <Sheet>
+                    <SheetTrigger asChild>
+                        <span className='text-xl font-bold text-opacity-60'>Sırala</span>
+                    </SheetTrigger>
+                    <SheetContent side='right' className='z-[201]'>
+                        <SheetHeader>
+                            <SheetTitle className='text-left text-2xl font-bold'>Sırala</SheetTitle>
+                        </SheetHeader>
+                        <div className='my-4 flex w-full flex-col items-center justify-center gap-y-2'>
+                            <Toggle
+                                className='w-full hover:bg-inherit focus:outline-none'
+                                variant='outline'
+                                onClick={handleSortByReadMinutes}
+                                size='sm'
                             >
-                                Tarihe Göre
-                            </button>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                            <button
-                                className='w-full'
-                                onClick={() => handleSort((a, b) => a.readMinutes - b.readMinutes)}
+                                Okuma Süresine Göre {readMinutesSortOrder === 'desc' ? 'Azalan' : 'Artan'}
+                            </Toggle>
+                            <Toggle
+                                className='w-full hover:bg-inherit focus:outline-none'
+                                variant='outline'
+                                onClick={handleSortByDate}
+                                size='sm'
                             >
-                                Okuma Süresine Göre
-                            </button>
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuLabel>Filtrele</DropdownMenuLabel>
-                        <ScrollArea className='h-[8rem] w-full p-1'>
+                                Tarihe Göre {dateSortOrder === 'desc' ? 'Azalan' : 'Artan'}
+                            </Toggle>
+                        </div>
+                        <Separator />
+                        <SheetTitle className='my-4 text-2xl font-bold'>Filtrele</SheetTitle>
+                        <ScrollArea>
                             {allPosts
                                 .reduce<string[]>((tags, post) => tags.concat(post.tags), [])
                                 .filter((tag, index, self) => self.indexOf(tag) === index)
                                 .map((tag) => (
-                                    <DropdownMenuItem key={tag} onClick={() => handleFilterByTag(tag)}>
+                                    <Toggle
+                                        key={tag}
+                                        onClick={() => handleFilterByTag(tag)}
+                                        className='w-full cursor-pointer justify-start px-2 py-1 font-semibold capitalize italic' //text-blue-500 data-[state=on]:bg-blue-400 data-[state=on]:text-white dark:text-blue-400 dark:data-[state=on]:bg-blue-500 dark:data-[state=on]:text-white
+                                    >
                                         {tag}
-                                    </DropdownMenuItem>
+                                    </Toggle>
                                 ))}
                             <ScrollBar />
                         </ScrollArea>
-                        {hasFilters && (
-                            <DropdownMenuItem className='bg-red-500 dark:bg-red-700' onClick={handleClearFilters}>
-                                Filtreyi Temizle
-                            </DropdownMenuItem>
-                        )}
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                    </SheetContent>
+                </Sheet>
             </div>
-            {blogs.map(({ _id, title, tags, readMinutes, date, slug }, index) => (
-                <React.Fragment key={_id}>
-                    <MotionLink
-                        href={`/blog/${slug}`}
-                        className={cn(
-                            'relative flex w-full flex-col gap-y-2 overflow-hidden',
-                            index !== blogs.length - 1 && 'md:border-b md:border-black/10'
-                        )}
-                        layoutId={_id}
-                    >
-                        <span className='absolute bottom-0 left-0 top-0 z-10 h-full w-0.5 rounded-full bg-black dark:bg-white' />
-                        <div className='flex w-full flex-col justify-between gap-y-8 pl-4'>
-                            <div className='flex w-full items-center justify-start gap-x-2'>
-                                <div className='flex flex-col items-start justify-between gap-y-2'>
-                                    <span className='text-lg font-bold italic lg:text-xl xl:text-2xl'>
-                                        <Balancer as={React.Fragment}>{title}</Balancer>
-                                    </span>
-                                    <span className='text-sm text-black/50 dark:text-white/40 md:text-base'>
-                                        {fns.formatDistance(new Date(date), new Date(), {
-                                            addSuffix: true,
-                                            locale: locale.tr,
-                                        })}
-                                    </span>
-                                    <span className='text-sm text-black/30 dark:text-white/40 md:text-base'>
-                                        {readMinutes > 60
-                                            ? `${Math.floor(readMinutes / 60)} saat ${readMinutes % 60} dakika`
-                                            : `${readMinutes} dakika` + ' okuma süresi'}
-                                    </span>
-                                    <div className='flex flex-row items-center justify-start gap-x-2'>
-                                        {tags.map((tag: string) => (
-                                            <Badge key={tag} variant='secondary'>
-                                                {tag}
-                                            </Badge>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </MotionLink>
-                    {index !== allPosts.length - 1 && <Separator className='md:hidden' />}
+            {blogs.map((blog, index) => (
+                <React.Fragment key={blog._id}>
+                    <Blog blog={blog} />
+                    {index !== allPosts.length - 1 && <Separator key={`separator-${index}`} className='md:hidden' />}
                 </React.Fragment>
             ))}
         </motion.div>
+    )
+}
+
+function Blog({ blog: { _id, slug, title, readMinutes, date, tags } }: { blog: Post }): React.JSX.Element {
+    const ref = React.useRef<HTMLDivElement>(null)
+    const isInView = useInView(ref, { amount: 0.8 })
+    return (
+        <MotionLink
+            ref={ref}
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.5 }}
+            exit={{ opacity: 0, y: 20 }}
+            href={`/blog${slug}`}
+            className={cn('relative flex w-full flex-col gap-y-2 overflow-hidden')}
+            layoutId={_id}
+        >
+            <span className='absolute bottom-0 left-0 top-0 z-10 h-full w-0.5 rounded-full bg-black dark:bg-white' />
+            <div className='flex w-full flex-col justify-between gap-y-8 pl-4'>
+                <div className='flex w-full items-center justify-start gap-x-2'>
+                    <div className='flex flex-col items-start justify-between gap-y-2'>
+                        <span className='text-lg font-bold italic lg:text-xl xl:text-2xl'>
+                            <Balancer>{title}</Balancer>
+                        </span>
+                        <span className='text-sm text-black/50 dark:text-white/40 md:text-base'>
+                            {formatDistance(new Date(date), new Date(), {
+                                addSuffix: true,
+                                locale: tr,
+                            })}
+                        </span>
+                        <span className='text-sm text-black/30 dark:text-white/40 md:text-base'>
+                            {formatReadMinute(readMinutes)}
+                        </span>
+                        <div className='flex flex-row items-center justify-start gap-x-2'>
+                            {tags.map((tag: string) => (
+                                <Badge key={tag} variant='secondary'>
+                                    {tag}
+                                </Badge>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </MotionLink>
     )
 }

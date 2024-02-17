@@ -69,5 +69,6 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
     return {
         title: blog.title,
         description: blog.description,
+        keywords: [...blog.tags],
     }
 }

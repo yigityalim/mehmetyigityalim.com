@@ -2,33 +2,56 @@ import '@/styles/globals.css'
 import React from 'react'
 import { Analytics } from 'components/Analytics'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { fontSans } from 'lib/fonts'
 import { ClientSideProvider } from '@/components/Providers/clientSideProvider'
 import Intro from 'components/Intro'
 import { cn } from 'lib/utils'
 import { Toaster } from '@/components/ui/toaster'
 import { TailwindIndicator } from '@/components/TailwindIndicator'
+import { siteConfig } from '@/config/site'
 
 export const metadata: Metadata = {
-    title: 'Mehmet Yiğit Yalım',
-    description: 'Mehmet Yiğit Yalim personal website.',
-    keywords:
-        'Mehmet Yiğit Yalım, mehmet-yigit-yalim, mehmet yigit yalim, mehmet yalim, mehmet-yalim, mehmet yalım, mehmet-yalım, mehmet, yalim, yalım, yigit, yıgıt, yıgıt, yigit, yalım, yalim',
+    title: {
+        default: siteConfig.name,
+        template: `%s | ${siteConfig.name}`,
+    },
+    metadataBase: new URL(siteConfig.url),
+    description: siteConfig.description,
+    keywords: [...siteConfig.keywords],
     applicationName: 'mehmetyigityalim.com',
     authors: {
         url: 'https://mehmetyigityalim.com',
         name: 'Mehmet Yiğit Yalım',
     },
+    creator: 'Mehmet Yiğit Yalım',
     referrer: 'no-referrer',
+    icons: {
+        icon: '/favicon.ico',
+        apple: '/apple-touch-icon.png',
+        shortcut: '/favicon-16x16.png',
+    },
+    manifest: `${siteConfig.url}/manifest.webmanifest`,
 } as Metadata satisfies Metadata
+
+export const viewport: Viewport = {
+    themeColor: [
+        { media: '(prefers-color-scheme: dark)', color: 'black' },
+        { media: '(prefers-color-scheme: light)', color: 'white' },
+    ],
+    width: 'device-width',
+    initialScale: 1,
+    minimumScale: 1,
+    maximumScale: 5,
+    userScalable: false,
+} as Viewport satisfies Viewport
 
 type RootLayoutProps = Readonly<{ children: React.ReactNode }>
 
 export default async function RootLayout({ children }: RootLayoutProps): Promise<React.JSX.Element> {
     return (
         <html lang='tr' suppressHydrationWarning>
-            <body className={cn(fontSans.className, 'bg-background min-h-screen font-sans antialiased')}>
+            <body className={cn(fontSans.className, 'min-h-screen bg-background font-sans antialiased')}>
                 <ClientSideProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
                     <Intro>{children}</Intro>
                 </ClientSideProvider>

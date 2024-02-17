@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { format as _format } from 'date-fns'
+import { format as _format, addMinutes } from 'date-fns'
 
 export const cn = (...inputs: ClassValue[]): string => twMerge(clsx(inputs))
 export const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
@@ -40,4 +40,14 @@ export function darkenColor(hex: string, percent: number): string {
 
 export function formatDateTime(date: Date, format?: string): string {
     return _format(new Date(date), format ?? 'dd MMMM yyyy')
+}
+
+export function formatReadMinute(minute: number): string {
+    if (minute > 60) {
+        const hour = Math.floor(minute / 60)
+        const _minute = minute % 60
+        return `${hour} saat ${_minute} dakika okuma süresi`
+    } else {
+        return `${minute} dakika okuma süresi`
+    }
 }

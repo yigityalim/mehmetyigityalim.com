@@ -21,7 +21,7 @@ export function ToggleMenu(): React.JSX.Element {
     }, [menu, setMenu])
 
     return (
-        <div className='fixed left-8 right-8 top-8 z-[9999] flex items-center justify-between gap-x-2 md:container md:mx-auto md:max-w-xl'>
+        <div className='fixed left-8 right-8 top-8 z-[200] flex items-center justify-between gap-x-2 md:container md:mx-auto md:max-w-xl'>
             <div className={cn('flex h-full w-full items-center gap-x-4 transition', menu && 'opacity-0')}>
                 {!!splitted[2] ? (
                     <Icon
