@@ -13,16 +13,6 @@ export const metadata: Metadata = {
 }
 
 export default async function Contact() {
-    async function handleSubmit(data: FormData) {
-        'use server'
-        const res = await fetch('/api/contact', {
-            method: 'POST',
-            body: data,
-        })
-        const json = await res.json()
-        console.log(json)
-    }
-
     return (
         <Container title='İletişim' description='İletişim bilgilerim'>
             <div className='flex flex-col gap-3'>
@@ -51,7 +41,7 @@ export default async function Contact() {
                     Freelancer
                 </Section>
             </div>
-            <form action={handleSubmit} className='flex w-full flex-col gap-3'>
+            <form className='flex w-full flex-col gap-3'>
                 <h1 className='text-2xl font-semibold'>Bana Ulaşın</h1>
                 <Input type='text' name='name' placeholder='Adınız' />
                 <Input type='email' name='email' placeholder='E-Posta Adresiniz' />
