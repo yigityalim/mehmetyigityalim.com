@@ -8,6 +8,7 @@ import { format } from 'date-fns'
 import { tr } from 'date-fns/locale'
 import Container from 'components/Containers'
 import { Badge } from 'components/ui/badge'
+
 export default async function Page({ params }: PostPageProps): Promise<React.JSX.Element> {
     const blog: Post = (await getPostFromParams({ params })) ?? notFound()
 
@@ -49,6 +50,10 @@ type PostPageProps = Readonly<{
         slug: string[]
     }
 }>
+
+export async function generateStaticParams() {
+    return allPosts.map((post) => ({ params: { slug: post.slug } }))
+}
 
 async function getPostFromParams({ params }: PostPageProps): Promise<Post | null> {
     const slug = `/${params.slug?.join('/') || ''}`

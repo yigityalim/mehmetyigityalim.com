@@ -10,6 +10,7 @@ import { cn } from 'lib/utils'
 import { Toaster } from '@/components/ui/toaster'
 import { TailwindIndicator } from '@/components/TailwindIndicator'
 import { siteConfig } from '@/config/site'
+import menu from '@/lib/menu'
 
 export const metadata: Metadata = {
     title: {
@@ -33,20 +34,6 @@ export const metadata: Metadata = {
     },
     manifest: `${siteConfig.url}/manifest.webmanifest`,
 } as Metadata satisfies Metadata
-
-export function generateViewport(): Viewport {
-    return {
-        themeColor: [
-            { media: '(prefers-color-scheme: dark)', color: 'black' },
-            { media: '(prefers-color-scheme: light)', color: 'white' },
-        ],
-        width: 'device-width',
-        initialScale: 1,
-        minimumScale: 1,
-        maximumScale: 5,
-        userScalable: false,
-    }
-}
 
 type RootLayoutProps = Readonly<{ children: React.ReactNode }>
 

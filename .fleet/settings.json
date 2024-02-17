@@ -1,4 +1,0 @@
-{
-    "nodejs.typescript.rebuildOnChanges": true,
-    "backend.maxHeapSizeMb": 2602
-}

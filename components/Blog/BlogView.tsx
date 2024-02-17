@@ -12,7 +12,6 @@ import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger
 import { cn, formatReadMinute } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
 import Balancer from 'react-wrap-balancer'
-import { Button } from '@/components/ui/button'
 import { Toggle } from '@/components/ui/toggle'
 
 export default function BlogView(): React.JSX.Element {
