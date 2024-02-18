@@ -10,7 +10,6 @@ import { cn } from 'lib/utils'
 import { Toaster } from '@/components/ui/toaster'
 import { TailwindIndicator } from '@/components/TailwindIndicator'
 import { siteConfig } from '@/config/site'
-import menu from '@/lib/menu'
 
 export const metadata: Metadata = {
     title: {
