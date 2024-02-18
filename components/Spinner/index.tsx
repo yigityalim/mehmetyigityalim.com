@@ -7,8 +7,8 @@ const loaderVariants = cva(
     {
         variants: {
             variant: {
-                default: 'bg-primary dark:bg-highlight-dark after:bg-primary-dark dark:after:bg-primary',
-                primary: 'bg-primary after:bg-primary',
+                default: 'bg-gray-200 after:bg-black dark:after:bg-white dark:bg-gray-900',
+                primary: 'bg-green-500 after:bg-red-500',
             },
             size: {
                 sm: 'h-3 w-24',
@@ -34,9 +34,12 @@ const Spinner: ForwardRefExoticComponent<LoadingProps & RefAttributes<HTMLSpanEl
     return (
         <div
             className={cn(
-                justSpinner ? 'flex h-auto w-auto items-center justify-center' : 'flex h-[calc(100dvh-4rem)] w-full items-center justify-center',
-                className,
-            )}>
+                justSpinner
+                    ? 'flex h-auto w-auto items-center justify-center'
+                    : 'flex h-[calc(100dvh-8rem)] w-full items-center justify-center',
+                className
+            )}
+        >
             <span className={cn(loaderVariants({ variant, size }))} ref={ref} {...props} />
         </div>
     )

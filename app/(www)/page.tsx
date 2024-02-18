@@ -1,10 +1,11 @@
+import React from 'react'
 import Container from 'components/Containers'
 import RequestPlan from 'components/RequestPlan'
 import RequestJob from 'components/RequestJob'
 import HeroSection from 'components/HeroSection'
 import { SocialMedia } from 'components/SocialMedia/'
 
-export default async function Home() {
+export default async function Home(): Promise<React.ReactElement> {
     return (
         <Container className='flex flex-col items-start justify-center gap-y-4 px-0 pt-0'>
             <HeroSection />

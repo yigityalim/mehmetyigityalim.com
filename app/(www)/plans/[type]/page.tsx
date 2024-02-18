@@ -24,6 +24,10 @@ export async function generateMetadata({ params: { type } }: PageProps): Promise
     }
 }
 
+export async function generateStaticParams() {
+    return plans.map((plan) => ({ type: plan.type }))
+}
+
 export default function Page({ params: { type } }: PageProps): React.ReactElement {
     if (!plans.find((plan) => plan.type === type)) notFound()
     return <PlanView type={type} />
