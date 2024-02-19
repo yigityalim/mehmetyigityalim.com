@@ -1,14 +1,14 @@
-import path from 'path'
-import { defineDocumentType, defineNestedType, makeSource } from 'contentlayer/source-files'
+import { defineDocumentType, makeSource } from 'contentlayer/source-files'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
 import { codeImport } from 'remark-code-import'
 import remarkGfm from 'remark-gfm'
-import { getHighlighter, loadTheme } from 'shiki'
 import { visit } from 'unist-util-visit'
 
 import { rehypeNpmCommand } from './lib/rehype-npm-commands'
+import path from 'path'
+import { getHighlighter, loadTheme } from 'shiki'
 
 /** @type {import('contentlayer/source-files').ComputedFields} */
 const computedFields = {
@@ -67,12 +67,9 @@ export default makeSource({
                 visit(tree, (node) => {
                     if (node?.type === 'element' && node?.tagName === 'pre') {
                         const [codeEl] = node.children
-                        if (codeEl.tagName !== 'code') {
-                            return
-                        }
+                        if (codeEl.tagName !== 'code') return
 
                         if (codeEl.data?.meta) {
-                            // Extract event from meta and pass it down the tree.
                             const regex = /event="([^"]*)"/
                             const match = codeEl.data?.meta.match(regex)
                             if (match) {
@@ -113,6 +110,7 @@ export default makeSource({
                         if (!('data-rehype-pretty-code-fragment' in node.properties)) return
 
                         const preElement = node.children.at(-1)
+                        preElement.properties['__language__'] = preElement.properties['data-language']
                         if (preElement.tagName !== 'pre') return
 
                         preElement.properties['__withMeta__'] = node.children.at(0).tagName === 'div'

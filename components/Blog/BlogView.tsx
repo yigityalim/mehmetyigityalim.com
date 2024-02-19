@@ -201,7 +201,7 @@ export default function BlogView(): React.JSX.Element {
                     </SheetContent>
                 </Sheet>
             </div>
-            <div className='flex w-full flex-col items-center justify-center gap-y-12'>
+            <div className='flex w-full flex-col items-center justify-center gap-y-8'>
                 {Object.entries(groupedBlogs).map(([monthYear, posts]) => (
                     <div key={monthYear} className='flex w-full flex-col items-start justify-start gap-y-4'>
                         <h2 className='text-2xl font-semibold italic'>{monthYear}</h2>
@@ -223,7 +223,7 @@ export default function BlogView(): React.JSX.Element {
 
 function Blog({ blog: { _id, slug, title, readMinutes, date, tags } }: { blog: Post }): React.JSX.Element {
     const ref = React.useRef<HTMLDivElement>(null)
-    const isInView = useInView(ref, { amount: 0.5 })
+    const isInView = useInView(ref)
     return (
         <MotionLink
             ref={ref}
@@ -232,7 +232,9 @@ function Blog({ blog: { _id, slug, title, readMinutes, date, tags } }: { blog: P
             transition={{ duration: 0.5 }}
             exit={{ opacity: 0, y: 20 }}
             href={`/blog${slug}`}
-            className={cn('relative flex w-full flex-col gap-y-2 overflow-hidden')}
+            className={cn(
+                'relative flex w-full flex-col gap-y-2 overflow-hidden rounded-lg bg-gray-100 p-4 dark:bg-zinc-900'
+            )}
             layoutId={_id}
         >
             <div className='flex w-full flex-col justify-between gap-y-8'>

@@ -46,7 +46,7 @@
     @apply px-2;
 }
 
-[data-rehype-pretty-code-fragment] [data-line-numbers] > .line::before {
+[data-rehype-pretty-code-fragment] [data-line-numbers]:not([data-line-numbers="1"]) > .line::before {
     @apply text-xs text-zinc-50/40;
     counter-increment: line;
     content: counter(line);

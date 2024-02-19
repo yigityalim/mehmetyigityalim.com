@@ -10,6 +10,7 @@ import type { NpmCommands } from 'lib/types/unist'
 import type { Event } from 'lib/events'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import '@/styles/mdx.css'
+import { Icon } from 'components/MDX/icon'
 
 const components = {
     Accordion,
@@ -102,20 +103,23 @@ const components = {
         __pnpmCommand__,
         __bunCommand__,
         __withMeta__,
+        __language__,
         __src__,
         __event__,
         ...props
     }: React.HTMLAttributes<HTMLPreElement> & {
         __rawString__?: string
         __withMeta__?: boolean
+        __language__?: string
         __src__?: string
         __event__?: Event['name']
     } & NpmCommands) => {
         return (
             <>
+                {__language__ && <Icon meta={__withMeta__} lang={__language__} />}
                 <pre
                     className={cn(
-                        'relative mb-4 mt-2 max-h-[650px] overflow-x-auto rounded-lg bg-zinc-950 py-4 dark:bg-zinc-900',
+                        'relative mb-4 mt-2 max-h-[650px] overflow-x-auto rounded-lg bg-black py-4 dark:bg-zinc-900',
                         className
                     )}
                     {...props}
