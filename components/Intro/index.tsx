@@ -34,10 +34,17 @@ const useVisitedStorage = (): boolean => {
 }
 
 export default function Intro({ children }: IntroProps): JSX.Element {
-    const isDevelopmentMode = useVisitedStorage()
-
     return (
         <Suspense fallback={<Spinner className='min-h-screen' />}>
+            <Header />
+            {children}
+            <Footer />
+        </Suspense>
+    )
+}
+
+/*
+
             {!isDevelopmentMode && (
                 <motion.div
                     initial={{ opacity: 0 }}
@@ -48,9 +55,4 @@ export default function Intro({ children }: IntroProps): JSX.Element {
                     <AnimatedText text='Mehmet Yiğit Yalım' />
                 </motion.div>
             )}
-            <Header />
-            {children}
-            <Footer />
-        </Suspense>
-    )
-}
+ */
