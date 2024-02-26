@@ -48,11 +48,13 @@ export const planVariants = cva('', {
 
 type PlanCardProps = Readonly<{ plan: Plan }>
 
+// TODO - md boyutunda top divi overflowdan ötürü kötü gözüküyor. bunu plan kartının sağ köşesine koyacak şekilde ayarla.
+
 export function PlanCard({ plan }: PlanCardProps): React.ReactElement {
     return (
         <Card className={cn('group z-50 bg-green-900', planVariants({ border: plan.type }))}>
             <div className={planVariants({ backdrop: plan.type })} />
-            {plan.top && <div className={planVariants({ top: plan.type })}>{plan.top}</div>}
+            {plan.top && <div className={cn('z-50', planVariants({ top: plan.type }))}>{plan.top}</div>}
             <div className='h-full w-full rounded-md bg-card'>
                 <CardHeader>
                     <CardTitle className={cn('text-3xl', planVariants({ heading: plan.type }))}>{plan.name}</CardTitle>

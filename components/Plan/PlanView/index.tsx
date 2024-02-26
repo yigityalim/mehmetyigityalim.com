@@ -15,11 +15,12 @@ import {
 } from '@/components/ui/select'
 import { useToast } from '@/components/ui/use-toast'
 import { planVariants } from 'components/Plan/Card'
+import { notFound } from 'next/navigation'
 
 export function PlanView({ type }: Readonly<{ type?: Plan['type'] }>): React.ReactElement {
     const priceRef = React.useRef<React.ElementRef<'h2'>>(null)
     const isInView = useInView(priceRef, { margin: `-88px` })
-    const plan = plans.find((plan) => plan.type === type)!
+    const plan = plans.find((plan) => plan.type === type) ?? notFound()
     const { toast } = useToast()
 
     return (
@@ -27,7 +28,7 @@ export function PlanView({ type }: Readonly<{ type?: Plan['type'] }>): React.Rea
             <div className='flex w-full flex-col items-start justify-center gap-y-8 md:flex-row md:items-stretch md:justify-start md:gap-x-8 md:gap-y-0'>
                 <div
                     className={cn(
-                        'bg-card dark:bg-wash-dark fixed left-2 right-2 flex flex-row items-center justify-between gap-x-2 rounded-lg p-3 transition-all duration-300',
+                        'dark:bg-wash-dark fixed left-2 right-2 flex flex-row items-center justify-between gap-x-2 rounded-lg bg-card p-3 transition-all duration-300',
                         isInView ? '-bottom-full' : 'bottom-4'
                     )}
                 >
@@ -50,30 +51,13 @@ export function PlanView({ type }: Readonly<{ type?: Plan['type'] }>): React.Rea
                         Eklemek istediklerinize basarak ekleme işlemini gerçekleştirebilirsiniz.
                     </h3>
                     <div className='grid w-full grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-                        {Object.keys(plan.features)
-                            .sort((a, b) => {
-                                const aId = features[a].id
-                                const bId = features[b].id
-                                const fA = plan.features.find((f) => f.id === aId)
-                                const fB = plan.features.find((f) => f.id === bId)
-                                return fA ? -1 : fB ? 1 : 0
-                            })
-                            .map((key) => {
-                                const f = plan.features.find((f) => f.id === features[key].id)
-
-                                return (
-                                    <div
-                                        key={features[key].id}
-                                        className={cn(
-                                            'flex w-full items-center justify-between text-lg',
-                                            f ? 'italic' : 'line-through',
-                                            f && planVariants({ heading: plan.type })
-                                        )}
-                                    >
-                                        <h3>{f ? f.name : features[key].name}</h3>
-                                    </div>
-                                )
-                            })}
+                        {plan.features.map((feature) => {
+                            return (
+                                <div key={feature.id} className='flex items-center justify-start gap-x-2'>
+                                    <p>{feature.name}</p>
+                                </div>
+                            )
+                        })}
                     </div>
                     <div className='flex w-full items-center justify-start gap-x-2'>
                         <Button type='button' size='icon' variant='ghost'>

@@ -3,6 +3,8 @@ import React from 'react'
 import { plans } from 'lib/plans'
 import { PlanCard } from 'components/Plan'
 import { motion, Variants } from 'framer-motion'
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
+import { useMediaQuery } from 'usehooks-ts'
 
 const variants: Variants = {
     hidden: {
@@ -29,6 +31,25 @@ const childrenVariants: Variants = {
 }
 
 export default function PlanContainer(): React.ReactElement {
+    const isTablet = useMediaQuery('(min-width: 768px)')
+
+    if (isTablet)
+        return (
+            <Carousel>
+                <CarouselContent>
+                    {plans.map((p) => (
+                        <CarouselItem key={p.id}>
+                            <PlanCard plan={p} />
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+                <div className='mt-4 flex w-full flex-row items-center justify-center gap-x-2'>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                </div>
+            </Carousel>
+        )
+
     return (
         <motion.div
             variants={variants}

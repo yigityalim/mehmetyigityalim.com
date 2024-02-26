@@ -17,7 +17,6 @@ type AnimatedTextProps = {
     el?: ElementType
     className?: string
     once?: boolean
-    afterDelay?: () => void
 }
 
 export default function AnimatedText({
@@ -25,7 +24,6 @@ export default function AnimatedText({
     el: Wrapper = 'p',
     className,
     once = false,
-    afterDelay,
 }: Readonly<AnimatedTextProps>): JSX.Element {
     const controls: AnimationControls = useAnimation()
     const textArray: string[] = Array.isArray(text) ? text : [text]
@@ -35,26 +33,21 @@ export default function AnimatedText({
     useEffect(() => setMounted(true), [])
 
     useEffect(() => {
-        let timeout: ReturnType<typeof setTimeout>
+        let timeout: Timer
         const animate = async (): Promise<void> => {
             if (isInView && mounted) {
                 await controls.start('visible')
-                if (afterDelay) {
-                    timeout = setTimeout(() => {
-                        afterDelay()
-                    }, 800)
-                }
             } else await controls.start('hidden')
         }
 
         if (mounted) animate().catch(console.error)
         return () => clearTimeout(timeout)
-    }, [isInView, controls, mounted, afterDelay])
+    }, [isInView, controls, mounted])
 
     return (
         <Wrapper
             className={cn(
-                'text-wrap max-w-2xl text-center text-4xl font-bold text-gray-700 dark:text-gray-300',
+                'max-w-2xl text-wrap text-center text-4xl font-bold text-gray-700 dark:text-gray-300',
                 className
             )}
         >

@@ -10,8 +10,10 @@ export default async function Home(): Promise<React.ReactElement> {
         <Container className='flex flex-col items-start justify-center gap-y-4 px-0 pt-0'>
             <HeroSection />
             <div className='flex w-full flex-col gap-y-8 px-8 pt-4 md:px-10'>
-                <div>
-                    Baskent university - MIS (2023) Baskent university - COMP (2021-2023) React.js, Next.js Developer.
+                <div className='flex w-full flex-col items-center justify-start gap-y-2'>
+                    <p className='w-full text-start text-lg font-semibold'>Baskent university - MIS (2023)</p>
+                    <p className='w-full text-start text-lg font-semibold'>Baskent university - COMP (2021-2023)</p>
+                    <p className='w-full text-start text-lg font-semibold'>React.js, Next.js Developer.</p>
                 </div>
                 <RequestJob />
                 <RequestPlan />

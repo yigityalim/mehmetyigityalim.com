@@ -9,6 +9,8 @@ import { Badge } from 'components/ui/badge'
 import { formatDistance } from 'date-fns'
 import { tr } from 'date-fns/locale'
 import { Spinner } from '@/components/Spinner'
+import { buttonVariants } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
 async function useGithub(): Promise<GithubRepositoryType[]> {
     const response: Response = await fetch(process.env.GITHUB_USER_URL!)
@@ -25,11 +27,17 @@ export default async function Page(): Promise<React.JSX.Element> {
 
     return (
         <Container>
-            <h1 className="w-full text-3xl text-start font-bold">Projelerim</h1>
-            <div className="w-full flex flex-col gap-y-2 items-center justify-center">
+            <h1 className='w-full text-start text-3xl font-bold'>Projelerim</h1>
+            <div className='flex w-full flex-col items-center justify-center gap-y-2'>
                 {vercelProjects.map((project) => (
-                    <a href={project.url} target="_blank" rel="noopener noreferrer" key={project.id} className="w-full h-full">
-                        <Card key={project.id} className="w-full h-full">
+                    <a
+                        href={project.url}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        key={project.id}
+                        className='h-full w-full'
+                    >
+                        <Card key={project.id} className='h-full w-full'>
                             <CardHeader>
                                 <CardTitle>{project.name}</CardTitle>
                                 <CardDescription>{project.description}</CardDescription>
@@ -40,15 +48,18 @@ export default async function Page(): Promise<React.JSX.Element> {
                                     })}
                                 </p>
                             </CardHeader>
-                            <CardContent>
+                            <CardContent className='flex flex-row flex-wrap items-start justify-start gap-2'>
                                 {project.tags.map((tag) => (
-                                    <Badge key={tag} className="mr-2">
-                                        {tag}
-                                    </Badge>
+                                    <Badge key={tag}>{tag}</Badge>
                                 ))}
                             </CardContent>
                             <CardFooter>
-                                <a href={project.github} target="_blank" rel="noopener noreferrer">
+                                <a
+                                    href={project.github}
+                                    target='_blank'
+                                    rel='noopener noreferrer'
+                                    className={cn('w-full', buttonVariants({ variant: 'secondary', size: 'sm' }))}
+                                >
                                     Github
                                 </a>
                             </CardFooter>
@@ -56,8 +67,8 @@ export default async function Page(): Promise<React.JSX.Element> {
                     </a>
                 ))}
             </div>
-            <h1 className="w-full text-3xl text-start font-bold">Github Projelerim</h1>
-            <div className="w-full flex flex-col gap-y-2 items-center justify-center">
+            <h1 className='w-full text-start text-3xl font-bold'>Github Projelerim</h1>
+            <div className='flex w-full flex-col items-center justify-center gap-y-2'>
                 <React.Suspense fallback={<Spinner justSpinner />}>
                     <GithubProject repo={github} />
                 </React.Suspense>

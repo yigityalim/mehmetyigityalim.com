@@ -62,9 +62,9 @@ export function SocialMedia({ type }: SoicalMediaContainerProps): JSX.Element {
             variants={containerVariants}
             initial='hidden'
             animate='visible'
-            className='grid w-full grid-cols-2 gap-4'
+            className='grid w-full grid-cols-2 gap-4 md:grid-cols-3'
         >
-            {socialMedia.map(({ id, social, url }) => {
+            {socialMedia.map(({ id, social, url }, index) => {
                 const icon: JSX.Element | undefined = Icons.find(({ title }) => title.toLowerCase() === social)?.icon
                 return (
                     <motion.a
@@ -76,8 +76,8 @@ export function SocialMedia({ type }: SoicalMediaContainerProps): JSX.Element {
                         transition={{ duration: 0.5 }}
                         key={id}
                         className={cn(
-                            'bg-muted dark:bg-wash-dark flex aspect-square w-full flex-col items-center justify-center gap-y-2 overflow-hidden rounded-lg p-8 shadow-md'
-                            //idx === 0 ? 'col-span-2 max-h-[175px] overflow-hidden' : 'col-span-1'
+                            'dark:bg-wash-dark flex aspect-square w-full flex-col items-center justify-center gap-y-2 overflow-hidden rounded-lg bg-muted p-8 shadow-md'
+                            //index % 2 === 0 && 'col-span-2'
                         )}
                     >
                         <div className={cn('flex flex-col items-center gap-y-2')}>

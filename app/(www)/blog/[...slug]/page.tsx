@@ -29,7 +29,7 @@ export default async function Page({ params }: PostPageProps): Promise<React.JSX
                                 : `${blog.readMinutes} dakika` + ' okuma süresi'}
                         </span>
                     </div>
-                    <div className='flex w-full items-center justify-start gap-x-2'>
+                    <div className='mt-1 flex w-full items-center justify-start gap-x-2'>
                         {blog.tags.map((tag) => (
                             <Badge key={tag} variant='secondary'>
                                 {tag}
@@ -51,8 +51,8 @@ type PostPageProps = Readonly<{
     }
 }>
 
-export async function generateStaticParams() {
-    return allPosts.map((post) => ({ params: { slug: post.slug } }))
+export async function generateStaticParams(): Promise<{ params: { slug: string } }[]> {
+    return allPosts.map(({ slug }) => ({ params: { slug } }))
 }
 
 async function getPostFromParams({ params }: PostPageProps): Promise<Post | null> {

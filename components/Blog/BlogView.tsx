@@ -5,7 +5,7 @@ import { MotionLink } from '@/components/motion'
 import { formatDistance, compareDesc } from 'date-fns'
 import { tr } from 'date-fns/locale'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
-import { motion, useInView } from 'framer-motion'
+import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { allPosts } from 'contentlayer/generated'
 import type { Post } from 'contentlayer/generated'
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
@@ -140,84 +140,91 @@ export default function BlogView(): React.JSX.Element {
     }, [selectedTag, dateSortOrder, readMinutesSortOrder])
 
     return (
-        <motion.div
-            layout
-            id='blog-container'
-            transition={{ staggerChildren: 0.1 }}
-            className='flex w-full flex-col items-center gap-4'
-        >
-            <div className='flex w-full items-center justify-between'>
-                <h1 className='text-start text-xl font-semibold'>Tüm Bloglar</h1>
-                <Sheet>
-                    <SheetTrigger asChild>
-                        <span className='text-xl font-bold text-opacity-60'>Sırala</span>
-                    </SheetTrigger>
-                    <SheetContent side='right' className='z-[201] flex flex-col items-center justify-between'>
-                        <SheetHeader className='w-full'>
-                            <SheetTitle className='w-full text-left text-2xl font-bold'>Sırala</SheetTitle>
-                        </SheetHeader>
-                        <div className='my-4 flex w-full flex-col items-center justify-center gap-y-2'>
-                            <Toggle
-                                className='w-full hover:bg-inherit focus:outline-none'
-                                variant='outline'
-                                onClick={handleSortByReadMinutes}
-                                size='sm'
-                            >
-                                Okuma Süresine Göre {readMinutesSortOrder === 'desc' ? 'Azalan' : 'Artan'}
-                            </Toggle>
-                            <Toggle
-                                className='w-full hover:bg-inherit focus:outline-none'
-                                variant='outline'
-                                onClick={handleSortByDate}
-                                size='sm'
-                            >
-                                Tarihe Göre {dateSortOrder === 'desc' ? 'Azalan' : 'Artan'}
-                            </Toggle>
-                        </div>
-                        <Separator />
-                        <SheetTitle className='w-full text-start text-2xl font-bold'>Filtrele</SheetTitle>
-                        <ScrollArea className='flex-1'>
-                            {allPosts
-                                .reduce<string[]>((tags, post) => tags.concat(post.tags), [])
-                                .filter((tag, index, self) => self.indexOf(tag) === index)
-                                .map((tag) => (
-                                    <Toggle
-                                        key={tag}
-                                        onPressedChange={(isPressed) => handleFilterByTag(tag, isPressed)}
-                                        className='w-full cursor-pointer justify-start px-2 py-1 font-semibold capitalize italic' //text-blue-500 data-[state=on]:bg-blue-400 data-[state=on]:text-white dark:text-blue-400 dark:data-[state=on]:bg-blue-500 dark:data-[state=on]:text-white
+        <AnimatePresence initial={false} mode='wait'>
+            <motion.div
+                layout
+                id='blog-container'
+                transition={{ staggerChildren: 0.1 }}
+                className='flex w-full flex-col items-center gap-4'
+            >
+                <div className='flex w-full items-center justify-between'>
+                    <h1 className='text-start text-xl font-semibold'>Tüm Bloglar</h1>
+                    <Sheet>
+                        <SheetTrigger asChild>
+                            <span className='text-xl font-bold text-opacity-60'>Sırala</span>
+                        </SheetTrigger>
+                        <SheetContent side='right' className='z-[201] flex flex-col items-center justify-between'>
+                            <SheetHeader className='w-full'>
+                                <SheetTitle className='w-full text-left text-2xl font-bold'>Sırala</SheetTitle>
+                            </SheetHeader>
+                            <div className='my-4 flex w-full flex-col items-center justify-center gap-y-2'>
+                                <Toggle
+                                    className='w-full hover:bg-inherit focus:outline-none'
+                                    variant='outline'
+                                    onClick={handleSortByReadMinutes}
+                                    size='sm'
+                                >
+                                    Okuma Süresine Göre {readMinutesSortOrder === 'desc' ? 'Azalan' : 'Artan'}
+                                </Toggle>
+                                <Toggle
+                                    className='w-full hover:bg-inherit focus:outline-none'
+                                    variant='outline'
+                                    onClick={handleSortByDate}
+                                    size='sm'
+                                >
+                                    Tarihe Göre {dateSortOrder === 'desc' ? 'Azalan' : 'Artan'}
+                                </Toggle>
+                            </div>
+                            <Separator />
+                            <SheetTitle className='w-full text-start text-2xl font-bold'>Filtrele</SheetTitle>
+                            <ScrollArea className='flex-1'>
+                                {allPosts
+                                    .reduce<string[]>((tags, post) => tags.concat(post.tags), [])
+                                    .filter((tag, index, self) => self.indexOf(tag) === index)
+                                    .map((tag) => (
+                                        <Toggle
+                                            key={tag}
+                                            onPressedChange={(isPressed) => handleFilterByTag(tag, isPressed)}
+                                            className='w-full cursor-pointer justify-start px-2 py-1 font-semibold capitalize italic' //text-blue-500 data-[state=on]:bg-blue-400 data-[state=on]:text-white dark:text-blue-400 dark:data-[state=on]:bg-blue-500 dark:data-[state=on]:text-white
+                                        >
+                                            {tag}
+                                        </Toggle>
+                                    ))}
+                                <ScrollBar />
+                            </ScrollArea>
+                            {shouldShowClearFiltersButton && (
+                                <SheetFooter className='mt-auto w-full'>
+                                    <Button
+                                        onClick={handleClearFilters}
+                                        className='w-full'
+                                        variant='destructive'
+                                        size='sm'
                                     >
-                                        {tag}
-                                    </Toggle>
+                                        Filtreleri Temizle
+                                    </Button>
+                                </SheetFooter>
+                            )}
+                        </SheetContent>
+                    </Sheet>
+                </div>
+                <div className='flex w-full flex-col items-center justify-center gap-y-8'>
+                    {Object.entries(groupedBlogs).map(([monthYear, posts]) => (
+                        <div key={monthYear} className='flex w-full flex-col items-start justify-start gap-y-4'>
+                            <h2 className='text-2xl font-semibold italic'>{monthYear}</h2>
+                            <span className='h-px w-full bg-black dark:bg-white' />
+                            <div className='flex w-full flex-col items-start justify-start gap-y-4'>
+                                {posts.map((post, index) => (
+                                    <React.Fragment key={post._id}>
+                                        <Blog blog={post} />
+                                        {index === posts.length - 1 ? null : <Separator key={index} />}
+                                    </React.Fragment>
                                 ))}
-                            <ScrollBar />
-                        </ScrollArea>
-                        {shouldShowClearFiltersButton && (
-                            <SheetFooter className='mt-auto w-full'>
-                                <Button onClick={handleClearFilters} className='w-full' variant='destructive' size='sm'>
-                                    Filtreleri Temizle
-                                </Button>
-                            </SheetFooter>
-                        )}
-                    </SheetContent>
-                </Sheet>
-            </div>
-            <div className='flex w-full flex-col items-center justify-center gap-y-8'>
-                {Object.entries(groupedBlogs).map(([monthYear, posts]) => (
-                    <div key={monthYear} className='flex w-full flex-col items-start justify-start gap-y-4'>
-                        <h2 className='text-2xl font-semibold italic'>{monthYear}</h2>
-                        <span className='h-px w-full bg-black dark:bg-white' />
-                        <div className='flex w-full flex-col items-start justify-start gap-y-4'>
-                            {posts.map((post, index) => (
-                                <React.Fragment key={post._id}>
-                                    <Blog blog={post} />
-                                    {index === posts.length - 1 ? null : <Separator key={index} />}
-                                </React.Fragment>
-                            ))}
+                            </div>
                         </div>
-                    </div>
-                ))}
-            </div>
-        </motion.div>
+                    ))}
+                </div>
+            </motion.div>
+        </AnimatePresence>
     )
 }
 

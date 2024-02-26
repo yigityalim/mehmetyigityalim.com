@@ -1,7 +1,6 @@
 import React from 'react'
 import { SiTailwindcss, SiFramer, SiRedux } from '@icons-pack/react-simple-icons'
 
-
 export default [
     {
         key: 'tailwindcss',
@@ -16,7 +15,7 @@ export default [
     {
         key: 'zustand',
         name: 'Zustand',
-        tech: <span className="text-4xl">Z</span>,
+        tech: <span className='text-4xl'>Z</span>,
     },
     {
         key: 'redux',
