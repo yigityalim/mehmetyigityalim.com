@@ -1,21 +1,20 @@
 'use client'
 import React from 'react'
-import { Separator } from '@/components/ui/separator'
 import { MotionLink } from '@/components/motion'
 import { formatDistance, compareDesc } from 'date-fns'
 import { tr } from 'date-fns/locale'
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { AnimatePresence, motion, useInView } from 'framer-motion'
-import { allPosts } from 'contentlayer/generated'
-import type { Post } from 'contentlayer/generated'
-import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
+import { allPosts, type Post } from 'contentlayer/generated'
 import { cn, formatReadMinute } from '@/lib/utils'
-import { Badge } from '@/components/ui/badge'
 import Balancer from 'react-wrap-balancer'
+import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
+import { Badge } from '@/components/ui/badge'
 import { Toggle } from '@/components/ui/toggle'
 import { Button } from 'components/ui/button'
+import { Separator } from '@/components/ui/separator'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 
-export default function BlogView(): React.JSX.Element {
+export function BlogView(): React.JSX.Element {
     const [blogs, setBlogs] = React.useState<Post[]>(
         allPosts.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
     )
@@ -137,7 +136,7 @@ export default function BlogView(): React.JSX.Element {
     const shouldShowClearFiltersButton = React.useMemo<boolean>(() => {
         /** FIXME: Bu kısmı daha iyi bir şekilde optimize etmek gerekiyor. */
         return false // selectedTag !== null || dateSortOrder !== 'desc' || readMinutesSortOrder !== 'desc';
-    }, [selectedTag, dateSortOrder, readMinutesSortOrder])
+    }, []) //selectedTag, dateSortOrder, readMinutesSortOrder
 
     return (
         <AnimatePresence initial={false} mode='wait'>
@@ -234,10 +233,10 @@ function Blog({ blog: { _id, slug, title, readMinutes, date, tags } }: { blog: P
     return (
         <MotionLink
             ref={ref}
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.5 }}
-            exit={{ opacity: 0, y: 20 }}
+            exit={{ opacity: 0 }}
             href={`/blog${slug}`}
             className={cn(
                 'relative flex w-full flex-col gap-y-2 overflow-hidden rounded-lg bg-gray-100 p-4 dark:bg-zinc-900'

@@ -11,8 +11,9 @@ import type { Event } from 'lib/events'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import '@/styles/mdx.css'
 import { Icon } from 'components/MDX/icon'
+import { MDXComponents } from 'mdx/types'
 
-const components = {
+export const components = {
     Accordion,
     AccordionContent,
     AccordionItem,
@@ -175,7 +176,7 @@ const components = {
             {...props}
         />
     ),
-}
+} as MDXComponents satisfies MDXComponents
 
 type MdxProps = { code: string }
 
@@ -183,8 +184,8 @@ export function Mdx({ code }: MdxProps) {
     const Component = useMDXComponent(code)
 
     return (
-        <div className='mdx'>
+        <section className='mdx'>
             <Component components={components} />
-        </div>
+        </section>
     )
 }

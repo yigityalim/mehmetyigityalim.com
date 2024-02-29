@@ -1,6 +1,6 @@
 ---
-title: React.js index
-description: React forwardRef() kullanımı
+title: React.js
+description: React.js
 date: 2024-02-16T10:53:47.121Z
 readMinutes: 5
 tags:
@@ -9,46 +9,38 @@ tags:
     - hook
 ---
 
-## React forwardRef() Kullanımı
+## React.js nedir?
 
-React'de bir DOM elemanına ulaşmak için `useRef()` ile ref'lemek gerekiyor. Örneğin;
+React, Facebook tarafından geliştirilen ve kullanıcı arayüzü oluşturmak için kullanılan bir JavaScript kütüphanesidir.
 
-```js
-import { useRef } from 'react'
+## Örnek kullanım
 
-function App() {
-    const ref = useRef()
+```jsx title="App.jsx"
+import React from 'react';
 
-    return (
-        <>
-            <input type='text' ref={ref} />
-            <button onClick={() => ref.current.focus()}>Input'a Focusla</button>
-        </>
-    )
+export default function App() {
+  return (
+    <div>
+      <h1>Merhaba Dünya</h1>
+    </div>
+  );
 }
 ```
 
-Ancak bu senaryoda input etiketi bir React Component'i olsaydı, bu şekilde bir refleme çalışmayacaktı. İşte bu noktada devreye `forwardRef()` giriyor. Alt component'den üst component'e refi iletmemizi sağlıyor.
+## React.js ile ilgili tüm makaleler
 
-Şimdi aynı örneği input'un component olduğu senaryoda yazalım.
-
-```js
-import { useRef, forwardRef } from 'react'
-
-const Input = forwardRef((props, ref) => {
-    return <input {...props} ref={ref} />
-})
-
-function App() {
-    const ref = useRef()
-
-    return (
-        <>
-            <Input type='text' ref={ref} />
-            <button onClick={() => ref.current.focus()}>Input'a Focusla</button>
-        </>
-    )
-}
-```
-
-Artık `forwardRef()` ile ref'leri nasıl üst component'e ileteceğinizi biliyorsunuz. Tebrikler :)
+- [React.js Nedir?](/blog/framework/react/react-nedir)
+- [React.js Hook Nedir?](/blog/framework/react/react-hook-nedir)
+- [React.js Ref Nedir?](/blog/framework/react/react-ref-nedir)
+- [React.js Context Nedir?](/blog/framework/react/react-context-nedir)
+- [React.js Redux Nedir?](/blog/framework/react/react-redux-nedir)
+- [React.js Router Nedir?](/blog/framework/react/react-router-nedir)
+- [React.js Form Nedir?](/blog/framework/react/react-form-nedir)
+- [React.js Event Nedir?](/blog/framework/react/react-event-nedir)
+- [React.js Lifecycle Nedir?](/blog/framework/react/react-lifecycle-nedir)
+- [React.js Component Nedir?](/blog/framework/react/react-component-nedir)
+- [React.js Props Nedir?](/blog/framework/react/react-props-nedir)
+- [React.js State Nedir?](/blog/framework/react/react-state-nedir)
+- [React.js Effect Nedir?](/blog/framework/react/react-effect-nedir)
+- [React.js Memo Nedir?](/blog/framework/react/react-memo-nedir)
+- [React.js Portals Nedir?](/blog/framework/react/react-portals-nedir)

@@ -12,9 +12,7 @@ export function ToggleMenu(): React.JSX.Element {
     const { menu, setMenu } = useOverlayMenu()
     const router = useRouter()
 
-    const classNames: string = cn(
-        'h-0.5 w-2/3 bg-black transition-all duration-300 transform dark:bg-white bg-blend-difference'
-    )
+    const classNames: string = cn('h-0.5 w-2/3 bg-white transition-all duration-300 transform')
 
     const onClick = useCallback(() => {
         setMenu(!menu)
@@ -25,6 +23,7 @@ export function ToggleMenu(): React.JSX.Element {
             <div className={cn('flex h-full w-full items-center gap-x-4 transition', menu && 'opacity-0')}>
                 {!!splitted[2] ? (
                     <Icon
+                        className=' stroke-white'
                         name='arrow-left'
                         onClick={() => {
                             router.back()

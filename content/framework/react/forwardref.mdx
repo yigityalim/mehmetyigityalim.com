@@ -12,9 +12,17 @@ tags:
 
 ## React forwardRef() Kullanımı
 
+<Alert variant="destructive">
+    <AlertTitle>Uyarı!</AlertTitle>
+    <AlertDescription>
+        Bu hook React.js 19 sürümü ile kaldırılacaktır. Yerine direkt komponentinize prop olarak ref gelecektir.
+    </AlertDescription>
+</Alert>
+
+
 React'de bir DOM elemanına ulaşmak için `useRef()` ile ref'lemek gerekiyor. Örneğin;
 
-```js
+```tsx title="App.tsx"
 import { useRef } from "react"
 
 function App() {
@@ -33,7 +41,9 @@ Ancak bu senaryoda input etiketi bir React Component'i olsaydı, bu şekilde bir
 
 Şimdi aynı örneği input'un component olduğu senaryoda yazalım.
 
-```js
+```tsx title="Input.tsx | App.tsx"
+
+// Input.tsx
 import { useRef, forwardRef } from "react"
 
 const Input = forwardRef((props, ref) => {
@@ -42,9 +52,10 @@ const Input = forwardRef((props, ref) => {
   )
 })
 
+// App.tsx
 function App() {
 
-  const ref = useRef()
+  const ref = useRef<HTMLInputElement>(null)
 
   return (
     <>

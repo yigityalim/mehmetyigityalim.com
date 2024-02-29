@@ -12,12 +12,12 @@ export default function HeroSection() {
                         alt='Picture of the author'
                         quality={100}
                         priority
-                        className='h-full w-full object-cover md:pt-[100px] md:rounded'
+                        className='h-full w-full object-cover md:rounded md:pt-[100px]'
                         width={1920}
                         height={1080}
                     />
                 </React.Suspense>
-                <div className='absolute bottom-0 left-0 right-0 top-1/2 bg-gradient-to-t from-white via-transparent to-transparent dark:from-black md:hidden' />
+                <div className='absolute bottom-0 left-0 right-0 top-1/2 bg-gradient-to-t from-white via-transparent to-transparent dark:from-background md:hidden' />
                 <h1 className='absolute bottom-4 left-0 right-0 scroll-m-20 pl-4 text-start text-5xl font-extrabold tracking-tight text-black dark:text-white md:static md:mt-6 md:w-full md:pl-0 md:pr-8 md:text-start md:text-6xl'>
                     Mehmet Yiğit
                 </h1>

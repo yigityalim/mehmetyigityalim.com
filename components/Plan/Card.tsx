@@ -71,6 +71,7 @@ export function PlanCard({ plan }: PlanCardProps): React.ReactElement {
                     </div>
                 </CardHeader>
                 <CardContent>
+                    <h3 className='mb-2 text-base font-bold capitalize italic'>Size sunulacak özellikler: </h3>
                     {Object.keys(features)
                         .sort((a, b) => {
                             const aId = features[a].id
@@ -79,22 +80,18 @@ export function PlanCard({ plan }: PlanCardProps): React.ReactElement {
                             const fB = plan.features.find((f) => f.id === bId)
                             return fA ? -1 : fB ? 1 : 0
                         })
-                        .map((key) => {
-                            const f = plan.features.find((f) => f.id === features[key].id)
-
-                            return (
-                                <div
-                                    key={features[key].id}
-                                    className={cn(
-                                        'flex w-full items-center justify-between text-lg',
-                                        f ? 'italic' : 'line-through',
-                                        f && planVariants({ heading: plan.type })
-                                    )}
-                                >
-                                    <h3>{f ? f.name : features[key].name}</h3>
-                                </div>
-                            )
-                        })}
+                        .filter((key) => plan.features.find((f) => f.id === features[key].id))
+                        .map((key) => (
+                            <div
+                                key={features[key].id}
+                                className={cn(
+                                    'flex w-full items-center justify-between text-lg italic',
+                                    planVariants({ heading: plan.type })
+                                )}
+                            >
+                                <h3>{features[key].name}</h3>
+                            </div>
+                        ))}
                 </CardContent>
                 <CardFooter>
                     <Link

@@ -22,11 +22,11 @@ Kısaca react'de bir state oluşturmak şöyle:
 <Steps>
 
 ### Öncelikle useState() fonksiyonunu import ediyoruz.
-```tsx
+```tsx title="App.tsx"
 import {useState} from "react"
 
 function App() {
-    const [name, setName] = useState('yiğit')
+    const [name, setName] = useState<string>('yiğit')
     return (
         <>
             <h3>{name}</h3>
@@ -38,11 +38,11 @@ function App() {
 
 ### useState() fonksiyonu içine başlangıç değeri vererek state oluşturabiliriz.
 
-```tsx
+```tsx title="App.tsx"
 import {useState} from "react"
 
 function App() {
-const [counter, setCounter] = useState(0)
+const [counter, setCounter] = useState<number>(0)
     return (
         <>
             <h3>Butona {counter} kez tıklandı.</h3>
@@ -54,11 +54,16 @@ const [counter, setCounter] = useState(0)
 
 ### useState() fonksiyonu içine nesne vererek state oluşturabiliriz.
 
-```tsx
+```tsx title="App.tsx"
 import {useState} from "react"
 
+type User = {
+    name: string,
+    age: number
+}
+
 function App() {
-    const [user, setUser] = useState({name: 'yiğit', age: 25})
+    const [user, setUser] = useState<User>({name: 'yiğit', age: 25})
     return (
         <>
             <h3>{user.name} is {user.age} years old.</h3>
@@ -70,12 +75,13 @@ function App() {
 
 ### useState() fonksiyonu içine dizi vererek state oluşturabiliriz.
 
-```tsx
-
+```tsx title="App.tsx"
 import {useState} from "react"
 
+type List = string[]
+
 function App() {
-    const [list, setList] = useState(['elma', 'armut', 'muz'])
+    const [list, setList] = useState<List>(['elma', 'armut', 'muz'])
     return (
         <>
             <ul>
@@ -89,11 +95,13 @@ function App() {
 
 ### useState() fonksiyonu içine callback fonksiyon vererek state oluşturabiliriz.
 
-```tsx
+```tsx title="App.tsx"
 import {useState} from "react"
 
+type User = string
+
 function App() {
-    const [name, setName] = useState(() => {
+    const [name, setName] = useState<User>(() => {
         const initialName = localStorage.getItem('name')
         return initialName || 'yiğit'
     })

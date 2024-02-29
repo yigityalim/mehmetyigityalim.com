@@ -1,6 +1,6 @@
 ---
-title: Next.js index
-description: React forwardRef() kullanımı
+title: Next.js
+description: Next.js
 date: 2024-03-16T10:53:47.121Z
 readMinutes: 5
 tags:
@@ -9,46 +9,18 @@ tags:
     - hook
 ---
 
-## React forwardRef() Kullanımı
 
-React'de bir DOM elemanına ulaşmak için `useRef()` ile ref'lemek gerekiyor. Örneğin;
 
-```js /ref/
-import { useRef } from 'react'
+## Next.js nedir?
 
-function App() {
-    const ref = useRef()
+Next.js, React uygulamaları oluşturmak için kullanılan bir framework'tür. Next.js, React uygulamalarını oluşturmak için gerekli olan tüm araçları sağlar.
 
-    return (
-        <>
-            <input type='text' ref={ref} />
-            <button onClick={() => ref.current.focus()}>Input'a Focusla</button>
-        </>
-    )
-}
-```
+## Nextjs ile ilgili tüm makaleler
 
-Ancak bu senaryoda input etiketi bir React Component'i olsaydı, bu şekilde bir refleme çalışmayacaktı. İşte bu noktada devreye `forwardRef()` giriyor. Alt component'den üst component'e refi iletmemizi sağlıyor.
-
-Şimdi aynı örneği input'un component olduğu senaryoda yazalım.
-
-```js
-import { useRef, forwardRef } from 'react'
-
-const Input = forwardRef((props, ref) => {
-    return <input {...props} ref={ref} />
-})
-
-function App() {
-    const ref = useRef()
-
-    return (
-        <>
-            <Input type='text' ref={ref} />
-            <button onClick={() => ref.current.focus()}>Input'a Focusla</button>
-        </>
-    )
-}
-```
-
-Artık `forwardRef()` ile ref'leri nasıl üst component'e ileteceğinizi biliyorsunuz. Tebrikler :)
+- [Next.js nedir?](/blog/framework/nextjs/nextjs-nedir)
+- [Next.js kurulumu](/blog/framework/nextjs/nextjs-kurulumu)
+- [Next.js dosya yapısı](/blog/framework/nextjs/nextjs-dosya-yapisi)
+- [Next.js Link componenti](/blog/framework/nextjs/nextjs-link-componenti)
+- [Next.js Router](/blog/framework/nextjs/nextjs-router)
+- [Next.js Static dosya servis etme](/blog/framework/nextjs/nextjs-static-dosya-servis-etme)
+- [Next.js Dinamik route](/blog/framework/nextjs/nextjs-dinamik-route)
