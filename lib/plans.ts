@@ -40,7 +40,7 @@ export const features = {
     analytics: {
         id: 'analytics',
         name: 'Analytics',
-        description: 'Analytics ile veri analizi ve raporlama.',
+        description: 'Vercel Analytics ile veri analizi ve raporlama.',
         price: {
             monthly: 1000,
             yearly: 11000,
@@ -62,13 +62,23 @@ export const plans = [
         id: 'basic',
         type: 'basic',
         name: 'Başlangıç',
-        description: 'Başlangıç seviyesi plan.',
+        description: 'Başlangıç seviyesi plan. Herkes için uygun. Vite.js ile hızlı sonuç alın.',
         price: {
             monthly: 1000,
             yearly: 11000,
         },
         features: [features.hosting],
         details: ['Typescript', 'Vitejs', 'Nextjs', 'Hosting', 'Domain', 'SSL'],
+        pageCount: {
+            default: 1,
+            min: 1,
+            max: 3,
+        },
+        revisionCount: {
+            default: 1,
+            min: 1,
+            max: 3,
+        },
         href: '/plans/basic',
         buttonText: 'Hemen Başla',
         buttonVariant: 'default',
@@ -78,13 +88,23 @@ export const plans = [
         type: 'standart',
         name: 'Standart',
         top: 'En Popüler',
-        description: 'Standart seviyesi plan.',
+        description: 'Standart seviyesi plan. İşletmeniz için ideal. Typescript ve Vite.js ile güçlü sonuçlar.',
         price: {
             monthly: 2000,
             yearly: 22000,
         },
         features: [features.typescript, features.vitejs, features.analytics],
         details: ['Typescript', 'Vitejs', 'Nextjs', 'Hosting', 'Domain', 'SSL', 'SEO'],
+        pageCount: {
+            default: 3,
+            min: 3,
+            max: 5,
+        },
+        revisionCount: {
+            default: 3,
+            min: 3,
+            max: 5,
+        },
         href: '/plans/standart',
         buttonText: 'Planı Seç',
         buttonVariant: 'indigo',
@@ -94,7 +114,8 @@ export const plans = [
         type: 'advanced',
         name: 'Gelişmiş',
         top: 'Önerilen',
-        description: 'Gelişmiş seviyesi plan.',
+        description:
+            'Gelişmiş seviyesi plan. İşletmeniz için en iyi. Typescript, Vite.js ve Next.js ile profesyoneller için.',
         price: {
             monthly: 3000,
             yearly: 33000,
@@ -108,6 +129,16 @@ export const plans = [
             features.seo,
         ],
         details: ['Typescript', 'Nextjs', 'Hosting', 'Domain', 'SSL', 'SEO', 'Analytics'],
+        pageCount: {
+            default: 5,
+            min: 5,
+            max: 10,
+        },
+        revisionCount: {
+            default: 5,
+            min: 5,
+            max: 10,
+        },
         href: '/plans/advanced',
         buttonText: 'Geçiş Yap',
         buttonVariant: 'destructive',

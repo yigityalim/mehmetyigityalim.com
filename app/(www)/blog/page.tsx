@@ -2,6 +2,8 @@ import React from 'react'
 import Container from 'components/Containers'
 import { Metadata } from 'next'
 import { BlogView } from 'components/Blog/BlogView'
+import { Alert, AlertDescription, AlertTitle } from 'components/ui/alert'
+import { AlertCircle } from 'lucide-react'
 
 export const metadata: Metadata = {
     title: 'Blog Sayfası',
@@ -14,6 +16,11 @@ export const metadata: Metadata = {
 export default async function Page(): Promise<React.JSX.Element> {
     return (
         <Container title='Blog'>
+            <Alert variant='destructive'>
+                <AlertCircle className='size-4' />
+                <AlertTitle>Bu sayfa daha geliştirme aşamasındadır.</AlertTitle>
+                <AlertDescription>Bu sayfada yapacağınız işlemler kaydedilmeyecektir.</AlertDescription>
+            </Alert>
             <BlogView />
         </Container>
     )

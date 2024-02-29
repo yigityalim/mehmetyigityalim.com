@@ -43,6 +43,13 @@ export const planVariants = cva('', {
             advanced:
                 'border-red-500 text-red-500 dark:border-red-700 dark:bg-zinc-950 dark:text-red-600 absolute -top-4 left-1/2 -translate-x-1/2 rounded-md border bg-white px-2 py-1 font-semibold',
         },
+        accent: {
+            basic: 'data-[state=checked]:bg-zinc-900 data-[state=checked]:text-zinc-500 dark:data-[state=checked]:bg-zinc-500 dark:data-[state=checked]:text-white',
+            standart:
+                'data-[state=checked]:bg-indigo-900 data-[state=checked]:text-indigo-500 dark:data-[state=checked]:bg-indigo-050 dark:data-[state=checked]:text-white',
+            advanced:
+                'data-[state=checked]:bg-red-900 data-[state=checked]:text-red-500 dark:data-[state=checked]:bg-red-500 dark:data-[state=checked]:text-white',
+        },
     },
 })
 

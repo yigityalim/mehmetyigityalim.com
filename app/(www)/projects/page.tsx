@@ -11,6 +11,8 @@ import { tr } from 'date-fns/locale'
 import { Spinner } from '@/components/Spinner'
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { Alert, AlertDescription, AlertTitle } from 'components/ui/alert'
+import { AlertCircle } from 'lucide-react'
 
 async function useGithub(): Promise<GithubRepositoryType[]> {
     const response: Response = await fetch(process.env.GITHUB_USER_URL!)
@@ -27,6 +29,11 @@ export default async function Page(): Promise<React.JSX.Element> {
 
     return (
         <Container>
+            <Alert variant='destructive'>
+                <AlertCircle className='size-4' />
+                <AlertTitle>Bu sayfa daha geliştirme aşamasındadır.</AlertTitle>
+                <AlertDescription>Bu sayfada yapacağınız işlemler kaydedilmeyecektir.</AlertDescription>
+            </Alert>
             <h1 className='w-full text-start text-3xl font-bold'>Projelerim</h1>
             <div className='flex w-full flex-col items-center justify-center gap-y-2'>
                 {vercelProjects.map((project) => (

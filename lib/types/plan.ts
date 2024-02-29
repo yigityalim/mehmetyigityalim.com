@@ -12,6 +12,16 @@ interface Plan {
     }
     features: Feature[]
     details: string[]
+    pageCount: {
+        default: number
+        min: number
+        max: number
+    }
+    revisionCount: {
+        default: number
+        min: number
+        max: number
+    }
     href: string
     buttonText: string
     buttonVariant: ButtonProps['variant']
