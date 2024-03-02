@@ -62,7 +62,15 @@ export function PlanView({ type }: Readonly<{ type?: Plan['type'] }>): React.Rea
          */
         const price = plan.price.yearly + (featurePrice + pageCountPrice + revisionCountPrice)
         setPrice(price)
-    }, [pageCount, revisionCount, selectedFeatures, isMonthly])
+    }, [
+        pageCount,
+        revisionCount,
+        selectedFeatures,
+        isMonthly,
+        plan.pageCount.price,
+        plan.revisionCount.price,
+        plan.price.yearly,
+    ])
     function sendData() {
         setData({ pageCount, revisionCount, features: selectedFeatures })
         window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -125,7 +133,6 @@ export function PlanView({ type }: Readonly<{ type?: Plan['type'] }>): React.Rea
                 </SelectPrimitive>
             </div>
             <p className='mb-4 text-lg text-gray-600 dark:text-gray-400'>{plan.description}</p>
-            <span>// TODO</span>
             <div className='grid w-full grid-cols-1 gap-6'>
                 <h2 className='text-xl font-semibold'>Plan Özellikleri:</h2>
                 <h3 className='mb-2 font-semibold text-gray-600 dark:text-gray-400'>
