@@ -1,27 +1,17 @@
 import React from 'react'
 import Container from 'components/Containers'
-import { plans } from 'lib/plans'
-import type { Plan } from 'lib/types/plan'
 import { quickJobs } from 'lib/quickJob'
 import type { Metadata } from 'next'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from 'components/ui/accordion'
 import QuickJobCard from 'components/Plan/QuickJobCard'
 import PlanContainer from 'components/Containers/PlanContainer'
 
-export const metadata = {
-    title: 'Fiyatlandırma',
-    description: 'Fiyatlandırma listesi',
-} satisfies Metadata
-
-export async function generateStaticParams(): Promise<{ params: { type: Plan['type'] } }[]> {
-    return plans.map((p) => ({ params: { type: p.type } }))
-}
-
 export default function PlansPage(): React.JSX.Element {
     return (
         <Container
             title='Projeleriniz için fiyatlandırma listesi'
             description='Fiyatlar, projenin gereksinimlerine göre değişiklik gösterebilir.'
+            isDev
         >
             <PlanContainer />
             <Accordion type='single' collapsible className='w-full'>
@@ -37,3 +27,8 @@ export default function PlansPage(): React.JSX.Element {
         </Container>
     )
 }
+
+export const metadata = {
+    title: 'Fiyatlandırma',
+    description: 'Fiyatlandırma listesi',
+} satisfies Metadata

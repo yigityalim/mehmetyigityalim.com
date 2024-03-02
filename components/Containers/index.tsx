@@ -3,19 +3,30 @@ import React from 'react'
 import { cn } from 'lib/utils'
 import { AnimatePresence, motion, MotionProps } from 'framer-motion'
 import { usePathname } from 'next/navigation'
+import { Alert, AlertDescription, AlertTitle } from 'components/ui/alert'
+import { AlertCircle } from 'lucide-react'
 
+/*
 type ContainerProps = Readonly<
     { className?: string; children: React.ReactNode; title?: string; description?: string } & Omit<
         MotionProps,
         'children'
     >
 >
+ */
+
+interface ContainerProps extends React.ComponentProps<'div'> {
+    title?: string
+    description?: string
+    isDev?: boolean
+}
 
 export default function Container({
     className,
     children,
     title,
     description,
+    isDev,
     ...props
 }: ContainerProps): React.JSX.Element {
     const pathname = usePathname()
@@ -32,7 +43,7 @@ export default function Container({
                     (title || description) && 'items-start',
                     className
                 )}
-                {...props}
+                {...(props as MotionProps)}
             >
                 {(title || description) && (
                     <div className='flex w-full flex-col items-start justify-center gap-y-4'>
@@ -59,6 +70,13 @@ export default function Container({
                             </motion.p>
                         )}
                     </div>
+                )}
+                {isDev && (
+                    <Alert variant='destructive'>
+                        <AlertCircle className='size-4' />
+                        <AlertTitle>Bu sayfa daha geliştirme aşamasındadır.</AlertTitle>
+                        <AlertDescription>Bu sayfada yapacağınız işlemler kaydedilmeyecektir.</AlertDescription>
+                    </Alert>
                 )}
                 {children}
             </motion.div>

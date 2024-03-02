@@ -28,12 +28,7 @@ export default async function Page(): Promise<React.JSX.Element> {
     const [github] = await Promise.all([useGithub()])
 
     return (
-        <Container>
-            <Alert variant='destructive'>
-                <AlertCircle className='size-4' />
-                <AlertTitle>Bu sayfa daha geliştirme aşamasındadır.</AlertTitle>
-                <AlertDescription>Bu sayfada yapacağınız işlemler kaydedilmeyecektir.</AlertDescription>
-            </Alert>
+        <Container isDev>
             <h1 className='w-full text-start text-3xl font-bold'>Projelerim</h1>
             <div className='flex w-full flex-col items-center justify-center gap-y-2'>
                 {vercelProjects.map((project) => (

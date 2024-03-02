@@ -16,11 +16,13 @@ interface Plan {
         default: number
         min: number
         max: number
+        price: number
     }
     revisionCount: {
         default: number
         min: number
         max: number
+        price: number
     }
     href: string
     buttonText: string

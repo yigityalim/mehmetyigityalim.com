@@ -5,8 +5,6 @@ import { buttonVariants } from 'components/ui/button'
 import Link from 'next/link'
 import { cn } from 'lib/utils'
 import { Badge } from 'components/ui/badge'
-import { Alert, AlertDescription, AlertTitle } from 'components/ui/alert'
-import { AlertCircle } from 'lucide-react'
 
 function ReferenceCard({ name, url, icon, description, tags }: Readonly<Reference>): React.ReactElement {
     return (
@@ -35,12 +33,7 @@ function ReferenceCard({ name, url, icon, description, tags }: Readonly<Referenc
 }
 export default function Page(): React.ReactElement {
     return (
-        <Container title='Referanslarım' description='Şu ana kadar çalıştığım firmalar ve projeleri'>
-            <Alert variant='destructive'>
-                <AlertCircle className='size-4' />
-                <AlertTitle>Bu sayfa daha geliştirme aşamasındadır.</AlertTitle>
-                <AlertDescription>Bu sayfada yapacağınız işlemler kaydedilmeyecektir.</AlertDescription>
-            </Alert>
+        <Container title='Referanslarım' description='Şu ana kadar çalıştığım firmalar ve projeleri' isDev>
             <div className='mb-4 mt-4 flex flex-wrap items-center justify-center gap-4 md:grid md:grid-cols-2 lg:grid-cols-3'>
                 {references.map((item) => (
                     <ReferenceCard key={item.id} {...item} />

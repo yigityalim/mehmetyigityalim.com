@@ -59,14 +59,16 @@ type PlanCardProps = Readonly<{ plan: Plan }>
 
 export function PlanCard({ plan }: PlanCardProps): React.ReactElement {
     return (
-        <Card className={cn('group z-50 bg-green-900', planVariants({ border: plan.type }))}>
+        <Card className={cn('group z-50', planVariants({ border: plan.type }))}>
             <div className={planVariants({ backdrop: plan.type })} />
-            {plan.top && <div className={cn('z-50', planVariants({ top: plan.type }))}>{plan.top}</div>}
+            {/*
+                {plan.top && <div className={cn('z-50', planVariants({ top: plan.type }))}>{plan.top}</div>}
+            */}
             <div className='h-full w-full rounded-md bg-card'>
                 <CardHeader>
                     <CardTitle className={cn('text-3xl', planVariants({ heading: plan.type }))}>{plan.name}</CardTitle>
                     <CardDescription>{plan.description}</CardDescription>
-                    <div className='flex w-full flex-col items-start justify-center gap-y-1'>
+                    <div className='mt-2 flex w-full flex-col items-start justify-center gap-y-1'>
                         <div className='flex items-center justify-center gap-x-2'>
                             <p className='text-lg font-bold'>{formatPrice(plan.price.monthly)}</p>
                             <p className='text-sm'>aylık</p>
@@ -78,7 +80,9 @@ export function PlanCard({ plan }: PlanCardProps): React.ReactElement {
                     </div>
                 </CardHeader>
                 <CardContent>
-                    <h3 className='mb-2 text-base font-bold capitalize italic'>Size sunulacak özellikler: </h3>
+                    <h3 className='mb-2 text-base font-bold capitalize italic text-zinc-300'>
+                        Size sunulacak özellikler:{' '}
+                    </h3>
                     {Object.keys(features)
                         .sort((a, b) => {
                             const aId = features[a].id

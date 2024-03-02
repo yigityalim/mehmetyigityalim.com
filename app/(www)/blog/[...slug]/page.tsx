@@ -13,7 +13,7 @@ export default async function Page({ params }: PostPageProps): Promise<React.JSX
     const blog: Post = (await getPostFromParams({ params })) ?? notFound()
 
     return (
-        <Container>
+        <Container isDev>
             <div className='flex w-full flex-col items-center justify-center gap-4'>
                 <h1 className='w-full text-start text-5xl font-bold italic'>{blog.title}</h1>
                 <div className='flex w-full flex-col items-center justify-center gap-y-1'>

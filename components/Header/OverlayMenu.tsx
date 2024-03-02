@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import ThemeSwitcher from 'components/ThemeSwitch'
 import { cn } from 'lib/utils'
 import menu from 'lib/menu'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 export function OverlayMenu(): React.JSX.Element {
@@ -29,28 +29,31 @@ export function OverlayMenu(): React.JSX.Element {
                     className={cn(
                         'fixed inset-0 z-[52] flex flex-col items-center justify-start gap-y-4 p-8 md:container md:mx-auto md:max-w-xl',
                         overlayMenu &&
-                            'bg-white bg-opacity-40 backdrop-blur-2xl dark:bg-black dark:bg-opacity-50 dark:backdrop-blur-2xl'
+                            'bg-white bg-opacity-40 saturate-100 backdrop-blur-lg dark:bg-black dark:bg-opacity-50 dark:backdrop-blur-lg'
                     )}
                 >
                     <div className='flex w-full flex-col items-center justify-center gap-y-4 pt-24'>
-                        {menu.map(({ path, title }) => (
-                            <div key={path} className='w-full'>
-                                <Link
-                                    href={path}
-                                    className={cn(
-                                        'z-[53] flex w-full items-center justify-end gap-x-4 rounded p-1 text-5xl font-bold',
-                                        path === pathname &&
-                                            'bg-white dark:border dark:border-black/30 dark:bg-black dark:shadow-lg'
-                                    )}
-                                    onClick={() => {
-                                        setMenu(false)
-                                        document.body.style.overflow = ''
-                                    }}
-                                >
-                                    {title}
-                                </Link>
-                            </div>
-                        ))}
+                        {menu.map(({ path, title }) => {
+                            const isSubMenu = pathname.split('/').slice(1).includes(path.replace('/', ''))
+                            return (
+                                <div key={path} className='w-full'>
+                                    <Link
+                                        href={path}
+                                        className={cn(
+                                            'z-[53] flex w-full items-center justify-end gap-x-4 rounded p-1 text-5xl font-bold',
+                                            isSubMenu &&
+                                                'bg-white dark:border dark:border-black/30 dark:bg-black dark:shadow-lg'
+                                        )}
+                                        onClick={() => {
+                                            setMenu(false)
+                                            document.body.style.overflow = ''
+                                        }}
+                                    >
+                                        {title}
+                                    </Link>
+                                </div>
+                            )
+                        })}
                     </div>
                     <div className='mt-auto flex w-full flex-row items-center justify-center gap-x-2'>
                         <ThemeSwitcher as='select' fullWidth className='z-[100] w-full' />

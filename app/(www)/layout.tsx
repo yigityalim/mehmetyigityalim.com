@@ -7,7 +7,7 @@ import { fontSans } from 'lib/fonts'
 import { ClientSideProvider } from '@/components/Providers/clientSideProvider'
 import Intro from 'components/Intro'
 import { cn } from 'lib/utils'
-import { Toaster } from '@/components/ui/toaster'
+import { Toaster } from '@/components/ui/sonner'
 import { TailwindIndicator } from '@/components/TailwindIndicator'
 import { siteConfig } from '@/config/site'
 
