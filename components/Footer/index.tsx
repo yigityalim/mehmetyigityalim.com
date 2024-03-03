@@ -3,7 +3,7 @@ import React from 'react'
 import { cn } from 'lib/utils'
 import ThemeSwitcher from 'components/ThemeSwitch'
 
-export default function Footer(): React.JSX.Element {
+export function Footer(): React.JSX.Element {
     return (
         <footer
             className={cn(
@@ -11,14 +11,11 @@ export default function Footer(): React.JSX.Element {
             )}
         >
             <span className='block h-px w-full bg-black/40 dark:bg-white/40' />
-            <ThemeSwitcher as='button' fullWidth />
-            <div className='flex w-full flex-col text-center'>
-                &copy; {new Date().getFullYear()}{' '}
-                <a href='https://instagram.com/yigityalim' target='_blank' rel='noreferrer'>
-                    Mehmet Yiğit Yalım
-                </a>
-                Tüm hakları saklıdır.
+            <h1 className='w-full text-start text-3xl font-bold italic'>Mehmet Yiğit Yalım</h1>
+            <div className='flex w-full flex-col text-start text-xs font-semibold'>
+                &copy; {new Date().getFullYear()} Tüm hakları saklıdır.
             </div>
+            <ThemeSwitcher as='select' fullWidth />
         </footer>
     )
 }

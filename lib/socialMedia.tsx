@@ -28,18 +28,10 @@ export const socialMedia = [
     {
         id: '4',
         title: 'Instagram',
-        url: 'https://www.instagram.com/yigityalim/',
+        url: 'https://www.instagram.com/mehmet_yigit_yalim',
         color: [{ hex: '#833ab4' }],
         username: '@yigityalim',
         social: 'instagram',
-    },
-    {
-        id: '5',
-        title: 'Snapchat',
-        url: 'https://www.snapchat.com/add/yigityalim',
-        color: [{ hex: '#FFFC00' }],
-        username: '@yigityalim',
-        social: 'snapchat',
     },
     {
         id: '6',

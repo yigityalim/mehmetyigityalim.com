@@ -8,12 +8,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { cn } from 'lib/utils'
 import { Skeleton } from 'components/ui/skeleton'
 
-type Props = Readonly<{
-    as?: 'button' | 'dropdown' | 'select'
-    fullWidth?: boolean
-    className?: string
-}>
-
 function SkeletonLoader({ fullWidth }: Readonly<{ fullWidth?: boolean }>) {
     return (
         <Skeleton className={cn('flex flex-row items-center justify-center gap-x-2', fullWidth && 'w-full')}>
@@ -77,6 +71,18 @@ function ThemeButtons({
     )
 }
 
+type Props = Readonly<{
+    as?: 'button' | 'dropdown' | 'select'
+    fullWidth?: boolean
+    className?: string
+}>
+
+const selectTexts = {
+    light: 'Açık',
+    dark: 'Koyu',
+    system: 'Sistem',
+}
+
 export default function ThemeSwitcher({ as = 'dropdown', fullWidth, className }: Props): React.JSX.Element | null {
     const { theme, themes, setTheme } = useTheme()
     const [mounted, setMounted] = useState(false)
@@ -100,7 +106,7 @@ export default function ThemeSwitcher({ as = 'dropdown', fullWidth, className }:
                 <SelectContent>
                     {themes.map((theme) => (
                         <SelectItem value={theme} key={theme}>
-                            {theme}
+                            {selectTexts[theme as keyof typeof selectTexts]}
                         </SelectItem>
                     ))}
                 </SelectContent>

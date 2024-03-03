@@ -1,51 +1,16 @@
 'use client'
 
-import { JSX, ReactNode, Suspense, useEffect, useState } from 'react'
-import Footer from 'components/Footer'
-import Header from 'components/Header'
+import { JSX, Suspense } from 'react'
 import AnimatedText from 'components/AnimatedText'
 import { Spinner } from 'components/Spinner'
 import { motion } from 'framer-motion'
+import { useIsIntro } from '@/lib/hooks'
 
-type IntroProps = {
-    children: ReactNode
-}
-
-const useVisitedStorage = (): boolean => {
-    const [hasVisited, setHasVisited] = useState<boolean>(false)
-
-    useEffect(() => {
-        const storedValue = window.sessionStorage.getItem('hasVisited')
-        if (storedValue) {
-            setHasVisited(true)
-        }
-    }, [])
-
-    const timeout: Timer = setTimeout(() => {
-        setHasVisited(true)
-        window.sessionStorage.setItem('hasVisited', 'true')
-    }, 3000)
-
-    useEffect(() => {
-        return () => clearTimeout(timeout)
-    }, [timeout])
-
-    return hasVisited
-}
-
-export default function Intro({ children }: IntroProps): JSX.Element {
+export function Intro(): JSX.Element {
+    const isIntro = useIsIntro()
     return (
-        <Suspense fallback={<Spinner className='min-h-screen' />}>
-            <Header />
-            {children}
-            <Footer />
-        </Suspense>
-    )
-}
-
-/*
-
-            {!isDevelopmentMode && (
+        <Suspense fallback={<Spinner />}>
+            {isIntro && (
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -55,4 +20,6 @@ export default function Intro({ children }: IntroProps): JSX.Element {
                     <AnimatedText text='Mehmet Yiğit Yalım' />
                 </motion.div>
             )}
- */
+        </Suspense>
+    )
+}

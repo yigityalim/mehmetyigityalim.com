@@ -5,11 +5,13 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
 import { fontSans } from 'lib/fonts'
 import { ClientSideProvider } from '@/components/Providers/clientSideProvider'
-import Intro from 'components/Intro'
 import { cn } from 'lib/utils'
 import { Toaster } from '@/components/ui/sonner'
 import { TailwindIndicator } from '@/components/TailwindIndicator'
 import { siteConfig } from '@/config/site'
+import { Header } from '@/components/Header'
+import { Footer } from '@/components/Footer'
+import { Intro } from '@/components/Intro'
 
 export const metadata: Metadata = {
     title: {
@@ -39,9 +41,12 @@ type RootLayoutProps = Readonly<{ children: React.ReactNode }>
 export default async function RootLayout({ children }: RootLayoutProps): Promise<React.JSX.Element> {
     return (
         <html lang='tr' suppressHydrationWarning>
-            <body className={cn(fontSans.className, 'min-h-screen bg-background font-sans antialiased')}>
+            <body className={cn(fontSans.className, 'bg-background min-h-screen font-sans antialiased')}>
                 <ClientSideProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
-                    <Intro>{children}</Intro>
+                    <Intro />
+                    <Header />
+                    {children}
+                    <Footer />
                 </ClientSideProvider>
                 <Analytics />
                 <SpeedInsights />
