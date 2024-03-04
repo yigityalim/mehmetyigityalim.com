@@ -5,18 +5,21 @@ import { cn } from 'lib/utils'
 import { usePathname, useRouter } from 'next/navigation'
 import { Button } from 'components/ui/button'
 import { Icon } from 'components/Icon'
+import { useIsIntro } from '@/lib/hooks'
 
 export function ToggleMenu(): React.JSX.Element {
     const pathname = usePathname()
     const splitted = pathname.split('/')
     const { menu, setMenu } = useOverlayMenu()
     const router = useRouter()
-
+    const isIntro = useIsIntro()
     const classNames: string = cn('h-0.5 w-2/3 bg-white transition-all duration-300 transform')
 
     const onClick = useCallback(() => {
         setMenu(!menu)
     }, [menu, setMenu])
+
+    if (isIntro) return <React.Fragment />
 
     return (
         <div className='fixed left-8 right-8 top-8 z-[200] flex items-center justify-between gap-x-2 mix-blend-difference md:container md:mx-auto md:max-w-xl'>
@@ -34,7 +37,7 @@ export function ToggleMenu(): React.JSX.Element {
                     <React.Fragment />
                 )}
             </div>
-            <Button variant='link' size='icon' onClick={onClick}>
+            <Button variant='link' size='icon' onClick={onClick} className='z-[201]'>
                 <div className='flex h-full w-full flex-col items-center justify-center gap-y-2'>
                     <span
                         className={cn(
