@@ -1,6 +1,15 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { format as _format, addMinutes } from 'date-fns'
+import {
+    format as _format,
+    formatDistanceToNow,
+    differenceInDays,
+    differenceInMonths,
+    parseISO,
+    format,
+    addMonths,
+} from 'date-fns'
+import { tr } from 'date-fns/locale'
 
 export const cn = (...inputs: ClassValue[]): string => twMerge(clsx(inputs))
 export const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
@@ -50,4 +59,19 @@ export function formatReadMinute(minute: number): string {
     } else {
         return `${minute} dakika okuma süresi`
     }
+}
+
+export function formatDateTimeInMonths(date: string): string {
+    const now = new Date()
+    const _date = parseISO(date)
+    const ayFarki = differenceInMonths(now, _date)
+
+    if (ayFarki < 1) {
+        if (differenceInDays(now, _date) < 30) {
+            return formatDistanceToNow(_date, { addSuffix: true, locale: tr })
+        } else {
+            return format(addMonths(_date, ayFarki), 'PP', { locale: tr })
+        }
+    }
+    return format(_date, 'dd MMMM yyyy', { locale: tr })
 }

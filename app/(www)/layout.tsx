@@ -33,7 +33,7 @@ export const metadata: Metadata = {
         apple: '/apple-touch-icon.png',
         shortcut: '/favicon-16x16.png',
     },
-    manifest: `${siteConfig.url}/manifest.webmanifest`,
+    manifest: `${new URL(siteConfig.url).pathname}/manifest.webmanifest`,
 } as Metadata satisfies Metadata
 
 type RootLayoutProps = Readonly<{ children: React.ReactNode }>
@@ -41,7 +41,7 @@ type RootLayoutProps = Readonly<{ children: React.ReactNode }>
 export default async function RootLayout({ children }: RootLayoutProps): Promise<React.JSX.Element> {
     return (
         <html lang='tr' suppressHydrationWarning>
-            <body className={cn(fontSans.className, 'bg-background min-h-screen font-sans antialiased')}>
+            <body className={cn(fontSans.className, 'min-h-screen bg-background font-sans antialiased')}>
                 <ClientSideProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
                     <Intro />
                     <Header />

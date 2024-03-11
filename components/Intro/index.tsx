@@ -1,15 +1,14 @@
 'use client'
 
-import { JSX, Suspense } from 'react'
+import { JSX } from 'react'
 import AnimatedText from 'components/AnimatedText'
-import { Spinner } from 'components/Spinner'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useIsIntro } from '@/lib/hooks'
 
 export function Intro(): JSX.Element {
     const isIntro = useIsIntro()
     return (
-        <Suspense fallback={<Spinner />}>
+        <AnimatePresence mode='wait'>
             {isIntro && (
                 <motion.div
                     initial={{ opacity: 0 }}
@@ -20,6 +19,6 @@ export function Intro(): JSX.Element {
                     <AnimatedText text='Mehmet Yiğit Yalım' />
                 </motion.div>
             )}
-        </Suspense>
+        </AnimatePresence>
     )
 }

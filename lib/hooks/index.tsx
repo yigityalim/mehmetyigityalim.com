@@ -11,7 +11,7 @@ export const useIsIntro = (): boolean => {
         const timeout: Timer = setTimeout(() => {
             setHasVisited(true)
             window.sessionStorage.setItem('hasVisited', 'true')
-        }, 3100)
+        }, 3500)
 
         return (): void => {
             clearTimeout(timeout)

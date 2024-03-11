@@ -1,11 +1,11 @@
 'use client'
 import React from 'react'
 import { MotionLink } from '@/components/motion'
-import { formatDistance, compareDesc } from 'date-fns'
+import { compareDesc, format, parseISO } from 'date-fns'
 import { tr } from 'date-fns/locale'
-import { AnimatePresence, motion, useInView } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { allPosts, type Post } from 'contentlayer/generated'
-import { cn, formatReadMinute } from '@/lib/utils'
+import { cn, formatDateTimeInMonths, formatReadMinute } from '@/lib/utils'
 import Balancer from 'react-wrap-balancer'
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { Badge } from '@/components/ui/badge'
@@ -13,6 +13,7 @@ import { Toggle } from '@/components/ui/toggle'
 import { Button } from 'components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
+import { Alert, AlertDescription, AlertTitle } from 'components/ui/alert'
 
 export function BlogView(): React.JSX.Element {
     const [blogs, setBlogs] = React.useState<Post[]>(
@@ -22,8 +23,10 @@ export function BlogView(): React.JSX.Element {
 
     const [dateSortOrder, setDateSortOrder] = React.useState<'desc' | 'asc'>('desc')
     const [readMinutesSortOrder, setReadMinutesSortOrder] = React.useState<'desc' | 'asc'>('asc')
+
     /**
      * Filtreleri temizlemek için kullanılır.
+     * @returns void
      */
     const handleClearFilters = React.useCallback<() => void>(() => {
         setBlogs(allPosts)
@@ -115,18 +118,16 @@ export function BlogView(): React.JSX.Element {
     /**
      * Blogları tarihe göre gruplayıp, her bir ay için ayrı bir array içinde tutuyoruz.
      */
-    const groupedBlogs = React.useMemo<{
-        [month: string]: Post[]
-    }>(() => {
-        return blogs.reduce<{ [month: string]: Post[] }>((acc, blog) => {
-            const monthYear = new Date(blog.date).toLocaleString('default', {
-                month: 'long',
-                year: 'numeric',
-            })
-            acc[monthYear] = acc[monthYear] || []
-            acc[monthYear].push(blog)
-            return acc
-        }, {})
+    const groupedBlogs = React.useMemo(() => {
+        return blogs.reduce(
+            (acc, blog) => {
+                const monthYear = format(parseISO(blog.date), 'MMMM yyyy', { locale: tr })
+                acc[monthYear] = acc[monthYear] || []
+                acc[monthYear].push(blog)
+                return acc
+            },
+            {} as { [month: string]: Post[] }
+        )
     }, [blogs])
 
     /**
@@ -155,6 +156,10 @@ export function BlogView(): React.JSX.Element {
                         <SheetContent side='right' className='z-[201] flex flex-col items-center justify-between'>
                             <SheetHeader className='w-full'>
                                 <SheetTitle className='w-full text-left text-2xl font-bold'>Sırala</SheetTitle>
+                                <Alert className='w-full' variant='destructive'>
+                                    <AlertTitle>Uyarı!</AlertTitle>
+                                    <AlertDescription>Bu özellik şu an geliştirme aşamasındadır.</AlertDescription>
+                                </Alert>
                             </SheetHeader>
                             <div className='my-4 flex w-full flex-col items-center justify-center gap-y-2'>
                                 <Toggle
@@ -212,10 +217,9 @@ export function BlogView(): React.JSX.Element {
                             <h2 className='text-2xl font-semibold italic'>{monthYear}</h2>
                             <span className='h-px w-full bg-black dark:bg-white' />
                             <div className='flex w-full flex-col items-start justify-start gap-y-4'>
-                                {posts.map((post, index) => (
+                                {posts.map((post) => (
                                     <React.Fragment key={post._id}>
                                         <Blog blog={post} />
-                                        {index === posts.length - 1 ? null : <Separator key={index} />}
                                     </React.Fragment>
                                 ))}
                             </div>
@@ -227,16 +231,11 @@ export function BlogView(): React.JSX.Element {
     )
 }
 
-function Blog({ blog: { _id, slug, title, readMinutes, date, tags } }: { blog: Post }): React.JSX.Element {
-    const ref = React.useRef<HTMLDivElement>(null)
-    const isInView = useInView(ref)
+function Blog({ blog: { _id, slug, title, readMinutes, date, tags } }: { blog: Post }) {
     return (
         <MotionLink
-            ref={ref}
             initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            exit={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             href={`/blog${slug}`}
             className={cn(
                 'relative flex w-full flex-col gap-y-2 overflow-hidden rounded-lg bg-gray-100 p-4 dark:bg-zinc-900'
@@ -246,14 +245,11 @@ function Blog({ blog: { _id, slug, title, readMinutes, date, tags } }: { blog: P
             <div className='flex w-full flex-col justify-between gap-y-8'>
                 <div className='flex w-full items-center justify-start gap-x-2'>
                     <div className='flex flex-col items-start justify-between gap-y-2'>
-                        <span className='text-lg font-bold italic lg:text-xl xl:text-2xl'>
+                        <span className='text-2xl font-bold italic'>
                             <Balancer>{title}</Balancer>
                         </span>
                         <span className='text-sm text-black/50 dark:text-white/40 md:text-base'>
-                            {formatDistance(new Date(date), new Date(), {
-                                addSuffix: true,
-                                locale: tr,
-                            })}
+                            {formatDateTimeInMonths(date)}
                         </span>
                         <span className='text-sm text-black/30 dark:text-white/40 md:text-base'>
                             {formatReadMinute(readMinutes)}
