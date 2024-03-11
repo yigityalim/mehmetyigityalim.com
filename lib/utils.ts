@@ -64,13 +64,13 @@ export function formatReadMinute(minute: number): string {
 export function formatDateTimeInMonths(date: string): string {
     const now = new Date()
     const _date = parseISO(date)
-    const ayFarki = differenceInMonths(now, _date)
+    const monthDifference = differenceInMonths(now, _date)
 
-    if (ayFarki < 1) {
+    if (monthDifference < 30) {
         if (differenceInDays(now, _date) < 30) {
             return formatDistanceToNow(_date, { addSuffix: true, locale: tr })
         } else {
-            return format(addMonths(_date, ayFarki), 'PP', { locale: tr })
+            return format(addMonths(_date, monthDifference), 'PP', { locale: tr })
         }
     }
     return format(_date, 'dd MMMM yyyy', { locale: tr })

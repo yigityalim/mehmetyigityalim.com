@@ -1,5 +1,5 @@
 import React from 'react'
-import { Metadata, MetadataRoute } from 'next'
+import type { Metadata } from 'next'
 import { Mdx } from 'components/MDX'
 import { allPosts, type Post } from 'contentlayer/generated'
 import { notFound } from 'next/navigation'
@@ -7,7 +7,6 @@ import { format } from 'date-fns'
 import { tr } from 'date-fns/locale'
 import Container from 'components/Containers'
 import { Badge } from 'components/ui/badge'
-import { BASE_URL } from 'lib/contants'
 
 export default async function Page({ params }: PostPageProps): Promise<React.JSX.Element> {
     const blog: Post = (await getPostFromParams({ params })) ?? notFound()
@@ -76,13 +75,4 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
         description: blog.description,
         keywords: [...blog.tags],
     }
-}
-
-export async function generateSitemap(): Promise<MetadataRoute.Sitemap> {
-    return allPosts.map((post) => ({
-        url: `/${BASE_URL}blog${post.slug}`,
-        lastModified: new Date().toISOString(),
-        changeFrequency: 'monthly',
-        priority: 0.8,
-    }))
 }

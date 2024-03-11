@@ -1,11 +1,10 @@
 import React from 'react'
 import { plans } from 'lib/plans'
 import { PlanView } from 'components/Plan/PlanView'
-import { Metadata, MetadataRoute } from 'next'
+import type { Metadata } from 'next'
 import { Plan } from 'lib/types/plan'
 import { notFound } from 'next/navigation'
 import Container from 'components/Containers'
-import { BASE_URL } from 'lib/contants'
 
 type PageProps = Readonly<{
     params: { type: Plan['type'] }
@@ -37,13 +36,4 @@ export async function generateMetadata({ params: { type } }: PageProps): Promise
 
 export async function generateStaticParams() {
     return plans.map((plan) => ({ type: plan.type }))
-}
-
-export async function generateSitemap(): Promise<MetadataRoute.Sitemap> {
-    return plans.map((plan) => ({
-        url: `${BASE_URL}/plans/${plan.type}`,
-        lastModified: new Date().toISOString(),
-        changeFrequency: 'monthly',
-        priority: 0.8,
-    }))
 }

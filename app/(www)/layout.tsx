@@ -36,9 +36,7 @@ export const metadata: Metadata = {
     manifest: `${new URL(siteConfig.url).pathname}/manifest.webmanifest`,
 } as Metadata satisfies Metadata
 
-type RootLayoutProps = Readonly<{ children: React.ReactNode }>
-
-export default async function RootLayout({ children }: RootLayoutProps): Promise<React.JSX.Element> {
+export default async function RootLayout({ children }: React.PropsWithChildren): Promise<React.JSX.Element> {
     return (
         <html lang='tr' suppressHydrationWarning>
             <body className={cn(fontSans.className, 'min-h-screen bg-background font-sans antialiased')}>
