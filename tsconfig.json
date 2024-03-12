@@ -32,18 +32,6 @@
       "contentlayer/generated": [
         "./.contentlayer/generated"
       ],
-      "components/*": [
-        "./components/*"
-      ],
-      "lib/*": [
-        "./lib/*"
-      ],
-      "store/*": [
-        "./store/*"
-      ],
-      "utils/*": [
-        "./utils/*"
-      ]
     }
   },
   "include": [

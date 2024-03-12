@@ -26,14 +26,14 @@ const languages = {
     php: SiPhp,
 } as Record<string, string | IconType>
 
-export function Icon({ meta, lang }: { meta: boolean | undefined; lang: string }) {
+export function Icon({ meta, lang }: { meta: boolean | undefined; lang: string }): React.ReactElement {
     const icon = languages[lang as keyof typeof languages]
     if (typeof icon === 'string') return <React.Fragment />
     if (!icon || !meta) return <React.Fragment />
     const Component = icon
     return (
         <span className={cn('absolute right-2 top-6 inline-block')}>
-            <Component size={18} />
+            <Component size={20} />
         </span>
     )
 }

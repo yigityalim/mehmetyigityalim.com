@@ -6,6 +6,6 @@ import { ThemeProvider as NextThemesProvider } from 'next-themes'
 
 export interface ClientSideProviderProps extends ThemeProviderProps {}
 
-export function ClientSideProvider({ children, ...props }: Readonly<ClientSideProviderProps>) {
+export function Providers({ children, ...props }: Readonly<ClientSideProviderProps>) {
     return <NextThemesProvider {...props}>{children}</NextThemesProvider>
 }

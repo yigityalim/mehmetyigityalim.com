@@ -1,10 +1,8 @@
 import '@/styles/globals.css'
 import React from 'react'
-import { Analytics } from 'components/Analytics'
-import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
 import { fontSans } from 'lib/fonts'
-import { ClientSideProvider } from '@/components/Providers/clientSideProvider'
+import { Providers } from '@/components/Providers'
 import { cn } from 'lib/utils'
 import { Toaster } from '@/components/ui/sonner'
 import { TailwindIndicator } from '@/components/TailwindIndicator'
@@ -12,6 +10,8 @@ import { siteConfig } from '@/config/site'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { Intro } from '@/components/Intro'
+import { Analytics } from '@/components/Analytics'
+import { SpeedInsights } from '@/components/SpeedInsights'
 
 export const metadata: Metadata = {
     title: {
@@ -40,12 +40,12 @@ export default async function RootLayout({ children }: React.PropsWithChildren):
     return (
         <html lang='tr' suppressHydrationWarning>
             <body className={cn(fontSans.className, 'min-h-screen bg-background font-sans antialiased')}>
-                <ClientSideProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
+                <Providers attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
                     <Intro />
                     <Header />
                     {children}
                     <Footer />
-                </ClientSideProvider>
+                </Providers>
                 <Analytics />
                 <SpeedInsights />
                 <TailwindIndicator />

@@ -33,7 +33,7 @@
     content: counter(line);
     display: inline-block;
     width: 1rem;
-    margin-right: 2rem;
+    margin-right: 1rem;
     text-align: right;
     color: gray;
 }
@@ -73,7 +73,7 @@
 }
 
 [data-rehype-pretty-code-title] {
-    @apply mt-2 px-4 pt-6 text-sm font-medium;
+    @apply mt-2 pl-4 pr-12 pt-6 text-base font-medium;
 }
 
 [data-rehype-pretty-code-title] + pre {

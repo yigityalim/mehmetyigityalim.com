@@ -19,42 +19,62 @@ Ayrıca `useState()` içinde o state'in başlangıç değerini belirleyebilirsin
 
 Kısaca react'de bir state oluşturmak şöyle:
 
-<Steps>
 
-### Öncelikle useState() fonksiyonunu import ediyoruz.
-```tsx title="App.tsx"
+### useState() fonksiyonunu import ediyoruz.
+```tsx title="App.tsx" {1,4}
 import {useState} from "react"
 
-function App() {
-    const [name, setName] = useState<string>('yiğit')
+export default function App() {
+    const [name, setName] = useState()
+    return <h3>{name}</h3>
+}
+```
+### useState() fonksiyonuna bir başlanıgıç değeri verebiliriz.
+bu bizim state'imizin başlangıç değeri olacak. sayfa yüklendiğinde `name` değişkeni `yiğit` olacak. önceki örnekte ekranda bir şey gözükmeyecek çünkü başlangıç değeri vermedik. türü ise undefined olacaktı.
+```tsx title="App.tsx" {1,4}
+import {useState} from "react"
+
+export default function App() {
+    const [name, setName] = useState('yiğit')
+    return <h3>{name}</h3>
+}
+```
+
+### state'imizi güncellemek için `setName` fonksiyonunu kullanıyoruz. bu fonksiyon parametre olarak yeni değeri alıyor. ve bu değeri state'imizin yeni değeri olarak atıyor.
+
+```tsx title="App.tsx" {8}
+import {useState} from "react"
+
+export default function App() {
+    const [name, setName] = useState('yiğit')
     return (
         <>
             <h3>{name}</h3>
-            <button onClick={() => setName('berkay')}></button>
+            <button onClick={() => setName('berkay')}>İsmi Değiştir</button>
         </>
     )
 }
 ```
 
-### useState() fonksiyonu içine başlangıç değeri vererek state oluşturabiliriz.
+### state güncelleme durumunda şu an önceki değer yerine yeni değer atanıyor. eğer önceki değeri korumak istiyorsak, `setName` fonksiyonuna bir callback fonksiyonu verebiliriz. bu callback fonksiyonu parametre olarak önceki state'i alır ve yeni state'i döndürür.
 
-```tsx title="App.tsx"
+```tsx title="App.tsx" {8}
 import {useState} from "react"
 
-function App() {
-const [counter, setCounter] = useState<number>(0)
+export default function App() {
+    const [fruits, setFruits] = useState(['elma', 'armut'])
     return (
         <>
-            <h3>Butona {counter} kez tıklandı.</h3>
-            <button onClick={() => setCounter(prevValue => prevValue += 1)}>Tıkla</button>
+            <h3>{fruits}</h3>
+            <button onClick={() => setFruits(prevState => [...prevState, 'muz'])}>Muz Ekle</button>
         </>
     )
 }
 ```
 
-### useState() fonksiyonu içine nesne vererek state oluşturabiliriz.
+### useState() fonksiyonunu farklı veri türleri ile kullanabiliriz. Burada TypeScript ile birlikte kullanımı gösterilmiştir.
 
-```tsx title="App.tsx"
+```tsx title="App.tsx" {3-6,9}
 import {useState} from "react"
 
 type User = {
@@ -62,67 +82,29 @@ type User = {
     age: number
 }
 
-function App() {
+export default function App() {
     const [user, setUser] = useState<User>({name: 'yiğit', age: 25})
     return (
         <>
-            <h3>{user.name} is {user.age} years old.</h3>
-            <button onClick={() => setUser(prevValue => ({...prevValue, age: prevValue.age + 1}))}>Doğum günü</button>
+            <h3>{user.name}</h3>
+            <h3>{user.age}</h3>
         </>
     )
 }
 ```
 
-### useState() fonksiyonu içine dizi vererek state oluşturabiliriz.
+### useState() fonksiyonunun başlangıç değerine bir callback fonksiyonu verebiliriz. Bu callback fonksiyonu sadece bir kere çalışır ve başlangıç değeri olarak döndürdüğü değeri kullanır.
 
-```tsx title="App.tsx"
+```tsx title="App.tsx" {4-6}
 import {useState} from "react"
 
-type List = string[]
-
-function App() {
-    const [list, setList] = useState<List>(['elma', 'armut', 'muz'])
-    return (
-        <>
-            <ul>
-                {list.map((item, index) => <li key={index}>{item}</li>)}
-            </ul>
-            <button onClick={() => setList(prevValue => [...prevValue, 'karpuz'])}>Listeye ekle</button>
-        </>
-    )
-}
-```
-
-### useState() fonksiyonu içine callback fonksiyon vererek state oluşturabiliriz.
-
-```tsx title="App.tsx"
-import {useState} from "react"
-
-type User = string
-
-function App() {
-    const [name, setName] = useState<User>(() => {
-        const initialName = localStorage.getItem('name')
-        return initialName || 'yiğit'
+export default function App() {
+    const [name, setName] = useState(() => {
+        const name = window.localStorage.getItem('name')
+        return name ?? 'yiğit'
     })
-    return (
-        <>
-            <h3>{name}</h3>
-            <button onClick={() => setName('berkay')}></button>
-        </>
-    )
+    return <h3>{name}</h3>
 }
 ```
-</Steps>
 
-useState() birçok farklı veri türü ile kullanılabilir. Ne kullanacağınız size kalmış.
-
-useState() fonksiyonu ile state oluşturduğunuzda, bu state'i güncellemek için döndürdüğü fonksiyonu kullanmalısınız. Bu fonksiyon, state'in önceki değerini alır ve yeni değeri döndürür. Bu sayede state'in önceki değerini koruyarak güncelleme yapabilirsiniz.
-
-useState() fonksiyonu içine callback fonksiyon vererek state oluşturabilirsiniz. Bu sayede state'in başlangıç değerini dinamik olarak belirleyebilirsiniz.
-<Alert variant="destructive">
-    <AlertTitle>Error</AlertTitle>
-    <AlertDescription>
-        //TODO - Alert description
-    </AlertDescription>
-</Alert>
+işte useState() fonksiyonunun kullanımı bu kadar. bu fonksiyonu kullanarak component'lerinizde state oluşturabilirsiniz.

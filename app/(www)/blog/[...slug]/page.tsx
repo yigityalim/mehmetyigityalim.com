@@ -7,6 +7,7 @@ import { format } from 'date-fns'
 import { tr } from 'date-fns/locale'
 import Container from 'components/Containers'
 import { Badge } from 'components/ui/badge'
+import { RatingStars } from '@/components/Blog/rating-stars'
 
 export default async function Page({ params }: PostPageProps): Promise<React.JSX.Element> {
     const blog: Post = (await getPostFromParams({ params })) ?? notFound()
@@ -40,6 +41,7 @@ export default async function Page({ params }: PostPageProps): Promise<React.JSX
             <div className='relative flex w-full flex-col items-start justify-center gap-y-4 md:justify-between md:gap-x-12'>
                 <Mdx code={blog.body.code} />
             </div>
+            <RatingStars />
         </Container>
     )
 }
