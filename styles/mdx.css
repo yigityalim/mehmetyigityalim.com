@@ -73,7 +73,7 @@
 }
 
 [data-rehype-pretty-code-title] {
-    @apply mt-2 pl-4 pr-12 pt-6 text-base font-medium;
+    @apply mt-2 mx-10 pt-6 text-base font-medium whitespace-nowrap overflow-x-scroll;
 }
 
 [data-rehype-pretty-code-title] + pre {
@@ -82,4 +82,8 @@
 
 .mdx > .steps:first-child > h3:first-child {
     @apply mt-0;
+}
+
+.mdx a > code {
+    @apply mx-0 my-1 px-0;
 }

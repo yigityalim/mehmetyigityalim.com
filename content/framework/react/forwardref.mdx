@@ -41,21 +41,24 @@ Ancak bu senaryoda input etiketi bir React Component'i olsaydı, bu şekilde bir
 
 Şimdi aynı örneği input'un component olduğu senaryoda yazalım.
 
-```tsx title="Input.tsx & App.tsx"
+```tsx title="Input.tsx | App.tsx"
 
 // Input.tsx
-import { useRef, forwardRef } from "react"
+import React from "react"
 
-const Input = forwardRef((props, ref) => {
+const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>((props, ref) => {
+    //..
   return (
     <input {...props} ref={ref} />
   )
 })
 
 // App.tsx
+import React from "react"
+
 function App() {
 
-  const ref = useRef<HTMLInputElement>(null)
+  const ref = React.useRef<HTMLInputElement>(null)
 
   return (
     <>

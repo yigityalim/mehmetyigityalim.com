@@ -41,7 +41,7 @@ export default async function Page({ params }: PostPageProps): Promise<React.JSX
             <div className='relative flex w-full flex-col items-start justify-center gap-y-4 md:justify-between md:gap-x-12'>
                 <Mdx code={blog.body.code} />
             </div>
-            <RatingStars />
+            {/*<RatingStars/>*/}
         </Container>
     )
 }

@@ -16,8 +16,8 @@ export function TailwindIndicator({ align = 'left' }: TailwindIndicatorProps): R
                 { 'right-1': align === 'right' }
             )}
         >
-            <div className='xs:hidden block'>xxs</div>
-            <div className='xsm::hidden block'>xs</div>
+            <div className='block xs:hidden'>xxs</div>
+            <div className='block xsm:hidden'>xs</div>
             <div className='block sm:hidden'>xsm</div>
             <div className='hidden sm:block md:hidden'>sm</div>
             <div className='hidden md:block lg:hidden'>md</div>

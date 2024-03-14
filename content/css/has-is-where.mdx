@@ -13,7 +13,7 @@ tags:
 
 Bu arkadaşın içine birden fazla seçici ekleyebiliyoruz. Örneğin h1, h2 ve p etiketlerini seçelim:
 
-```css
+```css title="style.css"
 :where(h1, h2, p) {
 	color: red
 }
@@ -21,7 +21,7 @@ Bu arkadaşın içine birden fazla seçici ekleyebiliyoruz. Örneğin h1, h2 ve 
 
 ama tabi bu kullanım yerine zaten virgül ile şöyle ayırıp seçebiliyoruz:
 
-```css
+```css title="style.css"
 h1, h2, p {
   color: red;
 }
@@ -29,7 +29,7 @@ h1, h2, p {
 
 fakat eğer h1, h2 ve p etiketleri içindeki span etiketini seçmek isteseydik? İşte o zaman son örneğimiz şöyle uzayacaktı:
 
-```css
+```css title="style.css"
 h1 span,
 h2 span,
 p span {
@@ -39,7 +39,7 @@ p span {
 
 ancak ilk örneğimiz harikalığını korumaya devam edecekti
 
-```css
+```css title="style.css"
 :where(h1, h2, p) span {
   color: red;
 }
@@ -53,7 +53,7 @@ Bu arkadaşta `:where()` sözde sınıfını ile aynı. Öncelik dışında bir 
 
 ancak buna da farklı bir örnek vermek gerekirse şöyle bir örnek verebilirdik. mesela input'un `:hover` ve `:focus` özellikleri aynı olursa ayrı ayrı şöyle yazmak gerekiyor:
 
-```css
+```css title="style.css"
 input:hover,
 input:focus {
   background-color: lightgreen;
@@ -62,7 +62,7 @@ input:focus {
 
 ama artık `:is()` ile şöyle yazabiliyoruz:
 
-```css
+```css title="style.css"
 :is(input:hover, input:focus) {
   background-color: lightgreen;
 }
@@ -72,7 +72,7 @@ ama artık `:is()` ile şöyle yazabiliyoruz:
 
 Bu arkadaş ise biraz daha farklı. Bu arkadaşın içine yazdığımız seçiciye göre, içinde o seçiciyi barındıran elemanları seçiyor. Örneğin:
 
-```css
+```css title="style.css"
 div:has(p) {
   background-color: lightgreen;
 }
@@ -82,7 +82,7 @@ yukarıdaki örnekte div etiketleri içinde p etiketi olanları seçiyoruz. Bu �
 
 Örneğin article etiketleri içinde h1 ve h2 etiketi varsa h1 etiketinin marginini düşürelim, yoksa daha yüksek yapalım demek istersek:
 
-```css
+```css title="style.css"
 article h1 {
     margin-bottom: 15px;
 }

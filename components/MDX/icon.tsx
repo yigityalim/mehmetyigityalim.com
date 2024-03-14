@@ -32,7 +32,7 @@ export function Icon({ meta, lang }: { meta: boolean | undefined; lang: string }
     if (!icon || !meta) return <React.Fragment />
     const Component = icon
     return (
-        <span className={cn('absolute right-2 top-6 inline-block')}>
+        <span className={cn('absolute left-2 top-6 inline-block')}>
             <Component size={20} />
         </span>
     )

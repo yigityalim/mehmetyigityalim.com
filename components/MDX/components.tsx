@@ -128,7 +128,7 @@ export const components = {
                         value={__rawString__}
                         src={__src__}
                         event={__event__}
-                        className={cn('absolute right-2 top-4', __withMeta__ && 'top-16')}
+                        className={cn('absolute right-2 top-4', __withMeta__ && 'top-6')}
                     />
                 )}
                 {__npmCommand__ && __yarnCommand__ && __pnpmCommand__ && __bunCommand__ && (
@@ -139,7 +139,7 @@ export const components = {
                             __pnpmCommand__,
                             __bunCommand__,
                         }}
-                        className={cn('absolute right-2 top-4', __withMeta__ && 'top-16')}
+                        className={cn('absolute right-2 top-4', __withMeta__ && 'top-6')}
                     />
                 )}
             </>
@@ -147,7 +147,7 @@ export const components = {
     },
     code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
         <code
-            className={cn('relative m-0.5 rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm', className)}
+            className={cn('relative m-1 rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm', className)}
             {...props}
         />
     ),

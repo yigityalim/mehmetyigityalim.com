@@ -33,7 +33,7 @@ export function CopyButton({ value, className, src, event, ...props }: CopyButto
     return (
         <Button
             size='icon'
-            variant='secondary'
+            variant='default'
             className={cn('relative z-10 size-6 hover:bg-zinc-700', className)}
             onClick={() => {
                 copyToClipboardWithMeta(
@@ -127,9 +127,9 @@ export function CopyNpmCommandButton({ commands, className, ...props }: CopyNpmC
                 <Button
                     size='icon'
                     variant='secondary'
-                    className={cn('relative z-10 size-6 hover:bg-zinc-700', className)}
+                    className={cn('relative z-10 size-6 hover:bg-zinc-700 hover:text-zinc-200', className)}
                 >
-                    {hasCopied ? <CheckIcon className='size-3' /> : <CopyIcon className='h-3 w-3' />}
+                    {hasCopied ? <CheckIcon className='size-3' /> : <CopyIcon className='size-3' />}
                     <span className='sr-only'>Copy</span>
                 </Button>
             </DropdownMenuTrigger>
