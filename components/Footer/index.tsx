@@ -7,7 +7,7 @@ export function Footer(): React.JSX.Element {
     return (
         <footer
             className={cn(
-                'flex w-full flex-col items-center justify-center gap-y-4 p-8 md:container md:mx-auto md:max-w-xl md:p-10 lg:p-12 xl:p-16'
+                'flex w-full flex-col items-center justify-center gap-y-4 p-8 md:container md:mx-auto md:max-w-xl'
             )}
         >
             <span className='block h-px w-full bg-black/40 dark:bg-white/40' />
