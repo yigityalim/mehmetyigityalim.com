@@ -136,7 +136,7 @@ export { Counter }
 
 Ancak burada context'e erişmek istediğimizde iki adet import işlemi yapmamız gerekiyor. Bu durumu daha da optimize etmek için bir custom hook oluşturabiliriz.
 
-```tsx title="hooks/useMyContext.ts"
+```tsx title="hooks/useMyContext.ts" {1,5-7}
 import { useContext } from 'react'
 import { MyContext, type Store } from '@/store/MyContext'
 
