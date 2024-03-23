@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-import { plans } from 'lib/plans'
+import { plans } from '@/lib/plans'
 import { siteConfig } from '@/config/site'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

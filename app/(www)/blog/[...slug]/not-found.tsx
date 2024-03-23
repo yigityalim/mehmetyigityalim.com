@@ -1,8 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
-import Container from 'components/Containers'
-import { buttonVariants } from 'components/ui/button'
-import { cn } from 'lib/utils'
+import { cn } from '@/lib/utils'
+import { Container } from '@/components/container'
+import { buttonVariants } from '@/components/ui/button'
 
 export default function Page(): React.JSX.Element {
     return (

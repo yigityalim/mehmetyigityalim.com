@@ -1,7 +1,7 @@
 import React from 'react'
-import Container from 'components/Containers'
-import { plans } from 'lib/plans'
-import { PlanCard } from 'components/Plan'
+import { Container } from '@/components/container'
+import { plans } from '@/lib/plans'
+import { PlanCard } from '@/components/plan-card'
 
 export default function NotFound(): React.ReactElement {
     return (

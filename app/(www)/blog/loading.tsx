@@ -1,10 +1,10 @@
 import React from 'react'
-import { Spinner } from 'components/Spinner'
-import Container from 'components/Containers'
+import { Container } from '@/components/container'
+import { Spinner } from '@/components/spinner'
 
 export default function Loading(): React.JSX.Element {
     return (
-        <Container className='h-[calc(100dvh-88px)]'>
+        <Container>
             <Spinner />
         </Container>
     )

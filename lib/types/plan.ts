@@ -24,7 +24,7 @@ interface Plan {
         max: number
         price: number
     }
-    href: string
+    href: `/${string}`
     buttonText: string
     buttonVariant: ButtonProps['variant']
 }

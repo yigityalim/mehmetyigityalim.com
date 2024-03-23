@@ -1,7 +1,7 @@
 import React from 'react'
-import Container from 'components/Containers'
-import { Metadata } from 'next'
-import { BlogView } from 'components/Blog/BlogView'
+import type { Metadata } from 'next'
+import { Container } from '@/components/container'
+import { BlogView } from '@/components/blog-view'
 
 export const metadata: Metadata = {
     title: 'Blog Sayfası',

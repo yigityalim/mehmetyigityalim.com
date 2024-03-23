@@ -24,11 +24,11 @@ npm install next-themes
 ### Tema sağlayıcısını oluştur
 
 ```tsx title="components/theme-provider.tsx"
-"use client"
+'use client'
 
-import * as React from "react"
-import { ThemeProvider as NextThemesProvider } from "next-themes"
-import { type ThemeProviderProps } from "next-themes/dist/types"
+import * as React from 'react'
+import { ThemeProvider as NextThemesProvider } from 'next-themes'
+import { type ThemeProviderProps } from 'next-themes/dist/types'
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
     return <NextThemesProvider {...props}>{children}</NextThemesProvider>
@@ -40,46 +40,41 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
 `ThemeProvider` componentini root layout dosyanızda kullanarak tüm uygulamanızı sarmalayın.
 
 ```tsx {1,9-11} title="app/layout.tsx"
-import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeProvider } from '@/components/theme-provider'
 
 export default function RootLayout({ children }: RootLayoutProps) {
-  return (
-    <>
-      <html lang="en" suppressHydrationWarning>
-        <body>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
-        </body>
-      </html>
-    </>
-  )
+    return (
+        <>
+            <html lang='en' suppressHydrationWarning>
+                <body>
+                    <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
+                        {children}
+                    </ThemeProvider>
+                </body>
+            </html>
+        </>
+    )
 }
 ```
 
 ### Tema değiştirme düğmesi ekle
 
 ```tsx title="@/components/theme-toggle.tsx"
-"use client"
-import * as React from "react"
-import { useTheme } from "next-themes"
+'use client'
+import * as React from 'react'
+import { useTheme } from 'next-themes'
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
+    const { theme, setTheme } = useTheme()
 
-  return (
-    <button
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="p-3 rounded-full bg-gray-200 dark:bg-gray-800"
-    >
-      {theme === "dark" ? "🌞" : "🌜"}
-    </button>
-  )
+    return (
+        <button
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className='rounded-full bg-gray-200 p-3 dark:bg-gray-800'
+        >
+            {theme === 'dark' ? '🌞' : '🌜'}
+        </button>
+    )
 }
 ```
 
@@ -90,16 +85,17 @@ export function ThemeToggle() {
 Artık koyu modu etkinleştirmek için `next-themes` paketini kullanabilirsiniz.
 
 ```tsx title="pages/index.tsx"
-import { ThemeToggle } from "@/components/theme-toggle"
+import { ThemeToggle } from '@/components/theme-toggle'
 
 export default function Home() {
-  return (
-    <div className="flex items-center justify-center h-screen">
-        <ThemeToggle />
-    </div>
-  )
+    return (
+        <div className='flex h-screen items-center justify-center'>
+            <ThemeToggle />
+        </div>
+    )
 }
 ```
+
 İşte bu kadar! Artık projenizde koyu modu etkinleştirebilirsiniz.
 
 ```bash

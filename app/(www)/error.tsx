@@ -1,6 +1,6 @@
 'use client'
 
-import Container from '@/components/Containers'
+import { Container } from '@/components/container'
 import { Button } from '@/components/ui/button'
 import { useEffect, useState } from 'react'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'

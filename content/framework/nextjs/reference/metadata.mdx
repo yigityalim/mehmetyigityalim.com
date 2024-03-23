@@ -14,8 +14,8 @@ Next.js'in, SEO ve web paylaşılabilirliğini artırmak için uygulama meta ver
 
 Uygulamanıza meta veri eklemenin iki yolu bulunmaktadır:
 
-- **Yapılandırma Tabanlı Meta Veri**: Bir `layout.js` veya `page.js` dosyasından [statik `metadata` nesnesini](https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadata-object) veya dinamik [`generateMetadata` fonksiyonunu](https://nextjs.org/docs/app/api-reference/functions/generate-metadata#generatemetadata-function) dışa aktarın.
-- **Dosya Tabanlı Meta Veri**: Yol segmentlerine özel statik veya dinamik olarak oluşturulan özel dosyalar ekleyin.
+-   **Yapılandırma Tabanlı Meta Veri**: Bir `layout.js` veya `page.js` dosyasından [statik `metadata` nesnesini](https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadata-object) veya dinamik [`generateMetadata` fonksiyonunu](https://nextjs.org/docs/app/api-reference/functions/generate-metadata#generatemetadata-function) dışa aktarın.
+-   **Dosya Tabanlı Meta Veri**: Yol segmentlerine özel statik veya dinamik olarak oluşturulan özel dosyalar ekleyin.
 
 Bu seçeneklerden her ikisiyle de Next.js, sayfalarınız için ilgili `<head>` öğelerini otomatik olarak oluşturur. Ayrıca [`ImageResponse`](https://nextjs.org/docs/app/api-reference/functions/image-response) yapıcısını kullanarak dinamik OG resimleri oluşturabilirsiniz.
 
@@ -27,40 +27,38 @@ Statik meta veriyi tanımlamak için bir `layout.js` veya statik `page.js` dosya
 import type { Metadata } from 'next'
 
 export const metadata = {
-  title: '...',
-  description: '...',
+    title: '...',
+    description: '...',
 } satisfies Metadata
 
 export default async function Page() {}
 ```
 
 ## Dinamik Meta Veri
+
 Dinamik değerler gerektiren meta verileri almak için generateMetadata fonksiyonunu kullanabilirsiniz.
 
 ```tsx title="page.tsx"
 import type { Metadata, ResolvingMetadata } from 'next'
 
 type Props = {
-  params: { id: string }
-  searchParams: { [key: string]: string | string[] | undefined }
+    params: { id: string }
+    searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export async function generateMetadata(
-  { params, searchParams }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  const id = params.id
+export async function generateMetadata({ params, searchParams }: Props, parent: ResolvingMetadata): Promise<Metadata> {
+    const id = params.id
 
-  const product = await fetch(`https://.../${id}`).then((res) => res.json())
+    const product = await fetch(`https://.../${id}`).then((res) => res.json())
 
-  const previousImages = (await parent).openGraph?.images || []
+    const previousImages = (await parent).openGraph?.images || []
 
-  return {
-    title: product.title,
-    openGraph: {
-      images: ['/some-specific-page-image.jpg', ...previousImages],
-    },
-  }
+    return {
+        title: product.title,
+        openGraph: {
+            images: ['/some-specific-page-image.jpg', ...previousImages],
+        },
+    }
 }
 
 export default function Page({ params, searchParams }: Props) {}
@@ -70,34 +68,37 @@ Mevcut parametrelerin tamamı için API Referansına bakın.
 
 ## Bilmeniz Gerekenler:
 
-- generateMetadata ile hem statik hem de dinamik meta veriler yalnızca Sunucu Bileşenlerinde desteklenir.
-- generateMetadata içindeki fetch istekleri otomatik olarak memoize edilir ve aynı veri için generateMetadata, generateStaticParams, Layoutlar, Sayfalar ve Sunucu Bileşenleri arasında kullanılır. fetch kullanılamıyorsa, React cache kullanılabilir.
-- Next.js, UI'yi istemciye aktarmadan önce generateMetadata içinde veri çekme işlemlerinin tamamlanmasını bekler. Bu, bir akıtmalı yanıtın ilk kısmının `<head>` etiketlerini içermesini garanti eder.
+-   generateMetadata ile hem statik hem de dinamik meta veriler yalnızca Sunucu Bileşenlerinde desteklenir.
+-   generateMetadata içindeki fetch istekleri otomatik olarak memoize edilir ve aynı veri için generateMetadata, generateStaticParams, Layoutlar, Sayfalar ve Sunucu Bileşenleri arasında kullanılır. fetch kullanılamıyorsa, React cache kullanılabilir.
+-   Next.js, UI'yi istemciye aktarmadan önce generateMetadata içinde veri çekme işlemlerinin tamamlanmasını bekler. Bu, bir akıtmalı yanıtın ilk kısmının `<head>` etiketlerini içermesini garanti eder.
 
 ## Dosya Tabanlı Meta Veri
+
 Bu özel dosyalar meta veriler için kullanılabilir:
 
-- favicon.ico, apple-icon.jpg ve icon.jpg
-- opengraph-image.jpg ve twitter-image.jpg
-- robots.txt
-- sitemap.xml
-Bu dosyaları statik meta veriler için kullanabilir veya kodla dinamik olarak oluşturabilirsiniz.
+-   favicon.ico, apple-icon.jpg ve icon.jpg
+-   opengraph-image.jpg ve twitter-image.jpg
+-   robots.txt
+-   sitemap.xml
+    Bu dosyaları statik meta veriler için kullanabilir veya kodla dinamik olarak oluşturabilirsiniz.
 
 ## Davranış
+
 Dosya tabanlı meta veriler, yapılandırma tabanlı meta verileri üzerine yazacak ve onları geçersiz kılacaktır.
 
 ## Varsayılan Alanlar
+
 Bir rota meta verileri tanımlamazsa bile her zaman eklenen iki varsayılan meta etiketi bulunmaktadır:
 
 meta charset etiketi web sitesi için karakter kodlamasını belirler.
 meta viewport etiketi web sitesi için farklı cihazlar için görünüm genişliğini ve ölçeğini ayarlar.
 
 ```html
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="utf-8" /> <meta name="viewport" content="width=device-width, initial-scale=1" />
 ```
 
 ## Sıralama
+
 Meta verileri, kök segmentten başlayarak page.js segmentine en yakın segmente kadar olan sırayla değerlendirilir. Örneğin:
 
 1. app/layout.tsx (Kök Düzen)
@@ -105,39 +106,39 @@ Meta verileri, kök segmentten başlayarak page.js segmentine en yakın segmente
 3. app/blog/[slug]/page.tsx (Blog Sayfası)
 
 ## Birleştirme
+
 Değerlendirme sırasına göre, aynı rotadaki birden fazla segmentten dışa aktarılan Metadata nesneleri yüzeysel olarak birleştirilir ve bir rota için son meta veri çıktısını oluşturmak için bir araya getirilir. Tekrarlanan anahtarlar, sıralamalarına göre değiştirilir.
 
 Bu, openGraph ve robots gibi iç içe alanlara sahip meta veriler için geçerlidir ve bunlar daha önceki bir segmentte tanımlandığında daha sonra tanımlanan son segment tarafından üzerine yazılır.
 
 #### Alanları Üzerine Yazma
 
-
 ```tsx title="app/layout.tsx"
 import type { Metadata } from 'next'
 
 export const metadata = {
-  title: 'Acme',
-  openGraph: {
     title: 'Acme',
-    description: 'Acme is a...',
-  },
+    openGraph: {
+        title: 'Acme',
+        description: 'Acme is a...',
+    },
 } satisfies Metadata
 ```
 
 ```tsx title="app/blog/page.tsx"
 export const metadata = {
-  title: 'Blog',
-  openGraph: {
     title: 'Blog',
-  },
+    openGraph: {
+        title: 'Blog',
+    },
 } satisfies Metadata
 ```
 
 ## Yukarıdaki örnekte:
 
-- app/layout.js dosyasındaki title, app/blog/page.js içindeki title ile değiştirilir.
-- app/layout.js dosyasındaki tüm openGraph alanları, app/blog/page.js içinde openGraph meta verilerini ayarladığı için değiştirilir. openGraph.description yoktur.
-Eğer bazı iç içe alanları segmentler arasında paylaşmak istiyorsanız ve diğerlerini üzerine yazmak istiyorsanız, bunları ayrı bir değişkene çekebilirsiniz:
+-   app/layout.js dosyasındaki title, app/blog/page.js içindeki title ile değiştirilir.
+-   app/layout.js dosyasındaki tüm openGraph alanları, app/blog/page.js içinde openGraph meta verilerini ayarladığı için değiştirilir. openGraph.description yoktur.
+    Eğer bazı iç içe alanları segmentler arasında paylaşmak istiyorsanız ve diğerlerini üzerine yazmak istiyorsanız, bunları ayrı bir değişkene çekebilirsiniz:
 
 ```ts title="lib/shared-metadata.ts"
 export const openGraphImage = { images: ['http://...'] }
@@ -147,10 +148,10 @@ export const openGraphImage = { images: ['http://...'] }
 import { openGraphImage } from './shared-metadata'
 
 export const metadata = {
-  openGraph: {
-    ...openGraphImage,
-    title: 'Ana Sayfa',
-  },
+    openGraph: {
+        ...openGraphImage,
+        title: 'Ana Sayfa',
+    },
 }
 ```
 
@@ -158,10 +159,10 @@ export const metadata = {
 import { openGraphImage } from './shared-metadata'
 
 export const metadata = {
-  openGraph: {
-    ...openGraphImage,
-    title: 'Blog',
-  },
+    openGraph: {
+        ...openGraphImage,
+        title: 'Blog',
+    },
 }
 ```
 
@@ -171,17 +172,17 @@ Yukarıdaki örnekte, OG resmi app/layout.js ve app/about/page.js arasında payl
 
 ```tsx title="app/layout.tsx"
 export const metadata = {
-  title: 'Acme',
-  openGraph: {
     title: 'Acme',
-    description: 'Acme bir...',
-  },
+    openGraph: {
+        title: 'Acme',
+        description: 'Acme bir...',
+    },
 }
 ```
 
 ```tsx title="app/blog/layout.tsx"
 export const metadata = {
-  title: 'Hakkında',
+    title: 'Hakkında',
 }
 
 // Çıktı:
@@ -192,5 +193,5 @@ export const metadata = {
 
 #### Notlar
 
-- app/layout.js dosyasındaki title, app/about/page.js içindeki title ile değiştirilir.
-- app/layout.js dosyasındaki tüm openGraph alanları, app/about/page.js içinde openGraph meta verilerini belirtmediği için miras alınır.
+-   app/layout.js dosyasındaki title, app/about/page.js içindeki title ile değiştirilir.
+-   app/layout.js dosyasındaki tüm openGraph alanları, app/about/page.js içinde openGraph meta verilerini belirtmediği için miras alınır.

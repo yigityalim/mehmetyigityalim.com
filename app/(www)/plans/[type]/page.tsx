@@ -1,10 +1,10 @@
 import React from 'react'
-import { plans } from 'lib/plans'
-import { PlanView } from 'components/Plan/PlanView'
-import type { Metadata } from 'next'
-import { Plan } from 'lib/types/plan'
 import { notFound } from 'next/navigation'
-import Container from 'components/Containers'
+import type { Metadata } from 'next'
+import type { Plan } from '@/lib/types/plan'
+import { plans } from '@/lib/plans'
+import { PlanView } from '@/components/plan-view'
+import { Container } from '@/components/container'
 
 type PageProps = Readonly<{
     params: { type: Plan['type'] }

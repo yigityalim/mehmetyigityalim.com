@@ -15,15 +15,17 @@ Bu arkadaşın içine birden fazla seçici ekleyebiliyoruz. Örneğin h1, h2 ve 
 
 ```css title="style.css"
 :where(h1, h2, p) {
-	color: red
+    color: red;
 }
 ```
 
 ama tabi bu kullanım yerine zaten virgül ile şöyle ayırıp seçebiliyoruz:
 
 ```css title="style.css"
-h1, h2, p {
-  color: red;
+h1,
+h2,
+p {
+    color: red;
 }
 ```
 
@@ -33,7 +35,7 @@ fakat eğer h1, h2 ve p etiketleri içindeki span etiketini seçmek isteseydik? 
 h1 span,
 h2 span,
 p span {
-	color: red
+    color: red;
 }
 ```
 
@@ -41,7 +43,7 @@ ancak ilk örneğimiz harikalığını korumaya devam edecekti
 
 ```css title="style.css"
 :where(h1, h2, p) span {
-  color: red;
+    color: red;
 }
 ```
 
@@ -56,7 +58,7 @@ ancak buna da farklı bir örnek vermek gerekirse şöyle bir örnek verebilirdi
 ```css title="style.css"
 input:hover,
 input:focus {
-  background-color: lightgreen;
+    background-color: lightgreen;
 }
 ```
 
@@ -64,7 +66,7 @@ ama artık `:is()` ile şöyle yazabiliyoruz:
 
 ```css title="style.css"
 :is(input:hover, input:focus) {
-  background-color: lightgreen;
+    background-color: lightgreen;
 }
 ```
 
@@ -74,7 +76,7 @@ Bu arkadaş ise biraz daha farklı. Bu arkadaşın içine yazdığımız seçici
 
 ```css title="style.css"
 div:has(p) {
-  background-color: lightgreen;
+    background-color: lightgreen;
 }
 ```
 

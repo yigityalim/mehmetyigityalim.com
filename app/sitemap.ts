@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next'
-import menu from 'lib/menu'
+import { menu } from 'lib/menu'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return menu.map(({ name, changefreq, priority }) => ({

@@ -9,31 +9,29 @@ tags:
     - hook
 ---
 
-
 ## React forwardRef() Kullanımı
 
-<Alert variant="destructive">
+<Alert variant='destructive'>
     <AlertTitle>Uyarı!</AlertTitle>
     <AlertDescription>
         Bu hook React.js 19 sürümü ile kaldırılacaktır. Yerine direkt komponentinize prop olarak ref gelecektir.
     </AlertDescription>
 </Alert>
 
-
 React'de bir DOM elemanına ulaşmak için `useRef()` ile ref'lemek gerekiyor. Örneğin;
 
 ```tsx title="App.tsx"
-import { useRef } from "react"
+import { useRef } from 'react'
 
 function App() {
-  const ref = useRef()
+    const ref = useRef()
 
-  return (
-    <>
-      <input type="text" ref={ref} />
-      <button onClick={() => ref.current.focus()}>Input'a Focusla</button>
-    </>
-  )
+    return (
+        <>
+            <input type='text' ref={ref} />
+            <button onClick={() => ref.current.focus()}>Input'a Focusla</button>
+        </>
+    )
 }
 ```
 
@@ -42,30 +40,26 @@ Ancak bu senaryoda input etiketi bir React Component'i olsaydı, bu şekilde bir
 Şimdi aynı örneği input'un component olduğu senaryoda yazalım.
 
 ```tsx title="Input.tsx | App.tsx"
-
 // Input.tsx
-import React from "react"
+import React from 'react'
 
 const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>((props, ref) => {
     //..
-  return (
-    <input {...props} ref={ref} />
-  )
+    return <input {...props} ref={ref} />
 })
 
 // App.tsx
-import React from "react"
+import React from 'react'
 
 function App() {
+    const ref = React.useRef<HTMLInputElement>(null)
 
-  const ref = React.useRef<HTMLInputElement>(null)
-
-  return (
-    <>
-      <Input type="text" ref={ref} />
-      <button onClick={() => ref.current.focus()}>Input'a Focusla</button>
-    </>
-  )
+    return (
+        <>
+            <Input type='text' ref={ref} />
+            <button onClick={() => ref.current.focus()}>Input'a Focusla</button>
+        </>
+    )
 }
 ```
 

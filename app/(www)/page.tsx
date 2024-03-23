@@ -1,10 +1,10 @@
 import React from 'react'
-import Container from 'components/Containers'
-import RequestPlan from 'components/RequestPlan'
-import RequestJob from 'components/RequestJob'
-import HeroSection from 'components/HeroSection'
-import { SocialMedia } from 'components/SocialMedia/'
-import Balancer from 'react-wrap-balancer'
+import { Balancer } from '@/components/balancer'
+import { Container } from '@/components/container'
+import { RequestPlan } from '@/components/request-plan'
+import { RequestJob } from '@/components/request-job'
+import { HeroSection } from '@/components/hero-section'
+import { SocialMedia } from '@/components/social-media'
 
 export default async function Home(): Promise<React.ReactElement> {
     return (

@@ -1,10 +1,10 @@
 import React from 'react'
-import Container from 'components/Containers'
-import { quickJobs } from 'lib/quickJob'
 import type { Metadata } from 'next'
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from 'components/ui/accordion'
-import QuickJobCard from 'components/Plan/QuickJobCard'
-import PlanContainer from 'components/Containers/PlanContainer'
+import { Container } from '@/components/container'
+import { quickJobs } from '@/lib/quickJob'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import { QuickJobCard } from '@/components/quick-job-card'
+import { PlanContainer } from '@/components/plan-container'
 
 export default function PlansPage(): React.JSX.Element {
     return (

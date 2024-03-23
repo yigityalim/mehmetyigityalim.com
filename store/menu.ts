@@ -1,19 +1,16 @@
 import { create } from 'zustand'
+import { type Menu, menu as menus } from '@/lib/menu'
 
-type OverlayMenuStore<T = boolean> = {
-    menu: T
-    setMenu: (value: T) => void
+type MenuState = {
+    menu: Menu[]
+    isOpen: boolean
+    toggle: () => void
+    set: (isOpen: boolean) => void
 }
 
-const useOverlayMenuStore = create<OverlayMenuStore>()(
-    (set): OverlayMenuStore => ({
-        menu: false,
-        setMenu: (value: OverlayMenuStore['menu']) => set({ menu: value }),
-    })
-)
-
-export function useOverlayMenu(): OverlayMenuStore {
-    const menu = useOverlayMenuStore((state) => state.menu)
-    const setMenu = useOverlayMenuStore((state) => state.setMenu)
-    return { menu, setMenu }
-}
+export const useMenu = create<MenuState>()((set) => ({
+    menu: [...menus],
+    isOpen: false,
+    toggle: () => set((state) => ({ isOpen: !state.isOpen })),
+    set: (isOpen) => set({ isOpen }),
+}))

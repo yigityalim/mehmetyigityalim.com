@@ -1,5 +1,4 @@
 import type { Config } from 'tailwindcss'
-import { fontFamily } from 'tailwindcss/defaultTheme'
 import plugin from 'tailwindcss/plugin'
 
 const iOsHeight = plugin(function ({ addUtilities }) {
@@ -34,16 +33,6 @@ const config: Config = {
     theme: {
         container: {
             center: true,
-        },
-        screens: {
-            xxs: '320px',
-            xs: '375px',
-            xsm: '425px',
-            sm: '640px',
-            md: '768px',
-            lg: '1024px',
-            xl: '1280px',
-            '2xl': '1536px',
         },
         extend: {
             colors: {
