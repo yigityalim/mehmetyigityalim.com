@@ -36,7 +36,7 @@ function ToggleMenu(): React.JSX.Element {
         <div
             className={cn(
                 'fixed left-8 right-8 top-8 z-[200] flex items-center justify-between gap-x-2 md:container md:mx-auto md:max-w-xl',
-                !menu && 'mix-blend-difference'
+                'mix-blend-difference'
             )}
         >
             <div className={cn('flex h-full w-full items-center gap-x-4 transition', menu && 'opacity-0')}>
