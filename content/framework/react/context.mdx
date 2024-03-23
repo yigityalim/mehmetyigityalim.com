@@ -1,0 +1,185 @@
+---
+title: React Context API
+description: React'in Context API'si, React uygulamalarında verileri paylaşmak için kullanılan bir API'dir. Bu API, verileri paylaşmak için veri akışını kullanır ve verileri paylaşmak için veri akışını kullanır.
+date: 2024-02-16T10:53:47.121Z
+readMinutes: 5
+tags:
+    - react
+    - context
+    - hook
+---
+
+## React.js Context API
+
+React'in Context API'si, React uygulamalarında verileri paylaşmak için kullanılan bir API'dir. Bu API, verileri paylaşmak için veri akışını kullanır ve verileri paylaşmak için veri akışını kullanır.
+
+## Context API Nasıl Kullanılır?
+
+Context API'yi kullanmak için, `React.createContext()` fonksiyonunu kullanarak bir context oluşturmanız gerekir. Bu fonksiyon, bir `Provider` bileşeni ve bir `Consumer` bileşeni döndürür.
+
+```tsx title="store/MyContext.tsx" {1,11}
+import React from 'react'
+
+// eğer TypeScript kullanıyorsanız, createContext fonksiyonuna bir tip vermek isteyebilirsiniz
+
+export interface Store {
+    count: number
+    increment: () => void
+    decrement: () => void
+}
+
+const MyContext = React.createContext<Store | undefined>(undefined)
+
+export { MyContext }
+```
+
+Bu örnekte, `MyContext` adında bir context oluşturduk ve `Store` adında bir tip tanımladık. Bu tip, context içinde paylaşılacak verileri ve işlevleri tanımlar.
+
+Daha sonra, bu context'i kullanmak için bir `Provider` bileşeni oluşturmalısınız. Bu bileşen, context içinde paylaşılacak verileri ve işlevleri sağlar.
+
+```tsx title="store/MyProvider.tsx" {1,6,7,8,9,10}
+import React, { useState } from 'react'
+import { MyContext, type Store } from 'store/MyContext'
+
+function MyProvider({ children }: React.PropsWithChildren): React.ReactElement {
+    const [count, setCount] = useState<Store['count']>(0)
+
+    const increment = () => setCount((prevCount) => prevCount + 1)
+    const decrement = () => setCount((prevCount) => prevCount - 1)
+
+    const store = {
+        count,
+        increment,
+        decrement,
+    } satisfies Store
+
+    return <MyContext.Provider value={store}>{children}</MyContext.Provider>
+}
+
+export { MyProvider }
+```
+
+Buradaki kullanımda `useContext` hook'u ile `MyContext`'i içe aktardık ve içerisindeki verilere erişim sağladık. Bu şekilde Parent yani üst komponentten alt komponente prop geçmek zorunda kalmadık.
+
+<Alert>
+    <AlertTitle>Not</AlertTitle>
+    <AlertDescription>
+        Burada memoization işlemi yapmadık. Eğer bu işlemi yapmak isterseniz `React.memo` veya `useMemo` hook'unu
+        kullanabilirsiniz. Çünkü herhangi bir değişiklik olduğunda tüm component'i tekrar render edecektir.
+    </AlertDescription>
+</Alert>
+
+### Context'i memoize etmek
+
+```tsx title="store/MyProvider.tsx" {1,6,7,8,9,10}
+import React from 'react'
+import { MyContext, type Store } from 'store/MyContext'
+
+function MyProvider({ children }: React.PropsWithChildren): React.ReactElement {
+    const [count, setCount] = React.useState<Store['count']>(0)
+
+    const increment = React.useCallback(() => setCount((prevCount) => prevCount + 1), [])
+    const decrement = React.useCallback(() => setCount((prevCount) => prevCount - 1), [])
+
+    const store = React.useMemo<Store>(
+        () => ({
+            count,
+            increment,
+            decrement,
+        }),
+        [count]
+    )
+
+    return <MyContext.Provider value={store}>{children}</MyContext.Provider>
+}
+
+export default React.memo(MyProvider)
+```
+
+Bu örnekte `MyProvider` adında bir `Provider` bileşeni oluşturduk ve `count`, `increment` ve `decrement` adında üç adet veri ve işlev tanımladık. Bu verileri ve işlevleri, `store` adında bir nesne içinde topladık ve `MyContext.Provider` bileşenine `value` prop'u ile geçtik.
+Bu durumda bu provider'ı main component içinde kullanmamız gerekmektedir.
+
+```tsx title="App.tsx" {1,2,3,7,9}
+import React from 'react'
+import { MyProvider } from '@/store/MyProvider'
+import { MyContext } from '@/store/MyContext'
+
+function App() {
+    return <MyProvider>{/* Uygulamanın geri kalan kısmı */}</MyProvider>
+}
+
+export default App
+```
+
+Artık, context içerisindeki verilere erişim sağlayabiliriz. bunun için ise `useContext` hook'unu kullanabiliriz.
+
+```tsx title="components/Counter.tsx" {2,5}
+import React, { useContext } from 'react'
+import { MyContext } from '@/store/MyContext'
+
+function Counter() {
+    const { count, increment, decrement } = useContext(MyContext)
+
+    return (
+        <div>
+            <p>Count: {count}</p>
+            <button onClick={increment}>Increment</button>
+            <button onClick={decrement}>Decrement</button>
+        </div>
+    )
+}
+
+export { Counter }
+```
+
+## Custom Hook ile Context Kullanımı
+
+Ancak burada context'e erişmek istediğimizde iki adet import işlemi yapmamız gerekiyor. Bu durumu daha da optimize etmek için bir custom hook oluşturabiliriz.
+
+```tsx title="hooks/useMyContext.ts"
+import { useContext } from 'react'
+import { MyContext, type Store } from '@/store/MyContext'
+
+export function useMyContext(): Store {
+    const context = useContext(MyContext)
+    if (context === undefined) {
+        throw new Error('useMyContext MyProvider içinde kullanılmalıdır')
+    }
+    return context
+}
+```
+
+Bu custom hook'u kullanarak context'e erişim sağlayabiliriz.
+
+```tsx title="components/Counter.tsx" {2,5}
+import React from 'react'
+import { useMyContext } from '@/hooks/useMyContext'
+
+function Counter() {
+    const { count, increment, decrement } = useMyContext()
+
+    return (
+        <div>
+            <p>Count: {count}</p>
+            <button onClick={increment}>Increment</button>
+            <button onClick={decrement}>Decrement</button>
+        </div>
+    )
+}
+
+export { Counter }
+```
+
+Bu şekilde, context API'yi kullanarak verileri paylaşabilir ve uygulamanızın farklı bileşenleri arasında veri akışını sağlayabilirsiniz. Context API, verileri paylaşmak için prop drilling yapmaktan kaçınmanıza olanak tanır ve uygulamanızın daha temiz ve düzenli olmasını sağlar.
+
+<Alert variant='destructive'>
+    <AlertTitle>Uyarı!</AlertTitle>
+    <AlertDescription>
+        Context API, küçük uygulamalarda kullanılmak için idealdir. Büyük uygulamalarda performans sorunlarına yol
+        açabilir. Bu durumda, Redux gibi bir durum yönetim kütüphanesini kullanmayı düşünebilirsiniz.
+    </AlertDescription>
+</Alert>
+
+## Sonuç
+
+Bu makalede, React'in Context API'sini kullanarak verileri paylaşmayı ve uygulamanızın farklı bileşenleri arasında veri akışını sağlamayı öğrendik.
