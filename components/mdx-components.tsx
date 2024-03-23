@@ -9,7 +9,6 @@ import { CopyButton, CopyNpmCommandButton } from '@/components/mdx-copy-button'
 import Image from 'next/image'
 import { Callout } from '@/components/callout'
 import Link from 'next/link'
-import { MDXComponents } from 'mdx/types'
 
 export const components = {
     Accordion,
@@ -174,4 +173,4 @@ export const components = {
             {...props}
         />
     ),
-} as MDXComponents satisfies MDXComponents
+}
