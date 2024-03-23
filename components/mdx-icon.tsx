@@ -33,7 +33,7 @@ export function Icon({ meta, lang }: { meta: boolean | undefined; lang: string }
     const Component = icon
     return (
         <span className={cn('absolute left-2 top-6 inline-block')}>
-            <Component size={20} />
+            <Component onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
         </span>
     )
 }
