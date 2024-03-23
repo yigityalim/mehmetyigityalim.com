@@ -24,7 +24,7 @@ function ToggleMenu(): React.JSX.Element {
     const setMenu = useMenu((state) => state.set)
     const router = useRouter()
     const isIntro = useIsIntro()
-    const classNames: string = cn('h-0.5 w-2/3 bg-black dark:bg-white transition-all duration-300 transform')
+    const classNames: string = cn('h-0.5 w-2/3 bg-white transition-all duration-300 transform')
 
     const onClick = React.useCallback(() => {
         setMenu(!menu)
@@ -83,7 +83,7 @@ function OverlayMenu(): React.JSX.Element {
         setMenu(false)
         setIsGoingForward(false)
         setMenuStack([menu])
-    }, [setMenu, setIsGoingForward])
+    }, [setMenu, menu])
 
     const goBack = React.useCallback(() => {
         if (menuStack.length > 1) {
@@ -111,7 +111,7 @@ function OverlayMenu(): React.JSX.Element {
                             'bg-white bg-opacity-40 saturate-100 backdrop-blur-lg dark:bg-black dark:bg-opacity-50 dark:backdrop-blur-lg'
                     )}
                 >
-                    <div className='flex h-full w-full flex-col items-center justify-center gap-y-4 overflow-y-auto pt-24'>
+                    <div className='flex h-full w-full flex-col items-center justify-start gap-y-4 overflow-y-auto pt-24'>
                         <ScrollArea className='h-auto w-full'>
                             <motion.div className='flex h-full w-full flex-col items-center justify-center gap-y-4'>
                                 {currentMenu.map((item) => (
@@ -182,8 +182,8 @@ function MenuItem({
             <Link
                 href={item.path}
                 className={cn(
-                    'flex w-full flex-row items-center justify-between gap-x-2 p-2 text-5xl font-bold',
-                    isChild && 'text-4xl'
+                    'flex w-full flex-row items-center justify-between gap-x-2 p-2 text-3xl font-bold',
+                    isChild && 'text-2xl'
                 )}
                 onClick={closeMenu}
             >
