@@ -1,4 +1,4 @@
-import { languagesColors } from 'components/Project/GithubProject'
+import { languagesColors } from '@/components/project'
 
 export default interface GithubUser {
     login: string

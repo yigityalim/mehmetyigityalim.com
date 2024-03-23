@@ -1,4 +1,4 @@
-import { Plan, Features } from 'lib/types/plan'
+import { Plan, Features } from '@/lib/types/plan'
 
 export const features = {
     typescript: {
